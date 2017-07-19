@@ -1,0 +1,51 @@
+.right-side-bar{
+	position: static;
+	right:0px;
+	padding-right:0;
+}
+.sidebar{
+	position: fixed;
+	top: 0px;
+	bottom: 0;
+	display: block;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: #f8f8f8;
+}
+.nav-sidebar{
+	margin-right: -21px;
+	margin-bottom: 20px;
+	margin-left: -20px;
+}
+@media(min-width:768px) {
+	.right-side-bar{
+		right:-15px;
+		padding-right:0;
+	}
+}
+.modal-demo {
+    background-color: #FFF;
+    width: 600px;
+    border: #000 solid 1px;
+    border-radius: 10px;
+    box-shadow: 0 8px 6px -6px black;
+    text-align: left;
+    display: none;
+}
+.title {
+    padding: 10px 20px 15px 20px;
+    line-height: 18px;
+    font-size: 18px;
+    border-bottom: #CCC solid 1px;
+}
+.text {
+    padding: 0 20px 20px 20px;
+}
+.close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+.btn-edit{
+    float: right;
+}

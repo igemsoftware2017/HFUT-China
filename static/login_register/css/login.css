@@ -1,0 +1,23 @@
+#login img {
+	max-width: 100%;
+}
+#login h1 {
+	color: #fff;
+}
+#login .container {
+	margin-top: -15%;
+	padding-top: 0;
+}
+/***** Media queries *****/
+
+@media (min-width: 992px) and (max-width: 1199px) {}
+
+@media (min-width: 768px) and (max-width: 991px) {}
+
+@media (max-width: 767px) {
+	.logo_image{ display: none; }
+}
+
+@media (max-width: 415px) {
+	h1, h2 { font-size: 32px; }
+}

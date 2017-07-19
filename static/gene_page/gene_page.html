@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="geneApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BioDesigner|Gene</title>
+	
+	<link href="../public/custombox/dist/custombox.min.css" rel="stylesheet">
+    <link href="../public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../public/angular-material/angular-material.min.css" rel="stylesheet">
+    <link href="./css/gene.css" rel="stylesheet">
+    <link href="./css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="img/logo_black_small.png">
+</head>
+<body ng-controller="geneController">
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">BioDesigner Coral</a>
+            </div>
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <button class="btn btn-danger" ng-click="jumpToProject()">Project</button>
+                </li>
+                <li>
+                    <button class="btn btn-success" ng-click="jumpToGene()">Gene Relationship</button>
+                </li>
+                <li>
+                    <button class="btn btn-danger" ng-click="jumpToSystem()">System</button>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="#" ng-click="changePasswordDialog()">
+                                <i class="fa fa-gear fa-fw"></i>
+                                ChangePassword
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#" ng-click="logoutDialog()">
+                                <i class="fa fa-sign-out fa-fw"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-left">
+            	<input type="text" class="form-control" placeholder="Search..." ng-model="key_word" ng-keypress="gene_info_by_board($event,key_word)">
+                <button class="btn btn-default" type="button" ng-click="getGeneInfo(key_word)">
+                    <i class="fa fa-search"></i>
+                </button>
+                <a class="btn btn-primary" ng-click="getRandomGene()">Random</a>
+            </form>
+        </nav>
+        <div class="container-fluid">
+        	<div class="row">
+        		<div class="col-md-2 sidebar">
+        			<ul class="nav" id="side-menu">
+                        <!-- search result -->
+                        <li ng-repeat="gene in gene_info">
+                            <a ng-click="visualGene(gene.name)">
+                                <span>{{gene.name}}</span>
+                            </a>
+                        </li>
+                    </ul>
+        		</div>
+        		<div class="col-md-10 col-md-offset-2">
+        			<div class="wrap" oncontextmenu="return false;">
+        				<div class="div_graph">
+        					
+        				</div>
+        			</div>
+        		</div>
+        	</div>
+        </div>
+    </div>
+    <!--log out modal-->
+    <div id="logout" class="modal-demo">
+		<button type="button" class="close" onclick="Custombox.close();">
+			<span>×</span>
+			<span class="sr-only">Close</span>
+		</button>
+		<h4 class="title">Log Out</h4>
+		<div class="text">
+			<h3>Are You Sure?</h3>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+			<button type="button" class="btn btn-primary" ng-click="log_out()">Confirm</button>
+		</div>
+	</div>
+	<!--change password modal-->
+    <div id="cgPwd" class="modal-demo">
+		<button type="button" class="close" onclick="Custombox.close();">
+			<span>×</span>
+			<span class="sr-only">Close</span>
+		</button>
+		<h4 class="title">Change Password</h4>
+		<div class="text">
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+					<label for="old password" class="col-sm-2 control-label">Old Password</label>
+					<div class="col-sm-10">
+						<input type="password" class="form-control" placeholder="old password" ng-model="old_password"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="new password" class="col-sm-2 control-label">New Password</label>
+					<div class="col-sm-10">
+						<input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="confirm password" class="col-sm-2 control-label">Confirm Password</label>
+					<div class="col-sm-10">
+						<input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password"/>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+			<button type="button" class="btn btn-primary" ng-click="change_password(old_password,new_password,re_password)">Confirm</button>
+		</div>
+	</div>
+
+ 	<script src="../public/custombox/dist/legacy.min.js"></script>
+    <script src="../public/custombox/dist/custombox.min.js"></script>
+    <script src="../public/angular/angular.min.js"></script>
+    <script src="../public/angular-animate/angular-animate.min.js"></script>
+    <script src="../public/angular-aria/angular-aria.min.js"></script>
+    <script src="../public/angular-material/angular-material.min.js"></script>
+    <script src="../public/jquery/dist/jquery.min.js"></script>
+    <script src="../public/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../public/d3/d3.min.js"></script>
+    <script src="./js/gene_page.js"></script>
+    <script src="./js/draw.js"></script>
+</body>
+</html>
