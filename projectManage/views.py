@@ -22,7 +22,8 @@ import random
 
 def getUserProject(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user
@@ -96,7 +97,8 @@ def getTracks(request):
 
 def createNewProject(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user
@@ -141,7 +143,8 @@ def createNewProject(request):
 
 def changeProjectName(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user
@@ -182,7 +185,8 @@ def changeProjectName(request):
 
 def  deleteProject(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user
@@ -222,7 +226,8 @@ def  deleteProject(request):
 
 def getProjectDevices(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user
@@ -283,7 +288,8 @@ def getProjectDevices(request):
 
 def createProjectDevice(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user
@@ -327,7 +333,8 @@ def createProjectDevice(request):
 
 def deleteProjectDevice(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user

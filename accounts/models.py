@@ -23,7 +23,7 @@ class Token(models.Model):
 	lastTime = models.DateTimeField(auto_now=True)
 	expire = models.BigIntegerField('expire')
 
-	def __unicode__(self):
+	def __str__(self):
 		return self.token
 
 	class Meta:

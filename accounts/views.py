@@ -6,11 +6,11 @@
 
 from django.shortcuts import render
 from .models import *
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template import RequestContext, loader
 from django.contrib.auth.hashers import make_password, check_password
 from django.core.mail import send_mail
-from utils.functionTools.generalFunction import noneIfEmptyString,noneIfNoKey,myError
+from utils.functionTools.generalFunction import noneIfEmptyString, noneIfNoKey, myError
 
 import json
 import string
@@ -65,7 +65,7 @@ def register(request):
 			},
 		}
 	finally:
-		return HttpResponse(json.dumps(result), content_type="application/json")
+		return HttpResponse(json.dumps(result), content_type='application/json')
 
 def getLogin(request):
 	return render(request, 'login_register/login_register.html')

@@ -33,11 +33,13 @@ def getChain(request):
             raise myError('Check Failed.')
         chain = Chain.objects.filter(id=data['chain_id']).first()
         sequence = chain.sequence
-        if sequence.startswith('_'):
-            sequence = sequence[1:]
-        if sequence.endswith('_'):
-            sequence = sequence[:-1]
-        sequenceList = sequence.split('_')
+        sequenceList = []
+        if (sequence):
+            if sequence.startswith('_'):
+                sequence = sequence[1:]
+            if sequence.endswith('_'):
+                sequence = sequence[:-1]
+            sequenceList = sequence.split('_')
         partList = []
         for seq in sequenceList:
             part = Parts.objects.filter(part_id=seq).first()

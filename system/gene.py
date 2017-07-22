@@ -260,7 +260,6 @@ class gene_graph:
             except:
                 traceback.print_exc()
                 pass
-        return gene_list[0]
 
     def get_or_create_gene(self, gid):
         """
@@ -367,7 +366,7 @@ class gene_graph:
             self.create_node(center_compound_obj.name, center_compound_obj.compound_id)
             related_list = self.related_compound(center_compound_obj.compound_id)[:5]
             for compound_obj in related_list:
-                new_center = self.create_n_link(center_compound_obj.compound_id, compound_obj)
+                self.create_n_link(center_compound_obj.compound_id, compound_obj)
                 self.create_node(compound_obj.name, compound_obj.compound_id)
                 edge_info = {
                     'source': self.index_dict[center_compound_obj.compound_id],
