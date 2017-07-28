@@ -261,15 +261,18 @@ def getMRecommend(request):
             raise myError('Please Log In.')
         part_id = str(data['part_id'])
         part_id_before = str(data['part_id_before'])
-        recommend_list_back = getMarkovRecommend(part_id)
-        recommend_list_front = getBeforeMarkovRecommend(part_id)
-        recommend_list_middle = getBetweenMarkovRecommend(part_id_before, part_id)
+        position = data['position']
+        recommend_list = list()
+        if position == 'front':
+            recommend_list = getBeforeMarkovRecommend(part_id)
+        if position == 'back':
+            recommend_list = getMarkovRecommend(part_id)
+        if position == 'middle-front' or position == 'middle-back':
+            recommend_list = getBetweenMarkovRecommend(part_id_before, part_id)
         result = {
             'successful': True,
             'data': {
-                'recommend_list_front': recommend_list_front,
-                'recommend_list_middle': recommend_list_middle,
-                'recommend_list_back': recommend_list_back,
+                'recommend_list': recommend_list
             },
             'error': {
                 'id': '',
@@ -324,7 +327,7 @@ def getResultImage(request):
             height = 100
             if width > 800:
                 width = 800
-                height = 100 * (len(sequence.split('_')) / 10)
+                height = 200 * (len(sequence.split('_')) // 10)
             filepath = getSequenceResultImage(sequence, width, height, chainName)
             chain.isModified = False
             chain.image_file_path = filepath

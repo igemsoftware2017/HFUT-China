@@ -1,0 +1,112 @@
+#dashboard{
+    list-style: none;
+    overflow :auto;
+}
+#dashboard div{
+    cursor: move;
+    width:20%;
+    height: 20%;
+    text-align: center;
+}
+
+.rmdBtn{
+    position: fixed;
+    height: 25px;
+    background: #f8f8f8;
+}
+
+.recommendMain{
+    margin-top: 25px;
+    padding-left: 10px;
+}
+
+.recommendMain li{
+    list-style-type:none;
+}
+
+#dashboard div span{
+    display:block;
+}
+
+#dashboard div img{
+    margin-top: 10%;
+}
+.search_item{
+    cursor: move;
+}
+#recommend{
+    overflow :auto;
+}
+
+#clipboard{
+    height: 190px;
+    width:190px;
+}
+ 
+#clipboard img{
+    /* margin-top: 20px; */
+	height:50%;
+    width: 50%;
+}
+
+.pull_left{
+    float:left;
+}
+
+.pull_right{
+    float:right;
+}
+
+.handle{
+    margin-right: 10%;
+}
+
+.line{
+    background:url('../img/x_bg.png') no-repeat;
+    background-size:100%;
+}
+
+.rt{
+    background:url('../img/rt_bg.png') no-repeat;
+    background-size:100%;
+}
+
+.rb{
+    background:url('../img/rb_bg.png') no-repeat;
+    background-size:100%;
+}
+
+.lt{
+    background:url('../img/lt_bg.png') no-repeat;
+    background-size:100%;
+}
+
+.lb{
+    background:url('../img/lb_bg.png') no-repeat;
+    background-size:100%;
+}
+
+.recommend_item{
+    width: 20%;
+    min-height: 30%;
+    float:left;
+    background:url('../img/x_bg.png');
+    background-size:contain;
+}
+
+.recommend_item span{
+    display:block;
+}
+
+.re{
+    margin-bottom: 8px;
+}
+
+#info_card{
+    overflow :auto;
+}
+
+.selectGeneInfo{
+    max-height: 330px;
+    overflow: auto;
+}

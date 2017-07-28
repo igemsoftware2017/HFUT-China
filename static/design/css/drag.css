@@ -1,0 +1,14 @@
+.mainDash{
+	padding: 0;
+	padding-left:30px;
+	margin: 0;
+}
+.mainDash li{
+	display: inline-block;
+	width: 20%;
+	height: 75px;
+}
+	
+.ghost {
+  	opacity: 0.4;
+}

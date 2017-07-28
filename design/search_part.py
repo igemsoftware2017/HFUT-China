@@ -82,7 +82,6 @@ def ambiguousSearch(keyword, funcs):
     @rtype: list
     """
     es = Elasticsearch()
-    print(funcs)
     result = format_fuzzy_result(sort_result(fuzzy_search_parts(es, keyword), funcs))
     return result
 

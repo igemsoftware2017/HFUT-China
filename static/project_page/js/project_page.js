@@ -273,7 +273,7 @@ bio_pro.controller('projectController', function($scope, $http, $location, $mdTo
    	}
   	
   	$scope.jumpToDesign = function(){
-  		window.location.href = "../design_page/design_page.html";
+  		window.location.href = "../design/design.html";
   	}
   	
   	$scope.jumpToSystem = function(){

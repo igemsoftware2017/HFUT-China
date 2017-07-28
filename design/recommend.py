@@ -144,8 +144,7 @@ def getBetweenMarkovRecommend(part_id_one, part_id_two):
     @rytpe: dict
     """
     chains = list()
-    predictChains = bettwen_predict(4, 5, part_id_one, part_id_two, loadB())
-    print(predictChains)
+    predictChains = bettwen_predict(5, 5, part_id_one, part_id_two, loadB())
     if not predictChains:
         return chains
     for predictChain in predictChains:
@@ -174,8 +173,7 @@ def getBeforeMarkovRecommend(part_id):
     @rytpe: dict
     """
     chains = list()
-    predictChains = before_predict(4, 5, part_id, loadC())
-    print(predictChains)
+    predictChains = before_predict(5, 5, part_id, loadC())
     if not predictChains:
         return chains
     for predictChain in predictChains:
@@ -204,7 +202,7 @@ def getMarkovRecommend(part_id):
     @rytpe: dict
     """
     chains = list()
-    predictChains = predict(4, 5, part_id, loadA())
+    predictChains = predict(5, 5, part_id, loadA())
     if not predictChains:
         return chains
     for predictChain in predictChains:
@@ -300,10 +298,9 @@ def predict(m, count, s, A):
                 if p < A[key][k] * line[key][0]:
                     next_line[k] = [A[key][k] * line[key][0], key]
         process.append(next_line)
-
     ans = process[-1]
     # sort according to probability from high to low
-    ans = sorted(ans.iteritems(), key=lambda item: item[1][0], reverse=True)
+    ans = sorted(ans.items(), key=lambda item: item[1][0], reverse=True)
 
     if len(ans) == 0:
         return None     # Can't predict, because of no answer can be find
