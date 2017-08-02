@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="relationshipDetailApp">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,10 +13,11 @@
     <link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="./css/sb-admin-2.css" rel="stylesheet">
     <link href="./css/relationship_detail.css" rel="stylesheet">
-    
+
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="img/logo_black_small.png">
 </head>
+
 <body ng-controller="relationshipDetailController">
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -38,21 +40,27 @@
                 <li>
                     <button class="btn btn-danger" ng-click="jumpToSystem()">System</button>
                 </li>
-                <li class="dropdown">
+                <li ng-click="menuClick()" class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li>
+                        <li ng-if="!isLogin">
                             <a href="#" ng-click="changePasswordDialog()">
                                 <i class="fa fa-gear fa-fw"></i>
                                 ChangePassword
                             </a>
                         </li>
-                        <li class="divider"></li>
-                        <li>
+                        <li ng-if="!isLogin" class="divider"></li>
+                        <li ng-if="!isLogin">
                             <a href="#" ng-click="logoutDialog()">
                                 <i class="fa fa-sign-out fa-fw"></i>
                                 Logout
+                            </a>
+                        </li>
+                        <li ng-if="isLogin">
+                            <a href="#" ng-click="loginDialog()">
+                                <i class="fa fa-sign-in fa-fw"></i>
+                                Login
                             </a>
                         </li>
                     </ul>
@@ -61,23 +69,23 @@
         </nav>
         <div class="container-fluid">
             <div class="row">
-            	<div class="col-md-2">
-            		<div class="panel panel-default">
-	                    <div class="panel-heading">
-	                        <h3 class="panel-title">Relationship Detail</h3>
-	                    </div>
-	                    <div class="panel-body">
-	                        <h3>Relation</h3>
-	                        <h4>{{source_name}}&&{{target_name}}</h4>
-	                        <hr/>
-	                        <h3>Papers</h3>
-	                        <h4>total:{{num}}</h4>
-	                    </div>
-	                    <div class="panel-footer">
-	                    	<h3 class="panel-title">Relationship Detail</h3>
-	                    </div>
-	               </div>
-            	</div>
+                <div class="col-md-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Relationship Detail</h3>
+                        </div>
+                        <div class="panel-body">
+                            <h3>Relation</h3>
+                            <h4>{{source_name}}&&{{target_name}}</h4>
+                            <hr/>
+                            <h3>Papers</h3>
+                            <h4>total:{{num}}</h4>
+                        </div>
+                        <div class="panel-footer">
+                            <h3 class="panel-title">Relationship Detail</h3>
+                        </div>
+                    </div>
+                </div>
                 <div class="panel-group col-md-10" id="accordion" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default" ng-repeat="r in relate_detail_info">
                         <div class="panel-heading" role="tab" id="headingOne">
@@ -87,7 +95,7 @@
                         </div>
                         <div id="{{r.index}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
-                            	{{r.sentence}}
+                                {{r.sentence}}
                             </div>
                             <div class="panel-body">
                                 <a ng-href="{{r.paper_link}}" target="_blank">see the whole paper ^_^</a>
@@ -95,6 +103,37 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <!-- log in modal -->
+        <div id="login" class="modal-demo">
+            <button type="button" class="close" onclick="Custombox.close();">
+			<span>×</span>
+			<span class="sr-only">Close</span>
+		</button>
+            <h4 class="title">Login</h4>
+            <div class="text">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="username" class="col-sm-2 control-label">Username</label>
+                        <div class="col-sm-10">
+                            <input id="username" type="text" class="form-control" placeholder="User Name" ng-model="username" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-sm-2 control-label">Password</label>
+                        <div class="col-sm-10">
+                            <input id="password" type="password" class="col-sm-10 form-control" placeholder="Password" ng-model="password" />
+                        </div>
+                    </div>
+                </form>
+                <a href="../register/register.html">
+				    Create account
+			    </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+                <button type="button" class="btn btn-primary" ng-click="log_in(username,password)">Confirm</button>
             </div>
         </div>
         <!--log out modal-->
@@ -124,19 +163,19 @@
                     <div class="form-group">
                         <label for="old password" class="col-sm-2 control-label">Old Password</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" placeholder="old password" ng-model="old_password"/>
+                            <input type="password" class="form-control" placeholder="old password" ng-model="old_password" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="new password" class="col-sm-2 control-label">New Password</label>
                         <div class="col-sm-10">
-                            <input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password"/>
+                            <input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="confirm password" class="col-sm-2 control-label">Confirm Password</label>
                         <div class="col-sm-10">
-                            <input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password"/>
+                            <input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password" />
                         </div>
                     </div>
                 </form>
@@ -158,4 +197,5 @@
     <script src="../public/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./js/relationship_detail.js"></script>
 </body>
+
 </html>

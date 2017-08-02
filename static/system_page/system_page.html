@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="systemApp">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BioDesigner|System</title>
 
-    <link href="../public/custombox/dist/custombox.min.css" rel="stylesheet"> 
+    <link href="../public/custombox/dist/custombox.min.css" rel="stylesheet">
     <link href="../public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../public/angular-material/angular-material.min.css" rel="stylesheet">
     <link href="../public/shCircleLoader-master/jquery.shCircleLoader.css" rel="stylesheet">
-    <link href="./css/sb-admin-2.css" rel="stylesheet">   
+    <link href="./css/sb-admin-2.css" rel="stylesheet">
     <link href="./css/system.css" rel="stylesheet">
-	<link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="img/logo_black_small.png">
 </head>
+
 <body>
     <div id="wrapper" ng-controller="systemController">
         <!-- Navigation -->
@@ -41,56 +43,62 @@
                 <li>
                     <button class="btn btn-success" ng-click="jumpToSystem()">System</button>
                 </li>
-                <li class="dropdown">
+                <li ng-click="menuClick()" class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li>
+                        <li ng-if="!isLogin">
                             <a href="#" ng-click="changePasswordDialog()">
                                 <i class="fa fa-gear fa-fw"></i>
                                 ChangePassword
                             </a>
                         </li>
-                        <li class="divider"></li>
-                        <li>
+                        <li ng-if="!isLogin" class="divider"></li>
+                        <li ng-if="!isLogin">
                             <a href="#" ng-click="logoutDialog()">
                                 <i class="fa fa-sign-out fa-fw"></i>
                                 Logout
+                            </a>
+                        </li>
+                        <li ng-if="isLogin">
+                            <a href="#" ng-click="loginDialog()">
+                                <i class="fa fa-sign-in fa-fw"></i>
+                                Login
                             </a>
                         </li>
                     </ul>
                 </li>
             </ul>
             <form class="navbar-form navbar-left">
-            	<input type="text" class="form-control" placeholder="Search..." ng-model="key_word" ng-keypress="compound_by_keyboard($event,key_word)">
-            	<button class="btn btn-default" type="button" ng-click="getCompoundResult(key_word)">
+                <input type="text" class="form-control" placeholder="Search..." ng-model="key_word" ng-keypress="compound_by_keyboard($event,key_word)">
+                <button class="btn btn-default" type="button" ng-click="getCompoundResult(key_word)">
 	                <i class="fa fa-search"></i>
 	            </button>
-	            <button class="btn btn-success" type="button" ng-click="runCompoundTags()">Run</button>
-        		<button class="btn btn-primary" type="button" ng-click="tagsDialog()">Your Tags</button>
+                <button class="btn btn-success" type="button" ng-click="runCompoundTags()">Run</button>
+                <button class="btn btn-primary" type="button" ng-click="tagsDialog()">Your Tags</button>
             </form>
         </nav>
         <div class="container-fluid">
-        	<div class="row">
-        		<div class="col-md-2 sidebar">
-        			<ul class="nav" id="side-menu">
-	        			<li ng-repeat="compound in compound_info">
-		                    <a ng-click="getCompoundInfo(compound.id)">
+            <div class="row">
+                <div class="col-md-2 sidebar">
+                    <ul class="nav" id="side-menu">
+                        <li ng-repeat="compound in compound_info">
+                            <a ng-click="getCompoundInfo(compound.id)">
 		                        <button class="btn btn-default" ng-click="addCompoundTags(compound)">
 			                        <i class="fa fa-plus" aria-hidden="true"></i>
 			                    </button>
 			                    <span ng-click="getCompoundInfo(compound.id)">{{compound.name}}</span>
 		                    </a>
-		           		</li>
-        			</ul>
-        		</div>
-        		<div class="col-md-8 col-md-offset-2">
-        			<div id="my-svg">
-        				
-        			</div>
-        		</div>
-        		<div class="col-md-2">
-        			<div class="panel panel-default" ng-hide="message_show">
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-8 col-md-offset-2">
+                    <div id="my-svg">
+
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="panel panel-default" ng-hide="message_show">
                         <div class="panel-heading">
                             <h3 class="panel-title">Message</h3>
                         </div>
@@ -115,83 +123,114 @@
                             <h4>Organism:{{organism}}</h4>
                         </div>
                     </div>
-        		</div>
-        	</div>
+                </div>
+            </div>
         </div>
-        
+
         <!--tags modal-->
-	    <div id="tags" class="modal-demo">
-			<button type="button" class="close" onclick="Custombox.close();">
+        <div id="tags" class="modal-demo">
+            <button type="button" class="close" onclick="Custombox.close();">
 				<span>×</span>
 				<span class="sr-only">Close</span>
 			</button>
-			<h4 class="title">Your Tags</h4>
-			<div class="text">
-				<p ng-hide="!(compound_tags.length == 0)"><strong>You hava no tags now ^_^,please chose your tags,haha.</strong></p>
-				<md-chips ng-model="compound_tags" readonly="false" ng-hide="compound_tags.length == 0">
-		        	<md-chip-template>
-		          		<strong>{{$chip.name}}</strong>
-	        		</md-chip-template>
-		      	</md-chips>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
-				<button type="button" class="btn btn-danger" ng-click="removeAllCompoundTags()">RemoveAll</button>
-			</div>
-		</div>
+            <h4 class="title">Your Tags</h4>
+            <div class="text">
+                <p ng-hide="!(compound_tags.length == 0)"><strong>You hava no tags now ^_^,please chose your tags,haha.</strong></p>
+                <md-chips ng-model="compound_tags" readonly="false" ng-hide="compound_tags.length == 0">
+                    <md-chip-template>
+                        <strong>{{$chip.name}}</strong>
+                    </md-chip-template>
+                </md-chips>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+                <button type="button" class="btn btn-danger" ng-click="removeAllCompoundTags()">RemoveAll</button>
+            </div>
+        </div>
+        <!-- log in modal -->
+        <div id="login" class="modal-demo">
+            <button type="button" class="close" onclick="Custombox.close();">
+			    <span>×</span>
+			    <span class="sr-only">Close</span>
+		    </button>
+            <h4 class="title">Login</h4>
+            <div class="text">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="username" class="col-sm-2 control-label">Username</label>
+                        <div class="col-sm-10">
+                            <input id="username" type="text" class="form-control" placeholder="User Name" ng-model="username" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-sm-2 control-label">Password</label>
+                        <div class="col-sm-10">
+                            <input id="password" type="password" class="col-sm-10 form-control" placeholder="Password" ng-model="password" />
+                        </div>
+                    </div>
+                </form>
+                <a href="../register/register.html">
+				    Create account
+			    </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+                <button type="button" class="btn btn-primary" ng-click="log_in(username,password)">Confirm</button>
+            </div>
+        </div>
         <!--log out modal-->
-	    <div id="logout" class="modal-demo">
-			<button type="button" class="close" onclick="Custombox.close();">
+        <div id="logout" class="modal-demo">
+            <button type="button" class="close" onclick="Custombox.close();">
 				<span>×</span>
 				<span class="sr-only">Close</span>
 			</button>
-			<h4 class="title">Log Out</h4>
-			<div class="text">
-				<h3>Are You Sure?</h3>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
-				<button type="button" class="btn btn-primary" ng-click="log_out()">Confirm</button>
-			</div>
-		</div>
-		<!--change password modal-->
-	    <div id="cgPwd" class="modal-demo">
-			<button type="button" class="close" onclick="Custombox.close();">
+            <h4 class="title">Log Out</h4>
+            <div class="text">
+                <h3>Are You Sure?</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+                <button type="button" class="btn btn-primary" ng-click="log_out()">Confirm</button>
+            </div>
+        </div>
+        <!--change password modal-->
+        <div id="cgPwd" class="modal-demo">
+            <button type="button" class="close" onclick="Custombox.close();">
 				<span>×</span>
 				<span class="sr-only">Close</span>
 			</button>
-			<h4 class="title">Change Password</h4>
-			<div class="text">
-				<form class="form-horizontal" role="form">
-					<div class="form-group">
-						<label for="old password" class="col-sm-2 control-label">Old Password</label>
-						<div class="col-sm-10">
-							<input type="password" class="form-control" placeholder="old password" ng-model="old_password"/>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="new password" class="col-sm-2 control-label">New Password</label>
-						<div class="col-sm-10">
-							<input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password"/>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="confirm password" class="col-sm-2 control-label">Confirm Password</label>
-						<div class="col-sm-10">
-							<input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password"/>
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
-				<button type="button" class="btn btn-primary" ng-click="change_password(old_password,new_password,re_password)">Confirm</button>
-			</div>
-		</div>
+            <h4 class="title">Change Password</h4>
+            <div class="text">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="old password" class="col-sm-2 control-label">Old Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" placeholder="old password" ng-model="old_password" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="new password" class="col-sm-2 control-label">New Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm password" class="col-sm-2 control-label">Confirm Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+                <button type="button" class="btn btn-primary" ng-click="change_password(old_password,new_password,re_password)">Confirm</button>
+            </div>
+        </div>
     </div>
-    
+
     <script src="../public/custombox/dist/legacy.min.js"></script>
-    <script src="../public/custombox/dist/custombox.min.js"></script> 
+    <script src="../public/custombox/dist/custombox.min.js"></script>
     <script src="../public/jquery/dist/jquery.min.js"></script>
     <script src="../public/angular/angular.min.js"></script>
     <script src="../public/angular-animate/angular-animate.min.js"></script>
@@ -203,4 +242,5 @@
     <script src="./js/system_page.js"></script>
     <script src="./js/draw.js"></script>
 </body>
+
 </html>

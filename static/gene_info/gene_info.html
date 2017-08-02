@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="geneInfoApp">
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,12 +12,13 @@
 	<link href="../public/css/animate.css" rel="stylesheet">
 	<link href="./css/sb-admin-2.css" rel="stylesheet">
 	<link href="./css/gene_info.css" rel="stylesheet">
-	<link href="./css/style.css" rel="stylesheet"/>
+	<link href="./css/style.css" rel="stylesheet" />
 	<link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-	
+
 	<!-- Favicon and touch icons -->
-    <link rel="shortcut icon" href="img/logo_black_small.png">
+	<link rel="shortcut icon" href="img/logo_black_small.png">
 </head>
+
 <body>
 	<div id="wrapper" ng-controller="geneInfoController">
 		<!-- Navigation -->
@@ -41,22 +43,28 @@
 				<li>
 					<button class="btn btn-danger" ng-click="jumpToSystem()">System</button>
 				</li>
-				<li class="dropdown">
+				<li ng-click="menuClick()" class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-					</a>
+                    </a>
 					<ul class="dropdown-menu dropdown-user">
-						<li>
+						<li ng-if="!isLogin">
 							<a href="#" ng-click="changePasswordDialog()">
-								<i class="fa fa-gear fa-fw"></i>
-								ChangePassword
-							</a>
+                                <i class="fa fa-gear fa-fw"></i>
+                                ChangePassword
+                            </a>
 						</li>
-						<li class="divider"></li>
-						<li>
+						<li ng-if="!isLogin" class="divider"></li>
+						<li ng-if="!isLogin">
 							<a href="#" ng-click="logoutDialog()">
-								<i class="fa fa-sign-out fa-fw"></i>
-								Logout
-							</a>
+                                <i class="fa fa-sign-out fa-fw"></i>
+                                Logout
+                            </a>
+						</li>
+						<li ng-if="isLogin">
+							<a href="#" ng-click="loginDialog()">
+                                <i class="fa fa-sign-in fa-fw"></i>
+                                Login
+                            </a>
 						</li>
 					</ul>
 				</li>
@@ -67,20 +75,20 @@
 				<div class="col-md-8 col-md-offset-2">
 					<div class="col-md-6 panel-group" role="tablist" aria-multiselectable="true">
 						<div class="panel panel-default">
-	                        <div class="panel-heading">
-	                            <h3 class="panel-title">Basic Info</h3>
-	                        </div>
-	                        <div class="panel-body">
-	                            <p>name: {{gene_name}}</p>
-						        <p>definition：{{gene_definition}}</p>
-						        <p>organism: {{gene_organism}}</p>
-						        <p><a href="{{gene_url}}">more ^_^</a></p>
-	                        </div>
-	                    </div>
+							<div class="panel-heading">
+								<h3 class="panel-title">Basic Info</h3>
+							</div>
+							<div class="panel-body">
+								<p>name: {{gene_name}}</p>
+								<p>definition：{{gene_definition}}</p>
+								<p>organism: {{gene_organism}}</p>
+								<p><a href="{{gene_url}}">more ^_^</a></p>
+							</div>
+						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="network">
-							
+
 						</div>
 					</div>
 				</div>
@@ -88,72 +96,102 @@
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<div>
-					  	<label for="ra">Related Articles</label>
-					  	<input type="radio" name="recommendType" id="ra" ng-click="show_ra()" checked="checked"/>
-					  	<label for="d">Disease</label>
-					  	<input type="radio" name="recommendType" id="d" ng-click="show_d()"/>
+						<label for="ra">Related Articles</label>
+						<input type="radio" name="recommendType" id="ra" ng-click="show_ra()" checked="checked" />
+						<label for="d">Disease</label>
+						<input type="radio" name="recommendType" id="d" ng-click="show_d()" />
 					</div>
 					<div class="panel-group" id="disease" role="tablist" aria-multiselectable="true" ng-hide="!showD">
 						<h3>Disease</h3>
 						<div class="panel panel-default" ng-repeat="d in disease_info">
-		                    <div class="panel-heading" role="tab" id="headingOne">
-		                        <h4 class="panel-title">
-		                            <a data-toggle="collapse" data-parent="#disease" href="#{{d.index}}" aria-expanded="false" aria-controls="DI">{{d.disease_name}}</a>
-		                        </h4>
-		                    </div>
-		                    <div id="{{d.index}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-		                    	<div class="panel-body">
-		                    	<div class="panel-body">
-		                        		<p>disease name: {{d.disease_name}}</p>
-		                            </div>
-		                    		<div class="panel-body">
-		                        		<p>paper link: <a ng-href="{{d.paper_url}}" target="_blank">{{d.paper_url}}</a></p>
-		                            </div>
-		                            <div class="panel-body">
-		                                <p>disease class: {{d.disease_class}}</p>
-		                            </div>
-		                    	</div>
-		                    </div>
-		                </div>
+							<div class="panel-heading" role="tab" id="headingOne">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#disease" href="#{{d.index}}" aria-expanded="false" aria-controls="DI">{{d.disease_name}}</a>
+								</h4>
+							</div>
+							<div id="{{d.index}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+								<div class="panel-body">
+									<div class="panel-body">
+										<p>disease name: {{d.disease_name}}</p>
+									</div>
+									<div class="panel-body">
+										<p>paper link: <a ng-href="{{d.paper_url}}" target="_blank">{{d.paper_url}}</a></p>
+									</div>
+									<div class="panel-body">
+										<p>disease class: {{d.disease_class}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-hide="!showRa">
 						<h3>Related Articles</h3>
 						<div class="panel panel-default" ng-repeat="g in gene_info">
-	                        <div class="panel-heading" role="tab" id="headingOne">
-	                            <h4 class="panel-title">
-	                                <a data-toggle="collapse" data-parent="#accordion" href="#father{{g.index}}" aria-expanded="false" aria-controls="father{{g.index}}">Group {{g.index+1}}</a>
-	                            </h4>
-	                        </div>
-	                        <div id="father{{g.index}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-	                        	<div class="panel-body">
-	                        		<div class="panel panel-default" ng-repeat="x in g.paper">
-				                        <div class="panel-heading" role="tab" id="headingOne">
-				                            <h4 class="panel-title">
-				                                <a data-toggle="collapse" data-parent="#accordion1" href="#{{x.id}}" aria-expanded="false" aria-controls="{{x.id}}">{{x.paper_title}}</a>
-				                            </h4>
-				                        </div>
-				                        <div id="{{x.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-				                        	<div class="panel-body">
-				                        		<div class="panel-body">
-				                            		<p>paper link: <a ng-href="{{x.paper_link}}" target="_blank">{{x.paper_title}}</a></p>
-					                            </div>
-					                            <div class="panel-body">
-					                                <p>keywords: {{x.paper_keyword}}</p>
-					                            </div>
-					                            <div class="panel-body">
-					                                <p>abstract: {{x.paper_abstract}}</p>
-					                            </div>
-				                        	</div>
-				                        </div>
-				                    </div>
-	                        	</div>
-	                        </div>
-	                    </div>
+							<div class="panel-heading" role="tab" id="headingOne">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#father{{g.index}}" aria-expanded="false" aria-controls="father{{g.index}}">Group {{g.index+1}}</a>
+								</h4>
+							</div>
+							<div id="father{{g.index}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+								<div class="panel-body">
+									<div class="panel panel-default" ng-repeat="x in g.paper">
+										<div class="panel-heading" role="tab" id="headingOne">
+											<h4 class="panel-title">
+												<a data-toggle="collapse" data-parent="#accordion1" href="#{{x.id}}" aria-expanded="false" aria-controls="{{x.id}}">{{x.paper_title}}</a>
+											</h4>
+										</div>
+										<div id="{{x.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+											<div class="panel-body">
+												<div class="panel-body">
+													<p>paper link: <a ng-href="{{x.paper_link}}" target="_blank">{{x.paper_title}}</a></p>
+												</div>
+												<div class="panel-body">
+													<p>keywords: {{x.paper_keyword}}</p>
+												</div>
+												<div class="panel-body">
+													<p>abstract: {{x.paper_abstract}}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
+		<!-- log in modal -->
+		<div id="login" class="modal-demo">
+			<button type="button" class="close" onclick="Custombox.close();">
+			<span>×</span>
+			<span class="sr-only">Close</span>
+		</button>
+			<h4 class="title">Login</h4>
+			<div class="text">
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<label for="username" class="col-sm-2 control-label">Username</label>
+						<div class="col-sm-10">
+							<input id="username" type="text" class="form-control" placeholder="User Name" ng-model="username" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="password" class="col-sm-2 control-label">Password</label>
+						<div class="col-sm-10">
+							<input id="password" type="password" class="col-sm-10 form-control" placeholder="Password" ng-model="password" />
+						</div>
+					</div>
+				</form>
+				<a href="../register/register.html">
+					Create account
+				</a>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+				<button type="button" class="btn btn-primary" ng-click="log_in(username,password)">Confirm</button>
+			</div>
+		</div>
 		<!--log out modal-->
 		<div id="logout" class="modal-demo">
 			<button type="button" class="close" onclick="Custombox.close();">
@@ -181,19 +219,19 @@
 					<div class="form-group">
 						<label for="old password" class="col-sm-2 control-label">Old Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" placeholder="old password" ng-model="old_password"/>
+							<input type="password" class="form-control" placeholder="old password" ng-model="old_password" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="new password" class="col-sm-2 control-label">New Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password"/>
+							<input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="confirm password" class="col-sm-2 control-label">Confirm Password</label>
 						<div class="col-sm-10">
-							<input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password"/>
+							<input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password" />
 						</div>
 					</div>
 				</form>
@@ -217,4 +255,5 @@
 	<script src="./js/gene_info.js"></script>
 	<script src="./js/connect_graph.js"></script>
 </body>
+
 </html>

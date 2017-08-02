@@ -1,91 +1,143 @@
-var bio_pro = angular.module('relationshipDetailApp', ['ngMaterial','ngAnimate']);
+var bio_pro = angular.module('relationshipDetailApp', ['ngMaterial', 'ngAnimate']);
 
-bio_pro.controller('relationshipDetailController', function($scope, $http, $location, $mdToast) {
-	
+bio_pro.controller('relationshipDetailController', function ($scope, $http, $location, $mdToast) {
+
+	$scope.menuClick = function () {
+		var loginSession = sessionStorage.getItem('login');
+		if (loginSession) {
+			console.log(loginSession);
+			console.log('不为空');
+			$scope.isLogin = false;
+		}
+		else {
+			console.log('空');
+			$scope.isLogin = true;
+		}
+	}
+
 	$scope.relate_detail_info = [];
 	$scope.source_name = "";
 	$scope.target_name = "";
 	$scope.num = 0;
-	
-	//修改密码模态框
-	$scope.changePasswordDialog = function(){
+
+		//登录模态框
+	$scope.loginDialog = function () {
 		Custombox.open({
-            target:'#cgPwd',
-            effect:'fadein',
-       	});
+			target: '#login',
+			effect: 'fadein',
+		})
+	}
+
+	//确认登录
+	$scope.log_in = function (username, password) {
+		var opt = {
+			url: '/accounts/login',
+			method: 'POST',
+			data: JSON.stringify({
+				username: username,
+				password: password,
+			}),
+			headers: { 'Content-Type': 'application/json' }
+		};
+		$http(opt).success(function (data) {
+			if (data.successful) {
+				sessionStorage.setItem('login', JSON.stringify(data.data.token));
+				window.location.href = "../project_page/project_page.html";
+			} else {
+				if (data.error.id == '1') {
+					showToast($mdToast, data.error.msg);
+				} else {
+					showToast($mdToast, "LOGIN FAILED!");
+				}
+			}
+		});
+	};
+
+	$scope.login_by_keyboard = function ($event, username, password) {
+		if ($event.keyCode == 13) {//回车
+			$scope.login(username, password);
+		}
+	};
+
+	//修改密码模态框
+	$scope.changePasswordDialog = function () {
+		Custombox.open({
+			target: '#cgPwd',
+			effect: 'fadein',
+		});
 	}
 	//确认修改密码
-	$scope.change_password = function(old_password,new_password,re_password){
-   	 	if (old_password.length == 0 || new_password.length == 0 || re_password.length == 0) {
-   	 		Custombox.close();
-   	 		showToast($mdToast, "Please Complete Your Info");
-   		 	return;
-   	 	} else {
-   			var login_token = JSON.parse(sessionStorage.getItem('login'));
-   			var opt = {
-   				url: '/accounts/changePassword',
-   				method: 'POST',
-   				data: JSON.stringify({
-   					token: login_token,
-   					old_password: old_password,
-   					new_password: new_password,
-   					re_password: re_password
-   				}),
-   				headers: {'Content-Type': 'application/json'}
-   			};
-   			$http(opt).success(function(data){
-   				if (data.successful) {
-   					Custombox.close();
-   					showToast($mdToast, "Password changed successfully");
-   				} else{
-   					Custombox.close();
-   					showToast($mdToast, "Password changed FAILED");
-   				}
-   			});
-   	 	}
-   	}
+	$scope.change_password = function (old_password, new_password, re_password) {
+		if (old_password.length == 0 || new_password.length == 0 || re_password.length == 0) {
+			Custombox.close();
+			showToast($mdToast, "Please Complete Your Info");
+			return;
+		} else {
+			var login_token = JSON.parse(sessionStorage.getItem('login'));
+			var opt = {
+				url: '/accounts/changePassword',
+				method: 'POST',
+				data: JSON.stringify({
+					token: login_token,
+					old_password: old_password,
+					new_password: new_password,
+					re_password: re_password
+				}),
+				headers: { 'Content-Type': 'application/json' }
+			};
+			$http(opt).success(function (data) {
+				if (data.successful) {
+					Custombox.close();
+					showToast($mdToast, "Password changed successfully");
+				} else {
+					Custombox.close();
+					showToast($mdToast, "Password changed FAILED");
+				}
+			});
+		}
+	}
 	//登出模态框
-	$scope.logoutDialog = function(){
+	$scope.logoutDialog = function () {
 		Custombox.open({
-            target:'#logout',
-            effect:'fadein',
-       	});
+			target: '#logout',
+			effect: 'fadein',
+		});
 	}
 	//确认登出
-	$scope.log_out = function(){
-   		var login_token = JSON.parse(sessionStorage.getItem('login'));
-   		var opt = {
-   			url: '/accounts/logout',
-   			method: 'POST',
-   			data: JSON.stringify({
-   				token: login_token,
-   			}),
-   			headers: {'Content-Type': 'application/json'}
-   		};
-   		$http(opt).success(function(data){
-   			if (data.successful) {
-   				Custombox.close();
-   				window.location.href = "../login_register/login_register.html";
-   			} else{
+	$scope.log_out = function () {
+		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var opt = {
+			url: '/accounts/logout',
+			method: 'POST',
+			data: JSON.stringify({
+				token: login_token,
+			}),
+			headers: { 'Content-Type': 'application/json' }
+		};
+		$http(opt).success(function (data) {
+			if (data.successful) {
+				Custombox.close();
+				window.location.href = "../login_register/login_register.html";
+			} else {
 				Custombox.close();
 				showToast($mdToast, "Something Strange Happened!!!");
-   			}
-   		});
-   	}
-  	
-  	$scope.jumpToSystem = function(){
-  		window.location.href = "../system_page/system_page.html";
-  	}
-	
-	$scope.jumpToGene = function(){
-  		window.location.href = "../gene_page/gene_page.html";
-  	}
-	
-	$scope.jumpToProject = function(){
-  		window.location.href = "../project_page/project_page.html";
-  	}
-	
-	$scope.init = function(){
+			}
+		});
+	}
+
+	$scope.jumpToSystem = function () {
+		window.location.href = "../system_page/system_page.html";
+	}
+
+	$scope.jumpToGene = function () {
+		window.location.href = "../gene_page/gene_page.html";
+	}
+
+	$scope.jumpToProject = function () {
+		window.location.href = "../project_page/project_page.html";
+	}
+
+	$scope.init = function () {
 		var source_name = sessionStorage.getItem("source_name");
 		var target_name = sessionStorage.getItem("target_name");
 		var login_token = JSON.parse(sessionStorage.getItem('login'));
@@ -97,13 +149,13 @@ bio_pro.controller('relationshipDetailController', function($scope, $http, $loca
 				source_name: source_name,
 				target_name: target_name,
 			},
-			headers: { 'Content-Type': 'application/json'}
+			headers: { 'Content-Type': 'application/json' }
 		};
-		$http(opt).success(function(data){
-			if(data.successful){
+		$http(opt).success(function (data) {
+			if (data.successful) {
 				$scope.source_name = source_name;
 				$scope.target_name = target_name;
-				data.data.forEach(function(r, index) {
+				data.data.forEach(function (r, index) {
 					$scope.relate_detail_info.push({
 						index: index,
 						paper: r.paper,
@@ -119,7 +171,7 @@ bio_pro.controller('relationshipDetailController', function($scope, $http, $loca
 			}
 		});
 	}
-	
+
 	$scope.init();
 });
 
@@ -130,33 +182,33 @@ var last = {
 	right: true
 };
 
-var toastPosition = angular.extend({},last);
+var toastPosition = angular.extend({}, last);
 
-function sanitizePosition(){
+function sanitizePosition() {
 	var current = toastPosition;
 	if (current.bottom && last.top) current.top = false;
 	if (current.top && last.bottom) current.bottom = false;
 	if (current.right && last.left) current.left = false;
 	if (current.left && last.right) current.right = false;
-	last = angular.extend({},current);
+	last = angular.extend({}, current);
 }
 
-var getToastPosition = function(){
+var getToastPosition = function () {
 	sanitizePosition();
 	return Object.keys(toastPosition)
-		.filter(function(pos) { return toastPosition[pos]; })
+		.filter(function (pos) { return toastPosition[pos]; })
 		.join(' ');
-} 
+}
 
-function showToast($mdToast, msg){
+function showToast($mdToast, msg) {
 	var pinTo = getToastPosition();
 	var toast = $mdToast.simple()
 		.textContent(msg)
 		.highlightAction(true)
 		.position(pinTo);
-	$mdToast.show(toast).then(function(response){
-		if(response == 'ok'){
-			
+	$mdToast.show(toast).then(function (response) {
+		if (response == 'ok') {
+
 		}
 	});
 }
