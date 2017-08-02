@@ -29,10 +29,10 @@
                 		<!-- <img src="...img/back.png"> -->
                 		</span>
                 		
-                		<span class="back_w"><a href="#">< back</a></span></div>
+                		<span class="back_w"><a href="../project_page/project_page.html">< back</a></span></div>
                      <center><h1>Create a new Account</h1></center>
                     </div>
-                    <div class="col-sm-4 col-sm-offset-4" layout="column" ng-cloak>
+                    <div  ng-controller="registerCtrl" class="col-sm-4 col-sm-offset-4" layout="column" ng-cloak>
                     	<form name="loginForm" ng-keypress="register_by_keyboard($event,username,email,password,repassword)">
                     		<md-input-container class="md-block">
 						        <label>Username</label>
@@ -82,7 +82,7 @@
     <script src="../public/angular-messages/angular-messages.min.js"></script>
     <script src="../public/angular-animate/angular-animate.min.js"></script>
     <script src="../public/angular-aria/angular-aria.min.js"></script>
-	<script src="js/login_register_init.js"></script>
-	<script src="js/login_register.js"></script>
+	<script src="./js/login_register_init.js"></script>
+	<script src="./js/login_register.js"></script>
 </body>
 </html>
