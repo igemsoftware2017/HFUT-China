@@ -155,7 +155,7 @@
 			</button>
 			<h4 class="title">Login</h4>
 			<div class="text">
-				<form class="form-horizontal" role="form">
+				<form class="form-horizontal" role="form" ng-keypress="login_by_keyboard($event,username,password)">
 					<div class="form-group col-md-12">
 						<label for="username">Username</label>
 						<input id="username" type="text" class="form-control login-input" placeholder="User Name" ng-model="username" />
