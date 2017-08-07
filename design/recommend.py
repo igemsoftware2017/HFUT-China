@@ -222,7 +222,7 @@ def getMarkovRecommend(part_id):
     return recommend_list
 
 def loadA():
-    tranFile = open(BASE+'/../data/tran.json', 'r')
+    tranFile = open(BASE+'/../data/back_matrix_0.json', 'r')
     A = json.loads(tranFile.read())
     return A
 
@@ -243,73 +243,60 @@ def getPartNameAndType(part_id):
     except:
         return None, None
 
-def get_chain(elem, num, process):
-    """get chain which had predicted
-
-    according to information in process,
-    get the chain from first element to elem variable
-    and save the chain in a list
-
-    args:
-        elem: the last element in chain
-        num: the line number in process
-        process: a variable record the predict process
-    return:
-        a chain from first to elem variable
-    """
-    last_elem = process[num][elem][1]
-    if last_elem is None:
-        return [elem]
+def get_chain(num, pos, process):
+    if pos == 0:
+        return []   # 起点即给出的BioBrick不记录在内
     else:
-        chain = get_chain(last_elem, num-1, process)
-        chain.append(elem)
+        chain = get_chain(process[pos][num][2], pos-1, process)     # 得到下标在pos-1前的链
+        chain.append(process[pos][num][0])          # 加入当前BioBrick
         return chain
 
 
-
-def predict(m, count, s, A):
+def predict(m, num, s, A):
     """predict the chain after s
 
     calculate the probability of a m-length chain,
     then return chains.
-    CAUTION the number of chains maybe less then count
+    CAUTION the number of chains maybe less then num
 
     args:
         m: the length of predict chain
-        count: the number of predict chain
+        num: the number of predict chain
         s: the last element of the current chain
         A: transition matrix
     return:
         some chains save in list
     """
-    process = []
-    start = {}
-    start[s] = [1, None]
+    process = []            # 记录分析过程
+    start = [[s, 1, None], ]    # BioBrick 概率 父节点下标（其中概率指的是从给出的BioBrick开始到此处的概率）
     process.append(start)
 
-    for i in range(m):
-        line = process[-1]
-        next_line = {}
-        for key in line.keys():
-            if A.get(key, None) is None:
+    for i in range(m):      # 根据预测的长度确定迭代次数
+        line = process[-1]  # 获取上一行
+        temp_line = {}      # 临时保存下一行的所有结果 {BioBrick: [[BioBrick, 概率， 父节点下标], ]}
+        for idx, mem in enumerate(line):
+            if mem[0] not in A:     # 判断是否存在该键，即是否有后继BioBrick
                 continue
-            for k in A[key].keys():
-                p = next_line.get(k, [0, None])[0]
-                if p < A[key][k] * line[key][0]:
-                    next_line[k] = [A[key][k] * line[key][0], key]
-        process.append(next_line)
-    ans = process[-1]
-    # sort according to probability from high to low
-    ans = sorted(ans.items(), key=lambda item: item[1][0], reverse=True)
+            for k in A[mem[0]].keys():  # 遍历可转移的下一个BioBrick
+                if k in temp_line:  # 判断字典是否存在该键，避免插入的键值不存在
+                    temp_line[k].append([k, mem[1]*A[mem[0]][k], idx])
+                else:
+                    temp_line[k] = [[k, mem[1]*A[mem[0]][k], idx], ]
+        next_line = []
+        for k in temp_line.keys():
+            temp_line[k].sort(key=lambda x: x[1], reverse=True)     # 按概率排序
+            temp_line[k] = temp_line[k][0:num]  # 根据需要预测的条数确定每层每个不同结尾保留数量，但是这是最大个数
+            next_line.extend(temp_line[k])      # 将筛选过的结果保存起来
+        process.append(next_line)       # 将该行保存到记录分析过程的数据结构中
+
+    ans = sorted(process[-1], key=lambda b: b[1], reverse=True)     # 按概率排序
+    process[-1] = ans
 
     if len(ans) == 0:
-        return None     # Can't predict, because of no answer can be find
+        return None     # Can't predict, because no answer can be find
     else:
-        count = min(len(ans), count) # the number of ans maybe less than count
+        count = min(len(ans), num)    # the number of ans maybe less than num
         chains = []
-        length = len(process)
         for i in range(count):
-            elem = ans[i][0]
-            chain = get_chain(elem, length-1, process)
-            chains.append(chain[1:])
+            chains.append(get_chain(i, len(process)-1, process))
         return chains

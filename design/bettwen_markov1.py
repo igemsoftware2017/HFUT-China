@@ -1,7 +1,5 @@
-# -*- coding:utf-8 -*-
-# markov algorithm
-
-
+# Markov算法的中间推荐版本
+import MySQLdb
 def cal_probability(data_set):
     """calculate transition matrix
 
@@ -37,27 +35,27 @@ def get_chain(num, pos, process):
         return chain
 
 
-def bettwen_predict(max_len, num, b1, b2, A):
-    """predict the chain between b1 and b2
+def predict(m, num, s, e, A):
+    """predict the chain between s and e
 
+    calculate the probability of a m-length chain,
+    then return chains.
     CAUTION the number of chains maybe less then num
 
     args:
-        max_len: the max length of predict chain
+        m: the length of predict chain
         num: the number of predict chain
-        b1: the begin of the predicted chain
-        b2: the end of the predicted chain
+        s: the last element of the current chain
+		e:
         A: transition matrix
     return:
         some chains save in list
     """
     process = []            # 记录分析过程
-    start = [[b1, 1, None], ]    # BioBrick 概率 父节点下标（其中概率指的是从给出的BioBrick开始到此处的概率）
+    start = [[s, 1, None], ]    # BioBrick 概率 父节点下标（其中概率指的是从给出的BioBrick开始到此处的概率）
     process.append(start)
 
-    ans_pos = []
-
-    for i in range(max_len+1):      # 根据预测的长度确定迭代次数
+    for i in range(m):      # 根据预测的长度确定迭代次数
         line = process[-1]  # 获取上一行
         temp_line = {}      # 临时保存下一行的所有结果 {BioBrick: [[BioBrick, 概率， 父节点下标], ]}
         for idx, mem in enumerate(line):
@@ -73,44 +71,66 @@ def bettwen_predict(max_len, num, b1, b2, A):
             temp_line[k].sort(key=lambda x: x[1], reverse=True)     # 按概率排序
             temp_line[k] = temp_line[k][0:num]  # 根据需要预测的条数确定每层每个不同结尾保留数量，但是这是最大个数
             next_line.extend(temp_line[k])      # 将筛选过的结果保存起来
-            if k == b2:
-                p1 = len(next_line) - len(temp_line[k])
-                p2 = len(next_line)
-                c = 0
-                for j in range(p1, p2):
-                    ans_pos.append([i, temp_line[k][c][2], temp_line[k][c][1]])
-                    c += 1
-
         process.append(next_line)       # 将该行保存到记录分析过程的数据结构中
+    # 只保留以指定BioBrick结尾的结果
+    new_line = []
+    for idx, mem in enumerate(process[-1]):
+        if mem[0] not in A:     # 判断是否存在该键，即是否有后继BioBrick
+            continue
+        if e in A[mem[0]]:
+            new_line.append([e, mem[1]*A[mem[0]][e], idx])
+    process.append(new_line)
 
-    ans_pos.sort(key=lambda b: b[2], reverse=True)    # 按概率排序
-    # ans = sorted(process[-1], key=lambda b: b[1], reverse=True)     # 按概率排序
-    # process[-1] = ans
+    ans = sorted(process[-1], key=lambda b: b[1], reverse=True)     # 按概率排序
+    process[-1] = ans
 
-    if len(ans_pos) == 0:
-        return None                       # Can't predict, because no answer can be find
+    if len(ans) == 0:
+        return None     # Can't predict, because no answer can be find
     else:
-        count = min(len(ans_pos), num)    # the number of ans maybe less than num
+        count = min(len(ans), num)    # the number of ans maybe less than num
         chains = []
         for i in range(count):
-            chains.append(get_chain(ans_pos[i][1], ans_pos[i][0], process))
-        return chains                     # 由于b1可能直接连着b2，所以返回结果中可能包含空列表
-                
+            chains.append(get_chain(i, len(process)-1, process)[:-1])       # 切片是因为链结尾是e，不必保留
+        return chains
+
 
 if __name__ == "__main__":
-    data_set = [['j', 'f', 'a'],
-                ['f', 'k', 'j'],
-                ['r', 'u', 'v'],
-                ['a', 'g', 'f']]
+    # data_set = [['j', 'f', 'a'],
+    #             ['f', 'k', 'j'],
+    #             ['r', 'u', 'v'],
+    #             ['a', 'g', 'f']]
+    connect = MySQLdb.connect(
+        host='localhost',
+        port=3306,
+        user='root',
+        password='qaz123',
+        db='parts'
+    )
+    connect.set_character_set('utf8')
+    cursor = connect.cursor()
+    cursor.execute('select specified_u_list from parts')
+    lists = cursor.fetchall()
+    data_set = list()
+    for listStr in lists:
+        listStr = listStr[0]
+        listStr = listStr[1:]
+        listStr = listStr[0: -1]
+        list = listStr.split('_')
+        data_set.append(list)
+    print(data_set)
+    cursor.close()
+    connect.close()
     A = cal_probability(data_set)
     print(A)
+    file = open('2.json', 'w')
+    file.write(str(A))
 
-    res = predict(3, 5, 'f', 'a', A)  # only two chains can be find
-    print(res)
-    if res is None:
+    chains = predict(5, 2, '149', '153', A)  # only two chains can be find
+    print(chains)
+    if chains is None:
         print('No answer!')
     else:
-        for chain in res:
+        for chain in chains:
             for elem in chain:
-                print(elem)
-            print(chain)
+                print(elem, end=' ')
+            print()

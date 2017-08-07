@@ -1,55 +1,33 @@
-# -*- coding:utf-8 -*-
-# markov algorithm
+# Markov算法的前向推荐版本
+import MySQLdb
 
-import copy
-
-
-def cal_probability(all_data):
-    """calculate transition matrix
-
-    calculate the probability of going from state i to state j in 1 time step
-
-    args:
-        all_data: datas use to calculate transition matrix, type is list
-    return:
-        a directory, record probability in transition matrix
-    """
-    # 向前预测版的调整
-    r_data = copy.deepcopy(all_data)
-    for d in r_data:
-        d.reverse()
-
+def cal_forward_prob(data_set):
     A = {}
     total = {}
-    for data in r_data:
+    for data in data_set:
         count = len(data)
-        for i in range(count-1):
+        for i in range(count-1, 0, -1):
             A[data[i]] = A.get(data[i], {})
-            A[data[i]][data[i+1]] = A[data[i]].get(data[i+1], 0) + 1
+            A[data[i]][data[i-1]] = A[data[i]].get(data[i-1], 0) + 1
             total[data[i]] = total.get(data[i], 0) + 1
 
     for key, value in A.items():
         for k in value.keys():
-            A[key][k] = A[key][k]/total[key]    # 针对版本差异进行修改
+            A[key][k] = A[key][k] / total[key]
 
     return A
 
 
-def get_chain(num, pos, process):   # 为了向前推荐进行了相关修改
-    chain = []
-    for p in range(pos, 0, -1):
-        chain.append(process[p][num][0])
-        num = process[p][num][2]
-    return chain
-    # if pos == 0:
-    #     return []   # 起点即给出的BioBrick不记录在内
-    # else:
-    #     chain = get_chain(process[pos][num][2], pos-1, process)     # 得到下标在pos-1前的链
-    #     chain.append(process[pos][num][0])          # 加入当前BioBrick
-    #     return chain
+def get_chain(num, pos, process):
+    if pos == 0:
+        return []   # 起点即给出的BioBrick不记录在内
+    else:
+        chain = get_chain(process[pos][num][2], pos-1, process)     # 得到下标在pos-1前的链
+        chain.insert(0, process[pos][num][0])          # 加入当前BioBrick到最前面
+        return chain
 
 
-def before_predict(m, num, s, A):
+def predict(m, num, s, A):
     """predict the chain after s
 
     calculate the probability of a m-length chain,
@@ -97,22 +75,45 @@ def before_predict(m, num, s, A):
         for i in range(count):
             chains.append(get_chain(i, len(process)-1, process))
         return chains
-                
+
 
 if __name__ == "__main__":
-    data_set = [['j', 'f', 'a'],
-                ['f', 'k', 'j'],
-                ['r', 'u', 'v'],
-                ['a', 'g', 'f']]
-    A = cal_probability(data_set)
+    # data_set = [['j', 'f', 'a'],
+    #             ['f', 'k', 'j'],
+    #             ['r', 'u', 'v'],
+    #             ['a', 'g', 'f']]
+    connect = MySQLdb.connect(
+        host='localhost',
+        port=3306,
+        user='root',
+        password='qaz123',
+        db='parts'
+    )
+    connect.set_character_set('utf8')
+    cursor = connect.cursor()
+    cursor.execute('select specified_u_list from parts')
+    lists = cursor.fetchall()
+    data_set = list()
+    for listStr in lists:
+        listStr = listStr[0]
+        listStr = listStr[1:]
+        listStr = listStr[0: -1]
+        list = listStr.split('_')
+        data_set.append(list)
+    print(data_set)
+    cursor.close()
+    connect.close()
+    A = cal_forward_prob(data_set)
     print(A)
+    file = open('3.json', 'w')
+    file.write(str(A))
 
-    chains = predict(2, 5, 'f', A)  # only two chains can be find
+    chains = predict(5, 3, '149', A)
     print(chains)
     if chains is None:
         print('No answer!')
     else:
         for chain in chains:
             for elem in chain:
-                print(elem)
-            print(chain)
+                print(elem, end=' ')
+            print()
