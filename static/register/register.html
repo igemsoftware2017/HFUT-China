@@ -1,88 +1,98 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="login-register">
-<head>
-    <meta charset="utf-8">
-    <title>BioDesigner</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 
-    <link rel="stylesheet" href="../public/Swiper/dist/css/swiper.min.css">
-    <link rel="stylesheet" href="../public/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../public/angular-material/angular-material.min.css"/>
-	<link rel="stylesheet" href="css/login_register_swiper.css"/>
-	<link rel="stylesheet" href="css/login.css"/>
-	<link rel="stylesheet" href="css/register.css"/>
-	
+<head>
+	<meta charset="utf-8">
+	<title>BioDesigner</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+	<link rel="stylesheet" href="../public/Swiper/dist/css/swiper.min.css">
+	<link rel="stylesheet" href="../public/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../public/angular-material/angular-material.min.css" />
+	<link rel="stylesheet" href="css/login_register_swiper.css" />
+	<link rel="stylesheet" href="css/login.css" />
+	<link rel="stylesheet" href="css/register.css" />
+
 	<!-- Favicon and touch icons -->
-    <link rel="shortcut icon" href="img/logo_black_small.png">
+	<link rel="shortcut icon" href="img/logo_black_small.png">
 </head>
+
 <body>
 
-            <div id="register" class="swiper-slide" ng-controller="loginCtrl">
-	            <div class="container">
-                <!--     <div class="col-sm-2 col-sm-offset-5 logo_image">
+	<div id="register" class="swiper-slide" ng-controller="loginCtrl">
+		<div class="container">
+			<!--     <div class="col-sm-2 col-sm-offset-5 logo_image">
                 		<img src="img/logo_black.png">
                    	</div> -->
-                <center><div class="container_wrap">
-            	<div class="container"><center>
-                    <div class="col-sm-8 col-sm-offset-2">
-                		<div calss="back"><span class="back">
+			<center>
+				<div class="container_wrap">
+					<div class="container">
+						<center>
+							<div class="col-sm-8 col-sm-offset-2">
+								<div calss="back"><span class="back">
                 		<!-- <img src="...img/back.png"> -->
                 		</span>
-                		
-                		<span class="back_w"><a href="../project_page/project_page.html">< back</a></span></div>
-                     <center><h1>Create a new Account</h1></center>
-                    </div>
-                    <div  ng-controller="registerCtrl" class="col-sm-4 col-sm-offset-4" layout="column" ng-cloak>
-                    	<form name="loginForm" ng-keypress="register_by_keyboard($event,username,email,password,repassword)">
-                    		<md-input-container class="md-block">
-						        <label>Username</label>
-						        <input type="text" required name="username" ng-model="username">
-					      	</md-input-container>
-					      	<md-input-container class="md-block">
-						        <label>Email</label>
-						        <input type="email" required name="email" ng-model="email">
-					      	</md-input-container>
-					      	<md-input-container class="md-block">
-						        <label>Password</label>
-						        <input type="password" required name="password" ng-model="password"
-						        	minlength="8" maxlength="30">
-						        <div ng-messages="loginForm.password.$error">
-						          	<div ng-message-exp="['required','minlength','maxlength']">
-						          		Your password must be between 8 and 30 characters long.
-						          	</div>
-						        </div>
-					      	</md-input-container>
-					      	<md-input-container class="md-block">
-						        <label>Comfirm</label>
-						        <input type="password" required name="repassword" ng-model="repassword"
-						        	minlength="8" maxlength="30">
-						        <div ng-messages="loginForm.repassword.$error">
-						          	<div ng-message-exp="['required','minlength','maxlength']">
-						          		These passwords don't match. Try again?
-						          	</div>
-						        </div>
-					      	</md-input-container>
-                    	</form>
-                    	<md-button class="btn_reg" ng-click="register(username,email,password,repassword)">
-                    		Register
-                    	</md-button></center>
-                       <!--  <md-button ng-click="slideToLogin()">
+
+									<span class="back_w"><a href="../project_page/project_page.html">< back</a></span></div>
+								<center>
+									<h1>Create a new Account</h1>
+								</center>
+							</div>
+							<div ng-controller="registerCtrl" class="col-sm-4 col-sm-offset-4" layout="column" ng-cloak>
+								<form name="loginForm" ng-keypress="register_by_keyboard($event,username,email,password,repassword)">
+									<md-input-container class="md-block">
+										<label>Username</label>
+										<input type="text" required name="username" ng-model="username">
+									</md-input-container>
+									<md-input-container class="md-block">
+										<label>Email</label>
+										<input type="email" required name="email" ng-model="email">
+									</md-input-container>
+									<md-input-container class="md-block">
+										<label>Password</label>
+										<input type="password" required name="password" ng-model="password" minlength="8" maxlength="30">
+										<div ng-messages="loginForm.password.$error">
+											<div ng-message-exp="['required','minlength','maxlength']">
+												Your password must be between 8 and 30 characters long.
+											</div>
+										</div>
+									</md-input-container>
+									<md-input-container class="md-block">
+										<label>Comfirm</label>
+										<input type="password" required name="repassword" ng-model="repassword" minlength="8" maxlength="30">
+										<div ng-messages="loginForm.password.$error" class="mymess">
+											<div ng-message-exp="['required','minlength','maxlength']">
+											</div>
+										</div>
+										<div ng-show="loginForm.repassword.$dirty">
+											<span style="color:red" ng-show="repassword!=password">These passwords don't match. Try again?</span>
+										</div>
+									</md-input-container>
+								</form>
+								<md-button class="btn_reg" ng-click="register(username,email,password,repassword)">
+									Register
+								</md-button>
+						</center>
+						<!--  <md-button ng-click="slideToLogin()">
                             Back
                         </md-button> -->
-                    </div>
-	            </div></div></center>
-            </div>
-            </div>
+						</div>
+					</div>
+				</div>
+			</center>
+		</div>
+	</div>
 
 	<script src="../public/jquery/dist/jquery.min.js"></script>
-    <script src="../public/Swiper/dist/js/swiper.min.js"></script>
-    <script src="../public/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../public/angular/angular.min.js"></script>
-    <script src="../public/angular-material/angular-material.min.js"></script>
-    <script src="../public/angular-messages/angular-messages.min.js"></script>
-    <script src="../public/angular-animate/angular-animate.min.js"></script>
-    <script src="../public/angular-aria/angular-aria.min.js"></script>
+	<script src="../public/Swiper/dist/js/swiper.min.js"></script>
+	<script src="../public/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="../public/angular/angular.min.js"></script>
+	<script src="../public/angular-material/angular-material.min.js"></script>
+	<script src="../public/angular-messages/angular-messages.min.js"></script>
+	<script src="../public/angular-animate/angular-animate.min.js"></script>
+	<script src="../public/angular-aria/angular-aria.min.js"></script>
 	<script src="./js/login_register_init.js"></script>
 	<script src="./js/login_register.js"></script>
 </body>
+
 </html>

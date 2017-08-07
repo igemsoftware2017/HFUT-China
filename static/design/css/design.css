@@ -62,3 +62,6 @@ ul > li{
 .searchItemName{
 	display: block;
 }
+.error-msg{
+	color: red;
+}
