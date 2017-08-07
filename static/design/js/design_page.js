@@ -13,7 +13,8 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 			$scope.isLogin = true;
 		}
 	}
-
+	$scope.errorMsg = "";
+	$scope.error = false;
 	$scope.search_info = [];//搜索结果
 	$scope.chain_info = [];//用户编辑的基因链
 	$scope.delete_gene = [];
@@ -269,10 +270,13 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 				sessionStorage.setItem('login', JSON.stringify(data.data.token));
 				window.location.href = "../project_page/project_page.html";
 			} else {
+				$scope.error = true;
 				if (data.error.id == '1') {
-					showToast($mdToast, data.error.msg);
+					$scope.errorMsg = data.error.msg;
+					// showToast($mdToast, data.error.msg);
 				} else {
-					showToast($mdToast, "LOGIN FAILED!");
+					$scope.errorMsg = "LOGIN FAILED!";
+					// showToast($mdToast, "LOGIN FAILED!");
 				}
 			}
 		});

@@ -63,3 +63,7 @@ body{
 	margin-right:-100px;
  	float:right; 
 }
+
+.mymess {
+	transition:1s linear all;
+}
