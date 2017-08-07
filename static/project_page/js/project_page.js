@@ -13,8 +13,8 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 			$scope.isLogin = true;
 		}
 	}
-	$scope.errorMsg = "11111";
-	$scope.error = true;
+	$scope.errorMsg = "";
+	$scope.error = false;
 	$scope.project_info = [];//项目列表
 	$scope.isEdit = false;//默认编辑状态为未编辑
 	$scope.isChosen = false;//默认未选中
@@ -221,7 +221,7 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 		})
 	}
 
-		//登录模态框
+	//登录模态框
 	$scope.loginDialog = function () {
 		Custombox.open({
 			target: '#login',
@@ -249,10 +249,8 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 				$scope.error = true;
 				if (data.error.id == '1') {
 					$scope.errorMsg = data.error.msg;
-					// showToast($mdToast, data.error.msg);
 				} else {
 					$scope.errorMsg = "LOGIN FAILED!";
-					// showToast($mdToast, "LOGIN FAILED!");
 				}
 			}
 		});

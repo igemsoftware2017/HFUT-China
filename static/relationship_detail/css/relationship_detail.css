@@ -39,7 +39,7 @@
     border-bottom: #CCC solid 1px;
 }
 .text {
-    padding: 0 20px 20px 20px;
+    padding: 0 30px 20px 30px;
 }
 .close {
     position: absolute;
@@ -48,4 +48,14 @@
 }
 .btn-edit{
     float: right;
+}
+.error-msg{
+	color: red;
+	float: left;
+}
+.login-input{
+	 width: 80%; 
+}
+.modal-demo{
+	 width: 37%; 
 }

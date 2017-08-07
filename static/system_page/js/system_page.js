@@ -15,6 +15,8 @@ system.controller('systemController', function ($scope, $http, $location, $mdToa
 		}
 	}
 	
+	$scope.errorMsg = "";
+	$scope.error = false;
 	$scope.compound_info = [];//侧边栏数据
 	$scope.compound_tags = [];//导航栏数据
 	$scope.message_show = false;//默认侧边栏信息显示
@@ -40,7 +42,7 @@ system.controller('systemController', function ($scope, $http, $location, $mdToa
 		});
 	}
 
-		//登录模态框
+	//登录模态框
 	$scope.loginDialog = function () {
 		Custombox.open({
 			target: '#login',
@@ -61,13 +63,15 @@ system.controller('systemController', function ($scope, $http, $location, $mdToa
 		};
 		$http(opt).success(function (data) {
 			if (data.successful) {
+				$scope.error = false;
 				sessionStorage.setItem('login', JSON.stringify(data.data.token));
 				window.location.href = "../project_page/project_page.html";
 			} else {
+				$scope.error = true;
 				if (data.error.id == '1') {
-					showToast($mdToast, data.error.msg);
+					$scope.errorMsg = data.error.msg;
 				} else {
-					showToast($mdToast, "LOGIN FAILED!");
+					$scope.errorMsg = "LOGIN FAILED!";
 				}
 			}
 		});

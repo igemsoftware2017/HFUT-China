@@ -15,12 +15,14 @@ bio_pro.controller('relationshipDetailController', function ($scope, $http, $loc
 		}
 	}
 
+	$scope.errorMsg = "";
+	$scope.error = false;
 	$scope.relate_detail_info = [];
 	$scope.source_name = "";
 	$scope.target_name = "";
 	$scope.num = 0;
 
-		//登录模态框
+	//登录模态框
 	$scope.loginDialog = function () {
 		Custombox.open({
 			target: '#login',
@@ -41,13 +43,15 @@ bio_pro.controller('relationshipDetailController', function ($scope, $http, $loc
 		};
 		$http(opt).success(function (data) {
 			if (data.successful) {
+				$scope.error = false;
 				sessionStorage.setItem('login', JSON.stringify(data.data.token));
 				window.location.href = "../project_page/project_page.html";
 			} else {
+				$scope.error = true;
 				if (data.error.id == '1') {
-					showToast($mdToast, data.error.msg);
+					$scope.errorMsg = data.error.msg;
 				} else {
-					showToast($mdToast, "LOGIN FAILED!");
+					$scope.errorMsg = "LOGIN FAILED!";
 				}
 			}
 		});

@@ -16,6 +16,8 @@ gi.controller('geneInfoController', function ($scope, $http) {
 	}
 
 	//数据定义
+	$scope.errorMsg = "";
+	$scope.error = false;
 	$scope.gene_name = "";
 	$scope.gene_definition = "";
 	$scope.gene_url = "";
@@ -66,13 +68,15 @@ gi.controller('geneInfoController', function ($scope, $http) {
 		};
 		$http(opt).success(function (data) {
 			if (data.successful) {
+				$scope.error = false;
 				sessionStorage.setItem('login', JSON.stringify(data.data.token));
 				window.location.href = "../project_page/project_page.html";
 			} else {
+				$scope.error = true;
 				if (data.error.id == '1') {
-					showToast($mdToast, data.error.msg);
+					$scope.errorMsg = data.error.msg;
 				} else {
-					showToast($mdToast, "LOGIN FAILED!");
+					$scope.errorMsg = "LOGIN FAILED!";
 				}
 			}
 		});

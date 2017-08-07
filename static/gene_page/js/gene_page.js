@@ -16,6 +16,9 @@ gene.controller('geneController', function ($scope, $http, $location, $mdToast) 
 			$scope.isLogin = true;
 		}
 	}
+
+	$scope.errorMsg = "";
+	$scope.error = false;
 	
 	//登录模态框
 	$scope.loginDialog = function () {
@@ -38,13 +41,15 @@ gene.controller('geneController', function ($scope, $http, $location, $mdToast) 
 		};
 		$http(opt).success(function (data) {
 			if (data.successful) {
+				$scope.error = false;
 				sessionStorage.setItem('login', JSON.stringify(data.data.token));
 				window.location.href = "../project_page/project_page.html";
 			} else {
+				$scope.error = true;
 				if (data.error.id == '1') {
-					showToast($mdToast, data.error.msg);
+					$scope.errorMsg = data.error.msg;
 				} else {
-					showToast($mdToast, "LOGIN FAILED!");
+					$scope.errorMsg = "LOGIN FAILED!";
 				}
 			}
 		});

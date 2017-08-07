@@ -53,3 +53,13 @@
 .bi{
 	margin-top: 5%;
 }
+.error-msg{
+	color: red;
+	float: left;
+}
+.login-input{
+	 width: 80%; 
+}
+.modal-demo{
+	 width: 37%; 
+}
