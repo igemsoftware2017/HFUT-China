@@ -267,6 +267,7 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 		};
 		$http(opt).success(function (data) {
 			if (data.successful) {
+				$scope.error = false;
 				sessionStorage.setItem('login', JSON.stringify(data.data.token));
 				window.location.href = "../project_page/project_page.html";
 			} else {
