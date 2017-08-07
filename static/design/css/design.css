@@ -64,4 +64,11 @@ ul > li{
 }
 .error-msg{
 	color: red;
+	float: left;
+}
+.login-input{
+	 width: 80%; 
+}
+.modal-demo{
+	 width: 37%; 
 }
