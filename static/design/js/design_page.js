@@ -285,7 +285,7 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 
 	$scope.login_by_keyboard = function ($event, username, password) {
 		if ($event.keyCode == 13) {//回车
-			$scope.login(username, password);
+			$scope.log_in(username, password);
 		}
 	};
 	//修改密码模态框

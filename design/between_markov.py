@@ -1,5 +1,4 @@
 # Markov算法的中间推荐版本
-import MySQLdb
 def cal_probability(data_set):
     """calculate transition matrix
 
@@ -92,45 +91,3 @@ def predict(m, num, s, e, A):
         for i in range(count):
             chains.append(get_chain(i, len(process)-1, process)[:-1])       # 切片是因为链结尾是e，不必保留
         return chains
-
-
-if __name__ == "__main__":
-    # data_set = [['j', 'f', 'a'],
-    #             ['f', 'k', 'j'],
-    #             ['r', 'u', 'v'],
-    #             ['a', 'g', 'f']]
-    connect = MySQLdb.connect(
-        host='localhost',
-        port=3306,
-        user='root',
-        password='qaz123',
-        db='parts'
-    )
-    connect.set_character_set('utf8')
-    cursor = connect.cursor()
-    cursor.execute('select specified_u_list from parts')
-    lists = cursor.fetchall()
-    data_set = list()
-    for listStr in lists:
-        listStr = listStr[0]
-        listStr = listStr[1:]
-        listStr = listStr[0: -1]
-        list = listStr.split('_')
-        data_set.append(list)
-    print(data_set)
-    cursor.close()
-    connect.close()
-    A = cal_probability(data_set)
-    print(A)
-    file = open('2.json', 'w')
-    file.write(str(A))
-
-    chains = predict(5, 2, '149', '153', A)  # only two chains can be find
-    print(chains)
-    if chains is None:
-        print('No answer!')
-    else:
-        for chain in chains:
-            for elem in chain:
-                print(elem, end=' ')
-            print()
