@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^design/', include('design.urls')),
     url(r'^system/', include('system.urls')),
     url(r'^geneRelationship/', include('geneRelationship.urls')),
+    url(r'^biosearch/', include('biosearch.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -258,7 +258,6 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 
 	$scope.login_by_keyboard = function ($event, username, password) {
 		if ($event.keyCode == 13) {//回车
-			console.log(111111111111111);
 			$scope.log_in(username, password);
 		}
 	};

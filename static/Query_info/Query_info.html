@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="css/Query_info.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/element-ui@1.4.1/lib/theme-default/index.css">
+<title>Query_info</title>
+</head>
+<body>
+	<div class="header">
+    	
+    </div>
+	<div class="wrap">
+    	<div class="nav_left" id="app">
+        	<el-row class="tac">
+            	<el-col :span="8">
+                    <el-menu class="el-radio-group" @open="handleOpen" @close="handleClose">
+                        <a href="#Description"><el-menu-item index="1">Description</el-menu-item></a>
+                        <a href="#Background"><el-menu-item index="2">Background</el-menu-item></a>
+                        <a href="#Process"><el-menu-item index="3">Process</el-menu-item></a>
+                        <a href="#Results"><el-menu-item index="4">Results</el-menu-item></a>
+                        <a href="#Parts"><el-menu-item index="5">Parts</el-menu-item></a>
+                        <span id="backbutton"><el-menu-item theme="dark"><i class="el-icon-caret-top" style="width:25px; margin-left:30px;"></i></el-menu-item></span>
+                    </el-menu>
+            	</el-col>
+            </el-row>      
+        </div>
+    
+        <div class="content_main">
+        	<div class="content_title">
+            	<h1>Title</h1>
+            </div>
+        	<div class="content_info" id="Description">
+            	<h2>Description</h2>
+                <hr style="FILTER: progid:DXImageTransform.Microsoft.Glow(color=#333333,strength=10)" width="800px" color=#333333 SIZE=1 />
+                <div class="content_container">
+                	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>
+                </div>
+                <div id="more">
+                	<el-button id="onload" icon="caret-bottom" style="width:800px;">加载更多</el-button>
+                </div>
+            </div>
+            <div class="content_info" id="Background">
+            	<h2>Background</h2>
+                <hr style="FILTER: progid:DXImageTransform.Microsoft.Glow(color=#333333,strength=10)" width="800px" color=#333333 SIZE=1 />
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>
+            </div>
+            <div class="content_info" id="Process">
+            	<h2>Process</h2>
+                <hr style="FILTER: progid:DXImageTransform.Microsoft.Glow(color=#333333,strength=10)" width="800px" color=#333333 SIZE=1 />
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>
+            </div>
+            <div class="content_info" id="Results">
+            	<h2>Results</h2>
+                <hr style="FILTER: progid:DXImageTransform.Microsoft.Glow(color=#333333,strength=10)" width="800px" color=#333333 SIZE=1 />
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>
+            </div>
+            <div class="content_info" id="Parts">
+            	<h2>Parts</h2>
+                <hr style="FILTER: progid:DXImageTransform.Microsoft.Glow(color=#333333,strength=10)" width="800px" color=#333333 SIZE=1 />
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>
+            </div>
+        </div>
+        <div class="info_right" style="width:250px;">
+        	<div id="app1">
+            	<el-card class="box-card">
+                  <div slot="header" class="clearfix">
+                    <span style="line-height: 27px;float:left; margin-right:20px;">相关链接推荐</span>
+                    <div id="app2">
+                    	<el-pagination small layout="prev, pager, next" :total="20">
+                        </el-pagination>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <p>链接一</p>
+                    <p>链接二</p>
+                    <p>链接三</p>
+                    <p>链接四</p>
+                    <p>链接五</p>
+                  </div>
+                </el-card>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+    	
+    </div>
+</body>
+	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+  	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+  	<script src="https://unpkg.com/element-ui@1.4.1/lib/index.js"></script>
+    <script type="text/javascript" src="js/BackToTop.js"></script>
+	<script>
+        var Main = {
+            methods: {
+              handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+              },
+              handleClose(key, keyPath) {
+                console.log(key, keyPath);
+              }
+            }
+          }
+        var Ctor = Vue.extend(Main)
+        new Ctor().$mount('#app')
+        new Vue().$mount('#more')
+		new Vue().$mount('#app2')
+		new Vue().$mount('#app1')
+    </script>
+</html>

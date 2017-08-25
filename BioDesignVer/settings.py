@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'projectManage',
     'design',
     'system',
-    'geneRelationship'
+    'geneRelationship',
+    'biosearch'
 ]
 
 MIDDLEWARE = [

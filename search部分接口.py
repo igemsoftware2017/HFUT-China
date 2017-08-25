@@ -2,10 +2,7 @@
     url:/search/firstPage
 	方法：post
 	参数：{
-        track:[{
-            level1:一级分类,
-            level2:[...]二级分类
-        },...],
+        track:[分类,...],
         keyword:搜索关键字
     }
 	返回参数：JSON
