@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="searchApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BioDesigner|Gene</title>
+	
+	<link href="../public/custombox/dist/custombox.min.css" rel="stylesheet">
+    <link href="../public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../public/angular-material/angular-material.min.css" rel="stylesheet">
+    <link href="./css/index.css" rel="stylesheet">
+    <link href="./css/sb-admin-2.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/info.css" type="text/css" media="screen"/>
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="img/logo_black_small.png">
+<style>
+body,ul, li {  
+    margin: 0;  
+    padding: 0;  
+} 
+body{
+	background:#fff;
+}
+.gover_search{ position:relative; z-index:99; height:30px; border:1px solid ##b8cfe6; border-bottom:0; }  
+.gover_search .search_suggest{ z-index:99; position:absolute; z-index:999; left:60px; top:34px; width:500px; border:1px solid #999999; display:none; }  
+.gover_search .search_suggest li{ z-index:99;height:24px;font-size: 16px;font-family: "Segoe UI Light"; overflow:hidden; line-height:24px; background:#FFFFFF; cursor:default;}  
+.gover_search .search_suggest li.hover{ z-index:99;background:#DDDDDD;} 
+.info-wrap{z-index:99; position:absolute; z-index:999;} 
+</style>
+</head>  
+<body ng-controller="searchController">
+<div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div style="float:left;margin-left:6px;margin-top:6px">
+        			<img src="img/ser_l.png"  width="36" height="36" id="logo" class="logo">
+        		</div>  
+                <a class="navbar-brand" href="#">BioDesigner Dolphin</a>
+            </div>
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <button class="btn btn-danger" ng-click="jumpToProject()">Project</button>
+                </li>
+                <li>
+                    <button class="btn btn-success" ng-click="jumpToGene()">Gene Relationship</button>
+                </li>
+                <li>
+                    <button class="btn btn-danger" ng-click="jumpToSystem()">System</button>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="#" ng-click="changePasswordDialog()">
+                                <i class="fa fa-gear fa-fw"></i>
+                                ChangePassword
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#" ng-click="logoutDialog()">
+                                <i class="fa fa-sign-out fa-fw"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <center>
+        <img alt="logo" src="img/logo_design.png"  width="300px" height="300px" >
+        <div class="search_wrap">  
+		<form class="search_input " name="form" id="ui_element">
+           
+        <div class="search_wrap">
+        <!-- id="sea" -->
+        <center>
+        <div class="center-wrap">
+            <input type="text" id="gover_search_key" placeholder="Please input keywords ..." class="form-control input"  ng-model="key_word" ng-keypress="gene_info_by_board($event,key_word)">
+            <input class="sea" src="img/sea_b_img.png" width="33" height="33" ng-click="jumpToSearch(key_word)" id="sea_btn" type="image">
+        </div>
+         </center>   
+            
+               <div class="search_suggest" id="gov_search_suggest">  
+                <ul>  
+                </ul>
+               
+            </div>
+        </form>
+        </div>
+        </center>
+        </div>
+        <center>
+        <div class="select-list con3">
+            <span ng-class="{con3:true, cur:chosen[$index]}" ng-repeat="tag in tags1" ng-click="conChoice($index)"><em>{{tag}}</em></span>
+        </div>  
+        <div class="select-list con3">
+            <span ng-class="{con3:true, cur:chosen[5+$index]}" ng-repeat="tag in tags2" ng-click="conChoice(5+$index)"><em>{{tag}}</em></span>
+        </div> 
+    </div>
+    </center>
+
+   
+    
+    <!--log out modal-->
+    <div id="logout" class="modal-demo">
+		<button type="button" class="close" onclick="Custombox.close();">
+			<span>×</span>
+			<span class="sr-only">Close</span>
+		</button>
+		<h4 class="title">Log Out</h4>
+		<div class="text">
+			<h3>Are You Sure?</h3>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+			<button type="button" class="btn btn-primary" ng-click="log_out()">Confirm</button>
+		</div>
+	</div>
+	<!--change password modal-->
+    <div id="cgPwd" class="modal-demo">
+		<button type="button" class="close" onclick="Custombox.close();">
+			<span>×</span>
+			<span class="sr-only">Close</span>
+		</button>
+		<h4 class="title">Change Password</h4>
+		<div class="text">
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+					<label for="old password" class="col-sm-2 control-label">Old Password</label>
+					<div class="col-sm-10">
+						<input type="password" class="form-control" placeholder="old password" ng-model="old_password"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="new password" class="col-sm-2 control-label">New Password</label>
+					<div class="col-sm-10">
+						<input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="confirm password" class="col-sm-2 control-label">Confirm Password</label>
+					<div class="col-sm-10">
+						<input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password"/>
+					</div>
+					
+				</div>
+			</form>
+			
+		</div>
+		
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+			<button type="button" class="btn btn-primary" ng-click="change_password(old_password,new_password,re_password)">Confirm</button>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="./js/jquery-3.2.1.slim.js"></script>  
+ 	<script src="../public/custombox/dist/legacy.min.js"></script>
+    <script src="../public/custombox/dist/custombox.min.js"></script>
+    <script src="../public/angular/angular.min.js"></script>
+    <script src="../public/angular-animate/angular-animate.min.js"></script>
+    <script src="../public/angular-aria/angular-aria.min.js"></script>
+    <script src="../public/angular-material/angular-material.min.js"></script>
+    <script src="../public/jquery/dist/jquery.min.js"></script>
+    <script src="../public/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../public/d3/d3.min.js"></script>
+    <script src="./js/search.js"></script>
+    <script src="./js/draw.js"></script>
+    <script src="js/jquery-1.10.2.min.js"></script>
+ <!-- <script type="text/javascript">  
+  
+ $(document).ready(function () {
+		var menuYloc = $("#right").offset().top; //此ID为随着屏幕滚动div的ID
+		$(window).scroll(function () {
+		var offsetTop = menuYloc + $(window).scrollTop() + "px";
+		$("#right").animate({ top: offsetTop }, { duration: 600, queue: false }); //此ID为随着屏幕滚动div的ID
+		});
+		});  
+ window.onscroll=function(){ 
+	 var oDiv=document.getElementById("right"); 
+	 oDiv.style.top=document.body.scrollTop + 300;  //控制上下位置
+	 oDiv.style.left = document.body.scrollLeft + 300; //控制横向位置
+	 } 
+ 
+//实现搜索输入框的输入提示js类  
+function oSearchSuggest(searchFuc){  
+    var input = $('#gover_search_key');  
+    var suggestWrap = $('#gov_search_suggest');  
+    var key = "";  
+    var init = function(){  
+        input.bind('keyup',sendKeyWord);  
+        input.bind('blur',function(){setTimeout(hideSuggest,100);})  
+    }  
+    var hideSuggest = function(){  
+        suggestWrap.hide();  
+    }  
+      
+    //发送请求，根据关键字到后台查询  
+    var sendKeyWord = function(event){  
+          
+        //键盘选择下拉项  
+        if(suggestWrap.css('display')=='block'&&event.keyCode == 38||event.keyCode == 40){  
+            var current = suggestWrap.find('li.hover');  
+            if(event.keyCode == 38){  
+                if(current.length>0){  
+                    var prevLi = current.removeClass('hover').prev();  
+                    if(prevLi.length>0){  
+                        prevLi.addClass('hover');  
+                        input.val(prevLi.html());  
+                    }  
+                }else{  
+                    var last = suggestWrap.find('li:last');  
+                    last.addClass('hover');  
+                    input.val(last.html());  
+                }  
+                  
+            }else if(event.keyCode == 40){  
+                if(current.length>0){  
+                    var nextLi = current.removeClass('hover').next();  
+                    if(nextLi.length>0){  
+                        nextLi.addClass('hover');  
+                        input.val(nextLi.html());  
+                    }  
+                }else{  
+                    var first = suggestWrap.find('li:first');  
+                    first.addClass('hover');  
+                    input.val(first.html());  
+                }  
+            }  
+              
+        //输入字符  
+        }else{   
+            var valText = $.trim(input.val());  
+            if(valText ==''||valText==key){  
+                return;  
+            }  
+            searchFuc(valText);  
+            key = valText;  
+        }             
+          
+    }  
+    //请求返回后，执行数据展示  
+    this.dataDisplay = function(data){  
+        if(data.length<=0){  
+            suggestWrap.hide();  
+            return;  
+        }  
+          
+        //往搜索框下拉建议显示栏中添加条目并显示  
+        var li;  
+        var tmpFrag = document.createDocumentFragment();  
+        suggestWrap.find('ul').html('');  
+        for(var i=0; i<data.length; i++){  
+            li = document.createElement('LI');  
+            li.innerHTML = data[i];  
+            tmpFrag.appendChild(li);  
+        }  
+        suggestWrap.find('ul').append(tmpFrag);  
+        suggestWrap.show();  
+          
+        //为下拉选项绑定鼠标事件  
+        suggestWrap.find('li').hover(function(){  
+                suggestWrap.find('li').removeClass('hover');  
+                $(this).addClass('hover');  
+          
+            },function(){  
+                $(this).removeClass('hover');  
+        }).bind('click',function(){  
+            input.val(this.innerHTML);  
+            suggestWrap.hide();  
+        });  
+    }  
+    init();  
+};  
+  
+//实例化输入提示的JS,参数为进行查询操作时要调用的函数名  
+var searchSuggest =  new oSearchSuggest(sendKeyWordToBack);  
+  
+//这是一个模似函数，实现向后台发送ajax查询请求，并返回一个查询结果数据，传递给前台的JS,再由前台JS来展示数据。本函数由程序员进行修改实现查询的请求  
+//参数为一个字符串，是搜索输入框中当前的内容  
+function sendKeyWordToBack(keyword){  
+       /*  var obj = {  
+                "keyword" : keyword  
+             };  
+             $.ajax({  
+                       type: "POST",  
+                       url: "${ctx}/front/suqiu2/search/prompt-keyword.action",  
+                       async:false,  
+                       data: obj,  
+                       dataType: "json",  
+                       success: function(data){  
+                         //var json = eval("("+data+")");  
+                         var key=data.split(",");  
+                         var aData = [];  
+                         for(var i=0;i<key.length;i++){  
+                                //以下为根据输入返回搜索结果的模拟效果代码,实际数据由后台返回  
+                            if(key[i]!=""){  
+                                  aData.push(key[i]);  
+                            }  
+                         }  
+                        //将返回的数据传递给实现搜索输入框的输入提示js类  
+                         searchSuggest.dataDisplay(aData);  
+                       }  
+         });      */  
+               
+                //以下为根据输入返回搜索结果的模拟效果代码,实际数据由后台返回  
+                var aData = [];  
+         if(keyword=="aaa"){
+        	 aData.push(keyword+'返回数据-返回数据-返回数据1');  
+             aData.push(keyword+'返回数据-返回数据-返回数据2');  
+             aData.push(keyword+'返回数据-返回数据-返回数据1');  
+             aData.push(keyword+'返回数据-返回数据-返回数据2');  
+             aData.push(keyword+'返回数据-返回数据-返回数据1');  
+             aData.push(keyword+'返回数据-返回数据-返回数据2');  
+             aData.push(keyword+'返回数据-返回数据-返回数据1');  
+             aData.push(keyword+'返回数据-返回数据-返回数据2');  
+         }
+               /*  aData.push(keyword+'返回数据1');  
+                aData.push(keyword+'返回数据2');  
+                aData.push(keyword+'不是有的人天生吃素的');  
+                aData.push(keyword+'不是有的人天生吃素的');  
+                aData.push(keyword+'2012是真的');  
+                aData.push(keyword+'2012是假的');   */
+                //将返回的数据传递给实现搜索输入框的输入提示js类  
+                searchSuggest.dataDisplay(aData);  
+      
+}  
+
+ 
+</script>   -->
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+</body>  
+</html>  

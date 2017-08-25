@@ -1,0 +1,235 @@
+.right-side-bar{
+	position: static;
+	right:0px;
+	padding-right:0;
+}
+.sidebar{
+	padding: 0;
+	position: fixed;
+	top: 0px;
+	bottom: 0;
+	display: block;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background-color: #f8f8f8;
+}
+.nav-sidebar{
+	margin-right: -21px;
+	margin-bottom: 20px;
+	margin-left: -20px;
+}
+@media(min-width:768px) {
+	.right-side-bar{
+		right:-15px;
+		padding-right:0;
+	}
+}
+.modal-demo {
+    background-color: #FFF;
+    width: 600px;
+    border: #000 solid 1px;
+    border-radius: 10px;
+    box-shadow: 0 8px 6px -6px black;
+    text-align: left;
+    display: none;
+}
+.title {
+    padding: 10px 20px 15px 20px;
+    line-height: 18px;
+    font-size: 18px;
+    border-bottom: #CCC solid 1px;
+}
+.text {
+    padding: 0 20px 20px 20px;
+}
+.close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+.btn-edit{
+    float: right;
+}
+.div_graph{
+	background-color: #FFF;
+}
+ .search_center{
+ 	text-align:center;
+	width:100%;
+	font-size: 100px;
+}
+.center-wrap{
+height:60px;
+text-align:center;
+margin-left:32%;
+width:100%;
+}
+.input{	width:500px;}
+.logo{
+	float:left;
+	margin-left:6px;
+} 
+.search_wrap{
+	width:100%;text-align:center;
+}
+.form-control{
+	width:500px;
+	height: 44px;
+	font-size: 19px;float:left;
+	font-family: "Segoe UI Light";	
+}
+
+.sea{
+	float:left;
+	width:44px;
+	height: 44px;
+	margin-left:3px;
+	border-radius: 3px;
+}
+
+em{font-style:normal;}
+
+.main{width:796px;margin:50px auto;font-size:14px; }
+.main h2{text-align:center;line-height:60px;color:#555;}
+
+.label-box{width:732px;min-height:30px;padding:20px;border:1px solid #99CCFF;border-top:2px solid #99CCFF;overflow:hidden;border-radius:3px;}
+.label-box span{display:inline-block;background:#99CCFF;padding:6px 14px;color:#fff;border-radius:3px;margin:0 3px;}
+
+.select-box{margin-top:10px;overflow:hidden;;}
+.select-list{height: 50px;background:#fff;padding:10px;border:1px solid ##FFCC99;border:0.1px solid ##ccc;border-radius:3px;}
+.select-list span{display:inline-block;padding:5px 14px;font-size:14px;background:#eee;color:#aaa;text-align:center;border-radius:3px;margin:0 3px;cursor:pointer;}
+.select-list .cur{background:#5cb85c;color:#fff;}
+
+.div{
+ width: 600px;
+}
+
+.list{
+	margin-top:30px;
+	background:#fff;
+    float:left;
+	margin-left:60px;
+	width:60%;
+}
+.color{color:black; text-decoration:none;}/*链接设置*/
+.color:visited{color:#000; text-decoration:none;}/*访问过的链接设置*/
+.color:hover{color:#3586bc; /* text-decoration:underline; */text-decoration:none;}/*鼠标放上的链接设置*/
+
+.result-title{
+	font-size:24px; 
+}
+
+.list-div{
+	padding:15px;
+	width:100%; 
+	border:solid 1px #ccc;
+	border-radius:30px;
+	/* background:#ccc; */
+	/* background:#ccaeef; */
+	background:##e9efef;
+}
+.list-div:hover{
+	padding:15px;
+	width:100%; 
+	border:solid 1px #0075a9;
+	border-radius:30px;
+	/* background:#ccc; */
+	/* background:#ccaeef; */
+	background:#fcfcfc;
+	
+}
+.right-line{
+	margin-top:0px;
+	height:6px; 
+}
+.line{
+	margin-left:60px;
+	float:left;
+    width:0.4px; 
+    height:400px; 
+    background:#ccc; 
+}
+
+.list-right{
+	border:solid 1px #aaa;
+	border-radius:30px;
+	margin-left:40px;
+	float:left;	background:##6b9de2;
+
+}
+
+.recommendation-header{
+/* 
+	border:solid 2px #ddd;
+	border-radius:30px; */
+	font-size:24px;
+	height:50px;
+}
+li{
+	margin-top:10px;
+}
+.recommendation{
+    margin-top:0px;
+    margin-bottom:20px;
+	margin-left:40px;;
+	float:left;	
+}
+
+li{list-style:none;}/* 把默认的给去掉，然后把着了色的圆点切成一张背景图片使用； */
+/* li{background:url(图点图片路径) no-repeat;} */
+
+.list-li{
+	font-size:20px;
+	text-align:center;
+	font-family:"Calibri";
+}
+.list-li:hover{
+	font-size:20px;
+	text-align:center;
+	font-family:"Calibri";
+	/* background:#efefef; */
+	border-radius:30px;
+	border:solid 1px #24a4ff;
+}
+
+.point1{
+	height:10px;
+	width:10px;
+	background-color:#f35762;
+	border-radius:30px;
+}
+.point2{
+	height:10px;
+	width:10px;
+	background-color:#6b9de2;
+	border-radius:30px;
+}
+.point3{
+	float:left;	
+	height:6px;
+	width:6px;
+	background-color:#fab735;
+	border-radius:30px;
+}
+
+.point_1{
+	height:6px;
+	width:6px;
+	background-color:#f35762;
+	border-radius:30px;
+}
+.point_2{
+	height:6px;
+	width:6px;
+	background-color:#6b9de2;
+	border-radius:30px;
+}
+.point_3{
+	float:left;	
+	height:6px;
+	width:6px;
+	background-color:#fab735;
+	border-radius:30px;
+}
+
+
