@@ -1,89 +1,169 @@
 {
     "successful": true,
     "data": {
-        "pageSum": 1,
+        "pageSum": 2,
         "content": [{
-            "id": "AV3_VJJor5lUclF2BU31",
-            "title": "2015-Tsinghua",
+            "id": "AV3_VFr3r5lUclF2BU10",
+            "title": "2015-Duke",
+            "keywords": "Xochimilco formaldehyde Sclerotite temperature components hydrolysis saccharification post-staining resistance expression",
+            "abstract": "We put \u0091spacers\u0092 in between the different binding sites so the mRNA would form a hairpin and allow for a RBS to be exposed directly in front of the programmable cell death gene we wanted to be transcribed.These added binding sites allow for the reporter gene to compete with the sites allow the Kanamycin resistance or other target gene.The thermistor used in the PCR machine was calibrated on a kitchen stove with multimeter capable of reading temperature through its own thermistor attachment.Befor...",
+            "highlight": [" cells.However, the <b>protegrin</b> and tachyplesin reading could not be <b>proven</b> to inhibit growth.", " <b>protein</b>, reducing hemolytic capacity, but still maintaining broad spectrum", " as offering insights into the uses of Cas9 <b>protein</b> technologies.Dr.Lingchong You", " a significant degree.It could be that the lysis <b>protein</b> is less effective when"],
+            "score": 5.9297867,
+            "hits": 0
+        }, {
+            "id": "AV3_VPzlr5lUclF2BU7o",
+            "title": "2016-TMMU_China",
+            "keywords": "fluorescence penicillin crescentus indigoidine StarScaffold nanoparticles formaldehyde polysilicate rhamnolipids respiratory",
+            "abstract": "We also clarified a part BBa_K1830002 created by the iGEM15_Concordia Group.During the experiment, we utilized and verified a part BBa_K1654007 created by the iGEM15_IIT_Madras Group....",
+            "highlight": [" to direct <b>protein</b> secretion and the cA domain to make <b>proteins</b> surface", ", and Streptococcus.Among them, the NICE system is the most widely used <b>protein</b>"],
+            "score": 5.9039526,
+            "hits": 0
+        }, {
+            "id": "AV3_VNr7r5lUclF2BU6k",
+            "title": "2016-NEFU_China",
+            "keywords": "resistance expression metabolism chaperonin engineered Magnetosome incubation antibiotic respiration leucyl-tRNA",
+            "abstract": "As a result, the Spycatcher in the fusion protein is anchored in the Magnetosome, which can be isolated from AMB-1 bacterial through sonication and centrifugation.Thus, a protein of interest can be expressed on the Magnetosome when fused with Mms13.Due to covalent linkage, stringent washing can be used to achieve high purity of the recombinant protein that is subsequently released by cleavage of a designated protease.Overall, our novel approach for protein purification is reliable and highly spe...",
+            "highlight": [" test the binding rate of Spycatcher and Spytag with different <b>protein</b> molecular", " devices to improve the output of magnetosome and get <b>protein</b> from the", " remove <b>proteins</b> of nonspecific binding and the <b>protein</b> of interest can be", " <b>protein</b> purification to some freshmen We have delivered 800 handouts to the"],
+            "score": 5.548066,
+            "hits": 0
+        }, {
+            "id": "AV3_VE7-r5lUclF2BU1b",
+            "title": "2015-BostonU",
+            "keywords": "U n k n o w n",
+            "abstract": "Additionally, characterization of our systems in mammalian cells demonstrates successful operation in the chassis of interest.Ultimately, we have shown characterization of a conditional dimerization TP901-1 prototype.Below is one of our flow cytometry results validating this system:The above TP901-1 integrase was split between amino acids 326-327, using FKBP-FRB dimerization domains.Below is one of our flow cytometry results validating this:The above TP901-1 integrase had the same split between ...",
+            "highlight": ["Bacterial ProtocolsTo clone split <b>protein</b> constructs into our conditional", " the <b>protein</b>\u0092s interior regions.The model aligned the \u0093annotated catalytic domain", " domains.Addition of the abscisic acid inducer resulted in dimerization of the <b>protein</b>", "Bacterial ProtocolsTo clone split <b>protein</b> constructs into our conditional"],
+            "score": 4.14472,
+            "hits": 0
+        }, {
+            "id": "AV3_VOeMr5lUclF2BU62",
+            "title": "2016-OUC-China",
+            "keywords": "Plastiback methamphetamine production ecosystems nucleotide stem-loops researchers Keratinase biosensors phaC1-A-B1",
+            "abstract": "Smolke C D, Keasling J D. Effect of gene location, mRNA secondary structures, and RNase sites on expression of two genes in an engineered operon[J].Thus, we are going to insert the stem-loops with required folding free energy between the coding regions of GSH?and GSH? to coordinate their relative expression.[1].Metabolic engineering of Escherichia coli for the production of 3-aminopropionic acid[J].Thus, for the sake of tuning the expressions of genes within polycistron, we aim to develop a tigh...",
+            "highlight": [" Both relative expression on RNA and <b>protein</b> level of designed stem-loops of -30.1", " which provides a database of stem loops.Moreover, when users need <b>proteins</b>", " <b>protect</b> us from biotic and abiotic hazards.Then for lab safety, a routine", " Escherichia coli[J].Similarly, manipulation of multisubunit <b>proteins</b> (for example", " with the free energy of stem-loops.Figure8 The <b>protein</b> fluorescence of upstream"],
+            "score": 3.9794238,
+            "hits": 0
+        }, {
+            "id": "AV3_VK_cr5lUclF2BU5A",
+            "title": "2016-BNU-China",
+            "keywords": "Plastiback methamphetamine production ecosystems nucleotide stem-loops researchers Keratinase biosensors phaC1-A-B1",
+            "abstract": "C,D left to right: pSB1C3 empty(37?), pSB1C3 empty(Arabinose induced), P(3HB) with natural promotor, P(3HB) with pBAD 1,2(37?), P(3HB) with pBAD 1,2(Arabinose induced)The result indicated that we successfully added the heat-sensitive promoter(BBa_K873002) and arabinose inducible promoter(BBa_I0500) to the up stream of P(3HB).)We sent the plamids with correct size to sequencing, the results showed that phaC1-A-B1 was successfully linked to the down stream of HSP promoter and pBAD promoter.We tran...",
+            "highlight": ["), ?-tubulin-YCE in pellet (66 kDa), <b>protein</b> marker, negative control in supernatant", " briefly with cold PEM, add GTP (final concentration 0.1 mmol/L).Mixed the <b>protein</b>", ", and then guide our next work.We summarized tubulin-inflorescence fusion <b>protein</b>\u0092s", " vivo or in vitro, they cannot aggregate into a complete <b>protein</b>, so no fluorescence", "Wet lab group leader (biobricks construction, microtubulin <b>protein</b> expression", " have used or produced in the experiment, such as alpha <b>protein</b>, beta <b>protein</b>, N"],
+            "score": 3.82948,
+            "hits": 0
+        }, {
+            "id": "AV3_VNzer5lUclF2BU6m",
+            "title": "2016-Newcastle",
+            "keywords": "Plastiback methamphetamine production ecosystems nucleotide stem-loops researchers Keratinase biosensors phaC1-A-B1",
+            "abstract": "In order to do so, we looked at the work carried out by the 2011 Tokyo-NokoGen iGEM team who used the smtA gene from Cyanobacteria and inserted it into a strain of E. coli.We designed two parts (BBa_K1895000 and BBa_K1895006) which respond to the heat-stress in two different ways:BBa_K1895000 contains the E. coli htpG promoter.This composite part also contains a modified BioBrick compatible ?32 coding region (the gene rpoH, BBa_K1895001) which will create a positive feedback loop to the PhtpG pr...",
+            "highlight": [" noticed with their design was that their porin overexpression <b>protein</b> was taken", " too low <b>protein</b> expression, ~1400 <b>proteins</b> per cell.The rest of this page will", " would minimise the risk posed by using this sequence.The <b>protein</b> we are dealing", " noticed with their design was that their porin overexpression <b>protein</b> was taken"],
+            "score": 3.791296,
+            "hits": 0
+        }, {
+            "id": "AV3_VKLmr5lUclF2BU4e",
+            "title": "2015-Waterloo",
+            "keywords": "constructed UMBC15project1 crystalline trans-zeatin angiostatin interdisciplinary specificity angiogenesis scientists applications",
+            "abstract": "The Cas9 Protein binds to a PAM site (NGG), attempts to match its sgRNA target sequence to the adjacent DNA strand and cleaves the DNA if it finds a match.To target a DNA sequence, a single guide RNA (sgRNA) is used to identify a match .This makes it possible to swap out a 20 base pair section of the sgRNA sequences, instead of synthesizing new targets from scratch, so there is no need to re-synthesize and re-clone the entire sgRNA sequence for each new target we d like to test.Since its popular...",
+            "highlight": [" <b>proteins</b> that <b>protect</b> against RNAi are produced.Both the time series data and heat maps", " weight <b>protein</b> takes longer than low molecular weight <b>protein</b>, and can easily be", " required for a cell to undergo apoptosis to <b>protect</b> the rest of the", " using (Py)Rosetta for <b>protein</b> modelling, and we had a couple helpful conversations", "The Cas9 <b>Protein</b> binds to a PAM site (NGG), attempts to match its sgRNA target", " conclusive in finding that the <b>protein</b> profile of GM rice had minimal differences to"],
+            "score": 2.7694144,
+            "hits": 0
+        }, {
+            "id": "AV3_VKHAr5lUclF2BU4b",
+            "title": "2015-Warwick",
+            "keywords": "sofra-tulle installation ?-carotene luciferase positioned positioning immunofluorescence luciferases biomarkers researchers",
+            "abstract": "By modifying cells to express (and display) zinc finger proteins on their surface, we can engineer cells that have the ability to recognise and bind to specific sequences of double stranded DNA.We looked at whether our anchor proteins were being expressed, as well as the binding between our zinc fingers and their unique binding domains.Zinc finger proteins are intracellular molecules that recognise (and bind) unique strands of double stranded DNA.We expressed these zinc fingers on the surface of...",
+            "highlight": [" objective was to prove that the modified <b>protein</b> was being expressed on the", " ensure that our plasmid is being translated into <b>protein</b>, folding correctly and", " visualisation of our cell, <b>protein</b>, and DNA origami.He is interested in the challenge", "By modifying cells to express (and display) zinc finger <b>proteins</b> on their"],
+            "score": 2.7434564,
+            "hits": 0
+        }, {
+            "id": "AV3_VGdNr5lUclF2BU2L",
+            "title": "2015-Heidelberg",
+            "keywords": "anaphylaxis7 consequences9 bio-painting creativity concentrations SynBioCraft organophosphorus production pesticides Erythromycin",
+            "abstract": "Reactions were stopped using 1 mM hydrochloric acid.A fusion of an ampicillin-binding aptamer and the HRP-F8 DNAzyme was incubated with hydrogen peroxide and TMP in either the presence or absence of ampicillin in A) reaction buffer or B) ampicillin-spiked energy drink.Fusions of a ketamine-binding aptamer and the HRP-F8 fusion DNAzyme designed to switch either on or off in the presence of ketamine as well as negative controls (DNAzymes predicted by our software to not possess an efficient switch...",
+            "highlight": [" via a linker to a HRP-mimicking DNAzyme that detects <b>protein</b> an a Western", " with purified <b>proteins</b>: Dr. Tam\u00e1s Haraszti for purified actin and the group of", "-25 Fragment amplification for <b>protein</b> construct (PCR)To obtain the required"],
+            "score": 2.7101576,
+            "hits": 0
+        }, {
+            "id": "AV3_VK2Pr5lUclF2BU46",
+            "title": "2016-Bielefeld-CeBiTec",
+            "keywords": "scientific concentration salicylate chlorophyll illustrated Photosystem therapeutic tetrapyrrolic characterized BBa_K1875016",
+            "abstract": "In our opinion, a scientifically well executed  project is equally important as the associated dialogue between scientists and the public.Our first presentation on our project  was in April when we discussed the generation of Evobodies with scientific staff of Bielefeld Unniversity.To breach this barrier, we engaged on different frontiers.Evobody generating system we experienced extreme difficulties explaining topics  like \"directed evolution\" or \"two hybrid system\" to a non scientific auditoriu...",
+            "highlight": [" min.Dilute 45 ?g of your target <b>protein</b> in 1.5 mL 1 M NaHCO3 Incubate rolling over night", ").An Evobody is a binding <b>protein</b> resulting from the combination of a scaffold, be", " in preparing and measuring samples for the <b>protein</b> identification via MALDI", " high speed evolution.virology and <b>protein</b> engeineering) and discussed in a", " high speed evolution.virology and <b>protein</b> engeineering) and discussed in a", " <b>proteins</b> Gal4 and Gal11P of Saccharomyces cerevisiae as positive controls.Positive"],
+            "score": 2.694055,
+            "hits": 0
+        }, {
+            "id": "AV3_VPryr5lUclF2BU7j",
+            "title": "2016-Technion_Israel",
+            "keywords": "reinhardtii anthocyanin hypotaurine chloroplast examinations Chlamydomonas fluorescence chemoreceptors BabbleBricks electrochemical",
+            "abstract": "Our project focuses on expanding the repertoire of chemoreceptors found in nature.The base of our project is the E. coli Tar chemoreceptor or more specifically, its ligand binding domain (LBD).Histamine-Tar, a receptor constructed with the help of computational design - using the  Rosetta  bioinformatics software suite to design mutations in the Tar receptor.Using S.Tar, scientists will be able to control the movement of bacteria, and direct them towards or away from a target material.fluidic ch...",
+            "highlight": [" successfully <b>proven</b> for both PctA-Tar chimera and Histamine-Tar variant of the Rosetta", ".- Expect to detect small <b>proteins</b> and molecules (the ligands).We ran the experiment 4", " chromo <b>protein</b>, to a fluidic chip.A chemical reaction which results in the change", " response.These are transmembrane <b>proteins</b>, that contain a periplasmic ligand", "+promoter+ blue chromogenic <b>protein</b> .Microscope testing - UU1250, UU1250 with"],
+            "score": 2.6845996,
+            "hits": 0
+        }, {
+            "id": "AV3_VQHEr5lUclF2BU7y",
+            "title": "2016-TU_Darmstadt",
+            "keywords": "U n k n o w n",
+            "abstract": "...",
+            "highlight": [" (miniColicin) with its corresponding immunity <b>protein</b>, whose functional translation is activated upon presence of the nnAA.", " immunity <b>protein</b> we simulated 20 ? states per thermodynamic step.All terms consist of"],
+            "score": 2.6755772,
+            "hits": 0
+        }, {
+            "id": "AV3_VKY1r5lUclF2BU4n",
+            "title": "2015-Yale",
             "keywords": "chromoprotein encouraged references respiration Lethbridge co-activator oneidensis experience Synechococcus biomaterials",
-            "abstract": "Attended small Jamboree held in Taiwan by NCTU, gave presentation on behalf of our team.Attended small Jamboree held in Taiwan by NCTU, gave presentation on behalf of our team.A wonderful presentation giver.Zhou Chen: Experiment design.Designed and help made hardware tutorial.Huang Yiming: Experiment design and a lot of bench-work.",
-            "highlight": {
-                "result": [" untreated (kept in dark) group.Eventually, we successfully fused two <b>proteins</b> with the seamless cloning, as is supported by the appearance of 4-5kb bands in"],
-                "modeling": ["According to the above assumption, we know that the translational level of the <b>protein</b> when the lac operator per unit concentration is not inhibited"],
-                "safety": [" normal bacterial activity, any improper disposal of ccdB <b>protein</b> and plasmids containing ccdB gene will pose serious results to the natural bacterial"],
-                "design": [" (the fusion <b>protein</b>) from a kinase to a phosphatase.The blue-light-sensitive LOV domain in its soluble light sensor YF1 is derived from a <b>protein</b> termed"],
-                "description": [" light input and the <b>protein</b> expression output based on previous results.All being said, we still needed to first determine the basic parameter of this"]
-            },
-            "score": 3.3272107,
+            "abstract": "PCC7002 is also a prime candidate for genetic modification: The organism s genome is fully sequenced (NCBI Taxonomy ID: 32049), its metabolic pathways are well-characterized (Hamilton and Reed 2012), and a system for protein overexpression has been developed for PCC7002 (Xu et al.PCC 7002 (hereafter PCC7002) is a fast-growing marine cyanobacterium capable of photosynthesis and free fatty acid (FFA) production (Ruffing 2014).We envision numerous potential applications for MAGE, CRISPR-Cas9, and o...",
+            "highlight": ["-fouling peptide with two modular components: a mussel adhesion <b>protein</b> (MAP) anchor", "-characterized (Hamilton and Reed 2012), and a system for <b>protein</b> overexpression", " the yellow-fluorescent citrine <b>protein</b> since its emission wavelength does not"],
+            "score": 2.5456939,
             "hits": 0
         }, {
-            "id": "AV3_VQzcr5lUclF2BU8P",
-            "title": "2016-Uppsala",
-            "keywords": "TAT-Apoptin antibiotics mechanical encryption calcitonin LC-Cutinase fusicoccin tetracycline controlled polystyrene",
-            "abstract": "Attributions Here we thank the people who made this project possible  Thank you for all of the support during the spring and summer, and for making it possible for us to do lab work during the summer.Mikael NissbeckLab course teaching assistantiGEM guru  Thank you for all your patience and the technical support about experimental procedures.Sethu Madhava Rao GunjaLab course teaching assistant  Thank you for all of the patience and the technical support about",
-            "highlight": {
-                "safety": [" <b>protein</b> would have to get into the nucleus.The booklet \u0093Common sense for laboratory work\u0094 by IBG, Uppsala University was available in the lab for quick"],
-                "description": [" <b>protein</b> is interesting firstly because it is about half the size of other fluorescent <b>proteins</b> that are being used today, making it suitable as a"]
-            },
-            "score": 2.6258528,
-            "hits": 0
-        }, {
-            "id": "AV3_VLmar5lUclF2BU5Y",
-            "title": "2016-Denver_Biolabs",
-            "keywords": "bacteriocins cementation TeamProtoCat antibiotics Acinetobacter propionate Description fluorescence recombinase antimicrobial",
-            "abstract": "The fluorimeter and optical density sensor we built was based on a design by the We relied on the DIY receptor design instructions created by We were inspired by a previous oxytocin project by We received their submitted oxytocin-neurophysin part from iGEM HQ and are working on We want to thank the University of Colorado Boulder and Colorado State University 2016 iGEM teams for helping us with our Jamboree presentation, providing us with a solid protocol for",
-            "highlight": {
-                "description": [" mating pathway and produce measureable green fluorescent <b>protein</b>.2) Create an oxytocin quality sensor using a G-<b>protein</b> coupled receptor in yeast: The"]
-            },
-            "score": 1.6240408,
-            "hits": 0
-        }, {
-            "id": "AV3_VJ6Hr5lUclF2BU4T",
-            "title": "2015-USTC",
-            "keywords": "scaffoldin antibiotic-resistant dioxygenase polyphosphate antibiotic extermination exterminateon inhabitants diphosphate light-induced",
-            "abstract": "Instructors of USTC project outreach through social network and activities, managing experiment design in modeling, pattern analysis and feasibility demonstration, main hardware engineer on CRISPR-Cas9 system on efflux system, wiki writer, experiment experts in molecular arrangement, control circuit based on Rasberry Pi and Arduino and physical hardware",
-            "highlight": {
-                "result": [",OprF, a bigger porin compared with OmpF in E. coli, is extracted from P.aeruginosa? transmembrane <b>protein</b> AcrB and EmrE to strongly block drug efflux"],
-                "safety": [", along with goggles, masks and gloves to toally <b>protect</b> oneself considering extreme pungent odor volatilizing when painting.To prevent possible hurt"],
-                "description": [" harmful to their metabolism and reproduction.When absence of chemical, there is no molecules bind to the chemoreceptors, cheW, an intracellular <b>protein</b>, is"],
-                "human_practice": [" species under the threats of human destruction, humans should not look for ways to <b>protect</b> them just to cover up their bad damage to them.We are"]
-            },
-            "score": 1.4816236,
-            "hits": 0
-        }, {
-            "id": "AV3_VFdar5lUclF2BU1s",
-            "title": "2015-Cooper_Union",
-            "keywords": "flowthrough CRISPR-Cas expression transcription peristaltic nitrogenase Synechocystis temperature bioeconomy environments",
-            "abstract": "Hardware team members closely collaborated to insure that all these different parts would work together This was the coding part of the project.This project is a continuation of work started by the 2014 Cooper Union iGEM team.It involves coding the arduino to control the loomino device along with designing the team website.The wet work of this project encompassed all genetic engineering components.Members that designed and built Loomino to fulfill the mechanics needed to efficiently run the biology.Members who programmed the Arduino to perform the actions fluently and in succession.We d like to thank Dac Anh, a graduate mentor who formerly worked at Mount Sinai s Icahn School of Medicine, for his assistance on the design of the device.His input allowed us to properly plan for taking the project into the next step, and explained the possibility of using microfluidics to improve on the current model.This part of the project encompasses the physical device.",
-            "highlight": {
-                "result": [" to confirm that the proper sequences were present in the plasmids.At this point, we only need to purify the <b>proteins</b> from the Rosetta cells and test"],
-                "protocol": ["-stranded-dna-cdna-using-t4-rna-ligase-19 : Gel Extraction - http://www.aun.edu.eg/molecular_biology/gene&<b>protein</b>/Gel%20extraction-Qiagen.pdf10 : Miniprep"],
-                "safety": [" essentially make any sequence rapidly may make it more challenging to <b>protect</b> intellectual property.We addressed some of those concerns in a \"white paper"]
-            },
-            "score": 1.3143444,
-            "hits": 0
-        }, {
-            "id": "AV3_VIZNr5lUclF2BU3V",
-            "title": "2015-Sherbrooke",
+            "id": "AV3_VG2Tr5lUclF2BU2Y",
+            "title": "2015-KAIT_Japan",
             "keywords": "Dronpa145N interviews automation collaborated perception computational Biohackspace beneficial development illuminated",
-            "abstract": "With that in mind, this page is intended to attribute, for every person that contributed to our project, the work they have achieved to make this into a reality.Alexandre England: Team Leader for Instrumentation related work, Heat Transfer Simulation with Comsol software, Mechanical and electrical design of the platformGuillaume Robitaille Beaumier: Team Leader for Mechatronix related work, BananaBoard design, Centrifuge mechanical designKevin Albert: TAC s turbidity calculation and calibration in C# on the BananaBoard s microprocessor, Serial communicationSimon Boucher: Centrifuge electrical and software design and support for BananaBoard designLouis-Philippe Gaudreau: Team Instrumentation responsible for documentation and presentations, Peltier elements modeling, MC1.5 and MC96 magnets experimentation and Wiki administrator for Team InstrumentationGuillaume Leblanc-Walsh: Platform and tool-holder mechanical and electrical design, and pipettes software designLouis-Vincent Major: Microprocessor related work for TAC, MC1,5 and MC96, CAN communication protocol implementation in BananaBoards, firmware for platform and Tool Holder control and software designPhilippe-Antoine Major: Microprocessor related work for TAC, MC1,5 and MC96, CAN communication protocol implementation in BananaBoards, firmware for platform and Tool Holder control and software designNicolas No\u00ebl: Gripper mechanical and electrical design, CAN communication protocol, Team Mechatronix documentation and presentation and Wiki administrator for MechatronixPierre-Olivier Payant: Platform mechanical assembly and electrical design, BananaBoard assembly and debuggerDave Plouffe: Gripper electrical and software design, server and software interfaceAlexandre R\u00e9gis: Mechanical support, Team s human resources, Mechatronix documentationFr\u00e9d\u00e9ric Grenier: Biological parts construction and characterization, Wiki administrator for biology s sectionKevin Neil: Biological parts construction and characterization, Wiki administrator for biology s sectionS\u00e9bastien Rodrigue: Project instigator, biology domain resource, mechanical support, financial supportWe want to thank all our sponsors for their contribution, whether monetary or material.Being a team according to us is that everyone contributes in their own way, with their own set of skills and ideas to the project.It has a few different modules, each with their own challenges: some electrical, some mechanical, some software and even some human oriented.In our case, our project is considerably voluminous.",
-            "highlight": {
-                "protocol": [", streptinomycin, chloramphenicol and glucose at working concentration and incubated overnight.(2000) and uses three <b>protein</b> for the lambda phage: bet, gam, exo.It"]
-            },
-            "score": 0.8035151,
+            "abstract": "et al.\u0093Structural basis for the influence of a single mutation K145N on the oligomerization and photoswiching rate of Dronpa\u0094 Acta Cryst,D68,2012,1653-16592)Xin X.Zhou and Michael Z. Lin.\u0094Photoswitchable Fluorescent Proteins: Ten Years of Colorful Chemistry and Exciting Applications\u0094Curr Opin Chem Biol,Aug;17(4),2013,682-6903)Hideaki Mizuno.et al.\u0094Light-dependent regulation of structural flexibility in a photohromic fluorescent protein\u0094Proc Natl Acad Sci U S A,105(27),2008,927-92324)XIn X. Zhou....",
+            "highlight": [" by using His-tag purification,we ran these <b>proteins</b> on SDS-PAGE.We analyzed the", " express Dronpa(fluorescent <b>protein</b>).If you watch blue lights directly,you hurt your", " iida lab, taught us methods of Confocal microscope and <b>protein</b>", " flexibility in a photohromic fluorescent <b>protein</b>\u0094Proc Natl Acad Sci U S A,105(27"],
+            "score": 2.512531,
+            "hits": 0
+        }, {
+            "id": "AV3_VO3Ir5lUclF2BU7B",
+            "title": "2016-Queens_Canada",
+            "keywords": "fluorescence penicillin crescentus indigoidine StarScaffold nanoparticles formaldehyde polysilicate rhamnolipids respiratory",
+            "abstract": "One other reason behind further investigating the oxidation domain in IndC, the NRPS module responsible for indigoidine synthesis, was because the exact mechanism of indigoidine formation was unknown.It has been debated whether the oxidation domain acts on the cyclized final compound as seen in other FMN-dependent oxidation domains found within NRPS systems, or whether it would oxidize the glutamine attached to the PCP.Therefore, one possibility we wanted to explore was steric hindrance of the o...",
+            "highlight": [" thiolation/peptidyl carrier <b>protein</b> (T or PCP) domain propagates the growing", " expertise on everything from cloning strategies to <b>protein</b> purification.Dr.Zechel was", " codons), the concept behind <b>proteins</b> functioning as the machinery working inside", " <b>Protein</b> concentrated, total concentration of 5.7 mg/mLBpsA Thioesterase Domain"],
+            "score": 2.4963155,
+            "hits": 0
+        }, {
+            "id": "AV3_VEjMr5lUclF2BU1N",
+            "title": "2015-ANU-Canberra",
+            "keywords": "fluorescence fluorescent cerevisiae circularization questionnaires Helicobacter cultivated applications participation integrated",
+            "abstract": "We hoped to use the CRY2/CIB1 system to regulate a split Cre-recombinase to induce the expression of a late-stage enzyme in the NAD biosynthesis pathway, thus maximising the yield of this valuable metabolite.In our experiments, we fused CRY2 and CIB1 to CFP and YFP (respectively) to see if the CRY2/CIB1 system was expressed and functional in E. coli by FRET analysis.Further, CIB1 fragments showed significant proteolysis, suggesting that despite the strong YFP expression seen in the FRET tests, t...",
+            "highlight": [" transfer (FRET) phenomenon.Even a successfully expressed <b>protein</b> may not function", " outreach sessions.The <b>protein</b> purification and analysis was organised by Henry and", " FRET tests using fluorescent <b>proteins</b> fused to CRY2 and CIB1 despite a large"],
+            "score": 2.3113,
+            "hits": 0
+        }, {
+            "id": "AV3_VQr0r5lUclF2BU8K",
+            "title": "2016-UNSW_Australia",
+            "keywords": "bacteriocins cementation TeamProtoCat antibiotics Acinetobacter propionate Description fluorescence recombinase antimicrobial",
+            "abstract": "This is a well characterised outer membrane anchor, and thus fusion of GFP to this protein should result in outer membrane localisation.We hope the results of this project will serve future teams well, enabling them to utilise OMVs as a platform technology for the application of synthetic biology projects.Given that OMVs are nanoscale, on the order of 10-20nm in diameter, we needed two really sensitive machines to see them.Thus, OMVs can potentially be easily customised for various functions by ...",
+            "highlight": [" <b>Protein</b> stainFigure 3: SDS PAGE checking expression of g3p, TolR and INPNC-GFP", " prepared the samples... Gavin was also in charge of all <b>protein</b> extractions, SDS", " this <b>protein</b> should result in outer membrane localisation.We hope the results of", " Thursday we then re-extracted separate total and soluble <b>protein</b> fractions from our"],
+            "score": 2.257611,
+            "hits": 0
+        }, {
+            "id": "AV3_VJzFr5lUclF2BU4O",
+            "title": "2015-UNC-Chapel_Hill",
+            "keywords": "U n k n o w n",
+            "abstract": "As a result, a promoter with MLC binding sites should function as a glucose inducible promoter (repressing transcription at low glucose concentrations).For our project, we synthesized four variants of the MLC promoter.MLC binds directly to palindromic DNA sequences and blocks RNA polymerase from proceeding with transcription.1,2 In E. coli, MLC is involved in the regulation of many genes involving PTS, including the gene pstG, which encodes for the transmembrane glucose permease also called enzy...",
+            "highlight": [" portion of the <b>protein</b>, is also necessary for the sequestration to occur (see"],
+            "score": 2.2512188,
+            "hits": 0
+        }, {
+            "id": "AV3_VEoFr5lUclF2BU1Q",
+            "title": "2015-Austin_UTexas",
+            "keywords": "U n k n o w n",
+            "abstract": "FRI mentors for introducing the team to synthetic biology, and in particular Nathan Shin and Kelsey Wong for assisting us in getting ready this fall.We would like to thank the following for funding that made it possible for us to work on these research projects and attend the Giant Jamboree!The team would also like to thank other members of the Barrick and Ellington labs for helpful comments, advice, and suggestions throughout the summer!Unless otherwise noted, all projects, lab work, and materi...",
+            "highlight": [" fluorescence <b>proteins</b> as a model for other systems such as therapeutic <b>proteins</b> and"],
+            "score": 2.2472887,
             "hits": 0
         }],
-        "suggestions": [
-            ["proteins", 0.785993754863739],
-            ["tag", 0.6497153043746948],
-            ["fusion", 0.6132509708404541],
-            ["subunit", 0.6072637438774109],
-            ["aptamer", 0.6056107878684998],
-            ["signal", 0.603040337562561],
-            ["c-terminal", 0.6028943061828613],
-            ["spytag", 0.5990147590637207],
-            ["colicin", 0.595070481300354]
-        ],
+        "suggestions": ["proteins", "tag", "fusion", "subunit", "aptamer", "signal", "c-terminal", "spytag", "colicin"],
         "parts": [{
             "_index": "biodesigners",
             "_type": "parts",

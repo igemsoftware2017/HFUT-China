@@ -40,8 +40,6 @@ def getdetailbyid(_id):
 
 def getanswer(_keyword,_track1):
 
-    # if _track1 != '':
-    #     _query['query']=({"match":{"track":_track1}})
     _query = {
         "size": 5000,
         "query": {
@@ -76,7 +74,7 @@ def getanswer(_keyword,_track1):
         "highlight": {
             "pre_tags" : ["<b>"],
             "post_tags" : ["</b>"],
-            "fragment_size" : 150,
+            "fragment_size" : 80,
             "fields": {
                 "attribution":{},
                 "background":{},
@@ -105,17 +103,20 @@ def filter(searchsort):
     for i in searchsort:
         # print (i)
         abstract = ""
-        if i['_source']['attribution']!="":
-            abstract = i['_source']['attribution']
-        elif i['_source']['background']!="":
-            abstract = i['_source']['background']
-        elif i['_source']['description']!="":
+        if i['_source']['description']!="":
             abstract = i['_source']['description']
         elif i['_source']['design']!="":
             abstract = i['_source']['design']
-        highlight = i['highlight']
-        for field in highlight.keys():
-            highlight[field] = highlight[field][:1]
+        elif i['_source']['background']!="":
+            abstract = i['_source']['background']
+        elif i['_source']['attribution']!="":
+            abstract = i['_source']['attribution']
+        abstract = abstract[:500]
+        abstract = abstract+"..."
+        highlight = list()
+        if len(i['highlight'])>0:
+            for field in i['highlight'].keys():
+                highlight.append(i['highlight'][field][0])
         tmp = {
             'id':i['_id'],
             'title':i['_source']['year']+'-'+i['_source']['team_name'],
