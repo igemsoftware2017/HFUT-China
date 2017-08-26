@@ -51,8 +51,8 @@
 					obj.append('<a href="javascript:;" class="nextbtn">next</a>');
 				}
 				/*尾部*/
-				obj.append('<span>'+'&nbsp;&nbsp;A total of '+'<b>'+pageinit.pageNum+'</b>'+' pages，'+'</span>');
-				obj.append('<span>'+'jump to page'+'<input type="text" class="zxfinput" value=""/>'+''+'</span>');
+				/*obj.append('<span>'+'&nbsp;&nbsp;A total of '+'<b>'+pageinit.pageNum+'</b>'+' pages，'+'</span>');*/
+				obj.append('<span>'+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jump to page'+'<input type="text" class="zxfinput" value=""/>'+''+'</span>');
 				obj.append('<span class="zxfokbtn">'+'ok'+'</span>');
 			}());
 		},
