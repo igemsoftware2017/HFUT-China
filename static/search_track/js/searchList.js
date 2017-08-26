@@ -6,7 +6,7 @@ searchList.config(['$locationProvider', function($locationProvider) {
     requireBase: false
   });
 }]);
-searchList.controller('searchListController',function($scope, $http, $location, $mdToast){
+searchList.controller('searchListController',function($scope, $http, $location, $mdToast, $sce){
 	var trackNum = 9;
 	$scope.tags1 = ['Foundational Advance','Biochemistry','Hardware','Microbiology','Manufacturing'];
 	$scope.tags2 = ['Medicine','Diagnostics','Environment','Genetic engineering'];
@@ -121,7 +121,14 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 		$http(opt).success(function(data){
 			if(data.successful){
 				console.log(data.data);
-				$scope.teams = data.data.content;
+				$scope.teams = data.data.content.map(function(team){
+					team.highlight.forEach(function(hightlight){
+						team.abstract = team.abstract + "..." + hightlight;
+					});
+					team.abstract = $sce.trustAsHtml(team.abstract);
+					return team;
+				});
+				$scope.words = data.data.suggestions;
 			}
 		});
 	// 	$scope.teams = [{
@@ -196,34 +203,12 @@ searchList.controller('searchListController',function($scope, $http, $location, 
     //         "hits": 0
     //     }];
 	}
-	$scope.getSuggestions = function(){
-		$scope.words = [{
-            "key": "proteins",
-        }, {
-            "key": "tag",
-        }, {
-            "key": "fusion",
-        }, {
-            "key": "subunit",
-        }, {
-            "key": "aptamer",
-        }, {
-            "key": "signal",
-        }, {
-            "key": "c-terminal",
-        }, {
-            "key": "spytag",
-        }, {
-            "key": "colicin",
-        }];
-	}
-
+	
 	//初始化
 	$scope.init = function(){
         $scope.key_word = $location.search().key_word;
         $scope.track = $location.search().track;
         $scope.getList();
-        $scope.getSuggestions();
 	}
 	
 	$scope.init();

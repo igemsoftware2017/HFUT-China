@@ -72,8 +72,8 @@ def getanswer(_keyword,_track1):
             }
         },
         "highlight": {
-            "pre_tags" : ["<b>"],
-            "post_tags" : ["</b>"],
+            "pre_tags" : ["<font color='#f35762'><b>"],
+            "post_tags" : ["</b></font>"],
             "fragment_size" : 80,
             "fields": {
                 "attribution":{},
@@ -112,7 +112,6 @@ def filter(searchsort):
         elif i['_source']['attribution']!="":
             abstract = i['_source']['attribution']
         abstract = abstract[:500]
-        abstract = abstract+"..."
         highlight = list()
         if len(i['highlight'])>0:
             for field in i['highlight'].keys():
