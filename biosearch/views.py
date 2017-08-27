@@ -22,14 +22,16 @@ def firstPage(request):
         parts = getPart(keyword)
 
         answers = getanswer(keyword,track)
-        request.session['answers'] = answers
+        teamList = answers['teamList']
+        request.session['answers'] = teamList
         r = Retrieve()
         suggestions = r.retrieve(keyword)
         result = {
             'successful': True,
             'data': {
                 'pageSum':math.ceil(answers.__len__()/numOfEachPage),
-                'content':answers[0:numOfEachPage],
+                'content':teamList[0:numOfEachPage],
+                'groups': answers['groups'],
                 'suggestions': suggestions,
                 'parts':parts
             }
