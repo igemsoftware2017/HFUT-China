@@ -4,6 +4,7 @@ import chardet
 import json
 es = Elasticsearch()
 fields = ["attribution","background","description","design","human_practice","modeling","notebook","protocol","result","safety","keywords"]
+
 def getdetailbyid(_id):
     _query = {
         "size": 1,
@@ -36,7 +37,7 @@ def getdetailbyid(_id):
     # }
     # # es.update(index='bio_search_index', doc_type='bio_search',id=_id,body=_s)
     # es.update_by_query(index='bio_search_index', doc_type='bio_search',body=_increment)
-    return _searched['hits']['hits']
+    return _searched['hits']['hits'][0]
 
 def getanswer(_keyword,_track1):
 
@@ -71,13 +72,13 @@ def getanswer(_keyword,_track1):
                 ]
             }
         },
-        "sort": [{
-            "_score": {"order": "desc"}
-        },{
-            "calScore": {"order": "desc"}
-        },{
-            "year": {"order": "desc"}
-        }],
+        # "sort": [{
+        #     "_score": {"order": "desc"}
+        # },{
+        #     "calScore": {"order": "desc"}
+        # },{
+        #     "year": {"order": "desc"}
+        # }],
         "highlight": {
             "pre_tags" : ["<font color='#f35762'><b>"],
             "post_tags" : ["</b></font>"],
@@ -101,7 +102,7 @@ def getanswer(_keyword,_track1):
     file = open("1.json","w",encoding="utf-8")
     file.write(json.dumps(_searched))
     file.close()
-    # searchsort = biosort(_searched)
+    searchsort = biosort(_searched)
     searchfilter = filter(searchsort)
     return searchfilter
 
@@ -128,32 +129,34 @@ def filter(searchsort):
             'id':i['_id'],
             'title':i['_source']['year']+'-'+i['_source']['team_name'],
             'keywords':i['_source']['keywords'],
-            'award': i['_source']['award'],
-            'type': i['_source']['type'],
+            # 'award': i['_source']['award'],
+            # 'type': i['_source']['type'],
             'abstract':abstract,
             'highlight': highlight
         }
-        groupDict = json.loads(i['_source']['group'])
-        for field in group.keys():
-            if (groupDict.get(field) < group.get(field)):
-                groupDict[field] = group.get[field]
+        # group = json.loads(i['_source']['group'])
+        # for field in group.keys():
+        #     if (groupDict.get(field) < group.get(field)):
+        #         groupDict[field] = group.get[field]
         groups = list()
-        for (key, value) in groupDict.items():
-            groups.append([key, value])
+        groups = [['123',0.5]]
+        # for (key, value) in groupDict.items():
+        #     groups.append([key, value])
         # print (tmp)
         teamList.append(tmp)
-    groups.sort(key = lambda x:x[1], reverse=True)
-    groups = groups[:8]
-    return {
-        teamList: teamList,
-        groups: groups
+    # groups.sort(key = lambda x:x[1], reverse=True)
+    # groups = groups[:8]
+    result = {
+        'teamList': teamList,
+        'groups': groups
     }
+    return result
 
-# def biosort(groups):
-    # search = searched['hits']['hits']
-    # #score 重新计算并排序
-    # search.sort(key = lambda x:x['_score']+x['_source']['hits'],reverse=True)
-    # return search
+def biosort(searched):
+    search = searched['hits']['hits']
+    #score 重新计算并排序
+    search.sort(key = lambda x:x['_score']+x['_source']['hits'],reverse=True)
+    return search
     
 
 def getPart(keyword):

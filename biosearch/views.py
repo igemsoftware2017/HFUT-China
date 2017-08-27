@@ -70,27 +70,32 @@ def getDetail(request):
         data = json.loads(request.body)
         id = data['_id']
         detail = getdetailbyid(id)
+        detail = detail['_source']
+        result = {
+            'successful': True,
+            'data': detail
+        }
     except Exception as e:
         print(e)
     finally:
-        return HttpResponse(json.dumps(detail), content_type='application/json')
-
-    def bioSearchFirst(request):
-        data = json.loads(request.body)
-        keyword = data["keyword"]
-        parts = getPart(keyword)
-        suggestions = r.retrieve(keyword)
-        if len(parts)>0:
-            part = parts[0]
-            teamIds = part["teams"]
-            teams = getTeamWiki(teamIds)
-            result = {
-                'successful': True,
-                'data': {
-                    'pageSum':math.ceil(teams.__len__()/numOfEachPage),
-                    'content':teams[0:numOfEachPage],
-                    'suggestions': suggestions,
-                    'parts':parts
-                }
-            }
         return HttpResponse(json.dumps(result), content_type='application/json')
+
+def bioSearchFirst(request):
+    data = json.loads(request.body)
+    keyword = data["keyword"]
+    parts = getPart(keyword)
+    suggestions = r.retrieve(keyword)
+    if len(parts)>0:
+        part = parts[0]
+        teamIds = part["teams"]
+        teams = getTeamWiki(teamIds)
+        result = {
+            'successful': True,
+            'data': {
+                'pageSum':math.ceil(teams.__len__()/numOfEachPage),
+                'content':teams[0:numOfEachPage],
+                'suggestions': suggestions,
+                'parts':parts
+            }
+        }
+    return HttpResponse(json.dumps(result), content_type='application/json')
