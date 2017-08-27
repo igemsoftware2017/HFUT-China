@@ -5,6 +5,34 @@ query.config(['$locationProvider', function ($locationProvider) {
 		requireBase: false
 	});
 }]);
+/*  回弹按钮指令
+ * */
+query.directive('backButton', function() {
+    return {
+        restrict: 'E',
+        template:   '<div id="back-button">' +
+                        '<img src="./img/backToTop.png"/>' +
+                    '</div>',
+        replace: true,
+        //功能
+        compile: function (elem, attr) {
+            elem.bind('click', function () {
+                $('html,body').animate({scrollTop:0}, 300);
+            });
+            //窗口
+            $(window).scroll(function() {
+                var toTop = $(window).scrollTop();
+                if( toTop > 200) {
+					console.log(">200");
+                    // elem.fadeIn(100);
+                } else {
+					console.log("<200");
+                    // elem.fadeOut(200);
+                }
+            });
+        }
+    }
+});
 query.controller('queryController', function ($scope, $http,$location) {
 	$scope.name = 'name';
 	$scope.year = '2017';
@@ -211,10 +239,8 @@ query.controller('queryController', function ($scope, $http,$location) {
 
 });
 $(function () {
-	// console.log("test");
 	$(window).scroll(function () {
 		var scrollTop = $(document).scrollTop();
-		// console.log("scrollTop==" + scrollTop);
 		var contentItems = $("#content-div").find(".content_info");
 		var currentItem = "aDescription";
 		contentItems.each(function () {
@@ -222,13 +248,13 @@ $(function () {
 			var offsetTop = contentItem.offset().top;
 			if (scrollTop > offsetTop - 150) {
 				currentItem = contentItem.attr("id");
-				// console.log(currentItem + "  true");
 			}
 		});
 		if (currentItem != $("#content-div").find(".content_info").attr("href")) {
 			$(".left-menu").find(".current").removeClass("current");
-			// console.log($("#content-div").find(".content_info").attr("href"));
-			document.getElementById("a" + currentItem).classList.add("current");
+			if(document.getElementById("a" + currentItem)){
+				document.getElementById("a" + currentItem).classList.add("current");				
+			}
 		}
 	});
 });
