@@ -180,7 +180,7 @@
     <center>
         <br>
         <div class="list">
-            <div ng-repeat="team in teams">
+            <div ng-repeat="team in teams" ng-click="getDetail(team.id)">
                 <a>
                     <div class="list-div">
                         <div class="result-title color"  style="font-weight:bold"><span><div class="point1"></div></span>{{team.title}}</div>
@@ -188,7 +188,8 @@
                             <!-- <div class="keywords key"><span><em class="key">keywords:{{team.keywords}}</em></span> -->
                             <div class="keywords_beta color-key"><span><em class="key"><font size=3px color="white" style="background-color:#6b9de2;border-radius:3px;padding:2px;margin:3px;font-weight:bold">keywords: </font><font size=2px; style="font-weight:bold" color="#333">{{team.keywords}}</font></em></span>
                             </div>
-                            <br> {{team.abstract}} ...
+                            <br>
+                            <div data-ng-bind-html="team.abstract"></div>
                         </div>
                     </div>
                 </a>
@@ -321,7 +322,6 @@
     <script src="../public/jquery/dist/jquery.min.js"></script>
     <script src="../public/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../public/d3/d3.min.js"></script>
-    <script src="./js/gene_page.js"></script>
     <script src="./js/draw.js"></script>
     <script src="js/jquery-1.10.2.min.js"></script>
 	<script src="js/effect.js"></script>
@@ -525,9 +525,7 @@
 		}
 	});
 	</script>
-	<script src="https://cdn.bootcss.com/angular.js/1.4.6/angular.min.js"></script> 
 	<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
-	<script type="text/javascript" src="jquery1-1.11.1.min.js"></script>
     <script src="./js/searchList.js"></script>
     <script type="text/javascript">
 		$(document).ready(function() {
