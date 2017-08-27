@@ -1,3 +1,4 @@
+@charset "utf-8";
 .right-side-bar{
 	position: static;
 	right:0px;
@@ -115,20 +116,33 @@ em{font-style:normal;}
 .color:visited{color:#000; text-decoration:none;}/*���ʹ�����������*/
 .color:hover{color:#3586bc; /* text-decoration:underline; */text-decoration:none;}/*�����ϵ���������*/
 
+.color-key{color:black; text-decoration:none;}/*��������*/
+.color-key:visited{color:#000; text-decoration:none;}/*���ʹ�����������*/
+.color-key:hover{color:#000; /* text-decoration:underline; */text-decoration:none;}/*�����ϵ���������*/
+
 .result-title{
 	font-size:24px; float:left;
 }
-.content{float:left;font-size:16px;text-align:left;}
+.content{float:left;font-size:16px;text-align:left;margin-top:0px;}
 .list-div{
 	padding:15px;
 	margin:0 auto;
 	width:100%;
-	height:179px; 
+	min-height:100px; 
+	height:auto;
 	border:solid 1px #ccc;
 	border-radius:30px;
-	/* background:#ccc; */
-	/* background:#ccaeef; */
 	background:##e9efef;
+	display:inline-block !important; 
+	display:inline; 
+
+}
+.keywords_beta{
+	margin-top:10px;
+	margin-bottom:-10px;
+	border:solid 1px #ccc;
+	border-radius:6px;
+	background-color:#f6f6f6;
 }
 .list-div:hover{
 	padding:15px;
@@ -151,6 +165,32 @@ em{font-style:normal;}
 	position: fixed;
 	bottom: 40%;
 }
+.left{
+	z-index:999;
+	left:2%;
+	position: fixed;
+	top: 16%;
+	width: 140px;
+}
+
+ul,li{list-style: none;	font-family:"Calibri";}
+a:link,a:visited{text-decoration: none;}
+.listl-l{border-bottom:solid 1px #fcfcfc;margin:40px auto 0 auto;}
+.list-l ul li{background-color:#fcfcfc; border:solid 1px #aaa; border-radius:6px;}
+.list-l ul li a{padding-left: 10px;color: #000; font-size:16px; display: block; height:36px;line-height: 36px;position: relative;
+}
+.list-l ul li .inactive{ background:url(../images/off.png) no-repeat 120px center;}
+.list-l ul li .inactives{background:url(../images/on.png) no-repeat 120px center;} 
+.list-l ul li ul{display: none;}
+.list-l ul li ul li { border-left:0; border-right:0; background-color:#ececec; border-color:#aaa;}
+.list-l ul li ul li ul{display: none;}
+.list-l ul li ul li a{ padding-left:20px;}
+.list-l ul li ul li ul li { background-color:#d6e6f1; border-color:#aaa; }
+.last{ background-color:#d6e6f1; border-color:#aaa; }
+.list-l ul li ul li ul li a{ color:#316a91; padding-left:30px;}
+
+
+
 .line{
 	margin-left:10px;
 	float:left;
@@ -193,7 +233,7 @@ li{
 	float:left;	
 }
 
-li{list-style:none;}/* ��Ĭ�ϵĸ�ȥ��Ȼ�������ɫ��Բ���г�һ�ű���ͼƬʹ�ã� */
+li{list-style:none;}/* ��Ĭ�ϵĸ�ȥ����Ȼ�������ɫ��Բ���г�һ�ű���ͼƬʹ�ã� */
 /* li{background:url(ͼ��ͼƬ·��) no-repeat;} */
 
 .list-li{
@@ -254,3 +294,99 @@ li{list-style:none;}/* ��Ĭ�ϵĸ�ȥ��Ȼ�������ɫ��
 .keywords{	float:left;	background:##fff;padding:0px;border:1px solid ##FFCC99;border:0.1px solid ##ccc;border-radius:3px;}
 .keywords span{	float:left;margin-left:3px;	display:inline-block;padding:1px 10px;font-size:12px;background:#6b9de2;color:white;text-align:center;border-radius:3px;cursor:pointer;}
 
+.suggestion-bottom{
+	height:40px;
+	width:69%;
+	background-color:##fab735;
+}
+.s-header{
+	font-size:20px;
+	float:left;
+	font-weight:bold;
+}
+
+.s-content{
+	width:33%;
+	font-size:16px;
+	float:left;
+	text-align:left;
+}
+
+
+
+div.zxf_pagediv{
+	text-align: center;
+	color: #999999;
+}
+div.zxf_pagediv a{
+	text-decoration: none;
+	
+}
+div.zxf_pagediv span,div.zxf_pagediv a{
+	display: inline-block;
+	box-sizing: border-box;
+}
+span.disabled{
+	height: 35px;
+	width: 65px;
+	line-height: 35px;
+	background: #f2f2f2;
+	margin: 0 5px;
+}
+.current{
+	color: #ffffff;
+	background: #6b9de2;
+	width: 35px;
+	height: 35px;
+	line-height: 35px;
+	margin: 0 5 px;
+}
+.zxfPagenum{
+	color: #999999;
+	background: #FFFFFF;
+	width: 35px;
+	height: 35px;
+	line-height: 35px;
+	border: 1px solid #dfdfdf;
+	margin: 0 5px;
+}
+.nextpage{
+	color: #6b9de2;
+	margin: 0 5px;
+	border: 1px solid #6b9de2;
+}
+.nextbtn,.prebtn{
+	color: #999999;
+	background: #FFFFFF;
+	width: 65px;
+	height: 35px;
+	line-height: 35px;
+	border: 1px solid #dfdfdf;
+}
+.zxfinput{
+	width: 35px;
+	height: 35px;
+	text-align: center;
+	box-sizing: border-box;
+	border: 1px solid #dfdfdf;
+	margin: 0 12px;
+}
+.zxfokbtn{
+	width: 45px;
+	height: 35px;
+	line-height: 35px;
+	border: 1px solid #dfdfdf;
+}
+
+
+.foot-div{
+	height:400px;
+	width:100%;
+}
+.end-foot{
+	bottom:0;
+	height:40px;
+	width:100%;
+	border: 1px solid #dfdfdf;
+	background: #f9f9f9;
+}

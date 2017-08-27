@@ -28,7 +28,10 @@ class Retrieve:
                 #找出 相似度 最高的n个单词
                 n = 9
                 sim = self.model.most_similar(positive=newWords, topn=n)
-                return sim
+                suggestions = list()
+                for pair in sim:
+                    suggestions.append(pair[0])
+                return suggestions
             else:  #去除停词后发现没有有效词汇了
                 print('未发现有效的词语，没有推荐内容！')
         except KeyError:

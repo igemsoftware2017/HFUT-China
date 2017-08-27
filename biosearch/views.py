@@ -16,10 +16,6 @@ def firstPage(request):
     answers = []
     result = {}
     try:
-
-        # keyword = "in order to distinguish differential gene expression"
-        # track = ["food"]
-        # 替换上面的
         keyword = data['keyword']
         track = data['track']
 
