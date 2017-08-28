@@ -59,10 +59,12 @@
 	font-size: 100px;
 }
 .center-wrap{
-height:60px;
-text-align:center;
-margin-left:32%;
-width:100%;
+	height:60px;
+	text-align:center;
+	margin-left:-273.5px;
+	width:100%;
+	left:50%;
+	position: absolute;
 }
 .input{	width:500px;}
 .logo{
