@@ -18,6 +18,7 @@ query.directive('backButton', function() {
         compile: function (elem, attr) {
             elem.bind('click', function () {
                 $('html,body').animate({scrollTop:0}, 300);
+<<<<<<< HEAD:static/query/js/query.js
 			});
             //窗口
             $(window).scroll(function() {
@@ -29,6 +30,8 @@ query.directive('backButton', function() {
 						elem[0].classList.remove("show-back");						
 					}
                 }
+=======
+>>>>>>> 9024bd7fd846d623cb3b869424184e3724081e00:static/search_track/js/query.js
             });
         }
     }
@@ -59,43 +62,38 @@ query.controller('queryController', function ($scope, $http,$location) {
 			},
 			headers: { 'Content-Type': 'application/json' }
 		};
-		// $http(opt).success(function (data) {
-		// 	if (data.successful) {
-		// 		$scope.error = false;
-		// 		//success
-		// 		console.log("successful == true");
-		// 		$scope.name = data.data.team_name;
-		// 		$scope.year = data.data.year;
-		// 		$scope.track = data.data.track;
-		// 		// $scope.type = data.data.type;
-		// 		$scope.keywords = data.data.keywords;
-		// 		// $scope.award = data.data.award;
-		// 		$scope.description = data.data.description;
-		// 		$scope.background = data.data.background;
-		// 		$scope.attribution = data.data.attribution;
-		// 		$scope.design = data.data.design;
-		// 		$scope.human_practice = data.data.human_practice;
-		// 		$scope.result = data.data.result;
-		// 		// $scope.related = data.data.related;
+		$http(opt).success(function (data) {
+			if (data.successful) {
+				$scope.error = false;
+				//success
+				console.log("successful == true");
+				$scope.name = data.data.team_name;
+				$scope.year = data.data.year;
+				$scope.track = data.data.track;
+				// $scope.type = data.data.type;
+				$scope.keywords = data.data.keywords;
+				// $scope.award = data.data.award;
+				$scope.description = data.data.description;
+				$scope.background = data.data.background;
+				$scope.attribution = data.data.attribution;
+				$scope.design = data.data.design;
+				$scope.human_practice = data.data.human_practice;
+				$scope.result = data.data.result;
+				// $scope.related = data.data.related;
 
-		// 	} else {
-		// 		console.log('false');
-		// 		//false
-		// 		$scope.error = true;
-		// 		if (data.error.id == '1') {
-		// 			$scope.errorMsg = data.error.msg;
-		// 		} else {
-		// 			$scope.errorMsg = "LOGIN FAILED!";
-		// 		}
-		// 	}
-		// });
+			} else {
+				console.log('false');
+				//false
+				$scope.error = true;
+				if (data.error.id == '1') {
+					$scope.errorMsg = data.error.msg;
+				} else {
+					$scope.errorMsg = "LOGIN FAILED!";
+				}
+			}
+		});
 	}
 	$scope.isMore = true;
-	// $scope.description = "description";
-	// $scope.background = "background";
-	// $scope.process = "process";
-	// $scope.results = "results";
-	// $scope.parts = "parts";
 
 	$scope.isActive = false;
 	$scope.more = function () {
@@ -109,12 +107,9 @@ query.controller('queryController', function ($scope, $http,$location) {
 	$scope.menuClick = function () {
 		var loginSession = sessionStorage.getItem('login');
 		if (loginSession) {
-			console.log(loginSession);
-			console.log('不为空');
 			$scope.isLogin = false;
 		}
 		else {
-			console.log('空');
 			$scope.isLogin = true;
 		}
 	}

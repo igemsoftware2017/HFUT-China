@@ -183,12 +183,19 @@
             <div ng-repeat="team in teams" ng-click="getDetail(team.id)">
                 <a>
                     <div class="list-div">
-                        <div class="result-title color"  style="font-weight:bold"><span><div class="point1"></div></span>{{team.title}}</div>
+                        <div class="result-title color"  style="font-weight:bold"><span><div class="point1"></div></span>{{team.title}}
+                        	<div class="which">
+                            	high-school
+                         	</div>
+                        </div>
                         <div class="content color">
                             <!-- <div class="keywords key"><span><em class="key">keywords:{{team.keywords}}</em></span> -->
                             <div class="keywords_beta color-key"><span><em class="key"><font size=3px color="white" style="background-color:#6b9de2;border-radius:3px;padding:2px;margin:3px;font-weight:bold">keywords: </font><font size=2px; style="font-weight:bold" color="#333">{{team.keywords}}</font></em></span>
                             </div>
-                            <br>
+							<div class="results color-key">
+                            	<b><font size=3px; color="#ffffff"  style="background-color:#f9a731;border-radius:3px;">&nbsp;&nbsp;awards: </font>&nbsp;<img src="img/results.png" height="23px"><font size=3px;><font>&nbsp;21c dscw&nbsp;</font></b>
+                            </div>   
+                            <hr style="height:1px;border:none;border-top:0px double white;">                         
                             <div data-ng-bind-html="team.abstract"></div>
                         </div>
                     </div>

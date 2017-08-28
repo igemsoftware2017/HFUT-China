@@ -109,7 +109,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 	}
 
 	$scope.getDetail = function(id) {
-		url = `../query/query.html?id=${id}`;
+		url = `./query.html?id=${id}`;
 		console.log(url);
 		window.location.href = url;
 	}

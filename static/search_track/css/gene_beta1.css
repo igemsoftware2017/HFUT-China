@@ -139,10 +139,32 @@ em{font-style:normal;}
 }
 .keywords_beta{
 	margin-top:10px;
-	margin-bottom:-10px;
 	border:solid 1px #ccc;
 	border-radius:6px;
 	background-color:#f6f6f6;
+}
+.results{
+	margin-top:10px;
+	border:solid 1px #ccc;
+	border-radius:6px;
+	background-color:#f6f6f6;
+	display:inline-block !important; 
+	display:inline; 
+	width:auto;
+	float:left;
+}
+.which{
+	border:solid 1px #ccc;
+	border-radius:6px;
+	background-color:##f6f6f6;
+	display:inline-block !important; 
+	display:inline; 
+	width:auto;
+	padding-left:3px;
+	padding-right:3px;
+	font-size:14px;
+	color:#666;
+	font-weight:bold;
 }
 .list-div:hover{
 	padding:15px;

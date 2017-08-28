@@ -1,25 +1,35 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en" ng-app="searchApp">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Query</title>
-    <link href="../public/custombox/dist/custombox.min.css" rel="stylesheet">
+    <title>BioDesigner|Gene</title>
+	
+	<link href="../public/custombox/dist/custombox.min.css" rel="stylesheet">
     <link href="../public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="../public/angular-material/angular-material.min.css" rel="stylesheet">
-    <!-- MetisMenu CSS -->
-    <link href="../public/metisMenu/metisMenu.min.css">
-    <!-- sb-admin -->
-    <link href="../public/sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
-    <!-- font-awesome -->
-    <link href="../public/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./css/query.css">
-</head>
+    
+     <link rel="stylesheet" href="./css/query.css">
+    <link rel="stylesheet" href="./css/gene_beta1.css">
 
-<body ng-app="queryInfoApp" ng-controller="queryController" ng-init="init()">
-    <div id="wrapper" class=".container-fluid">
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="img/logo_black_small.png">
+<style>
+body,ul, li {  
+    margin: 0;  
+    padding: 0;  
+} 
+body{
+	background:#fff;
+}
+
+</style>
+</head>  
+<body ng-controller="searchController">
+<div id="wrapper">
+        <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -28,36 +38,37 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">BioDesigner Dophin</a>
+                <div style="float:left;margin-left:6px;margin-top:6px">
+        			<img src="img/ser_l.png"  width="36" height="36" id="logo" class="logo">
+        		</div>  
+                <a class="navbar-brand" href="#">BioDesigner Dolphin</a>
             </div>
+            <!-- /.navbar-header -->
             <ul class="nav navbar-top-links navbar-right">
                 <li>
                     <button class="btn btn-danger" ng-click="jumpToProject()">Project</button>
                 </li>
                 <li>
-                    <button class="btn btn-danger" ng-click="jumpToGene()">Gene Relationship</button>
+                    <button class="btn btn-success" ng-click="jumpToGene()">Gene Relationship</button>
                 </li>
                 <li>
                     <button class="btn btn-danger" ng-click="jumpToSystem()">System</button>
                 </li>
-                <li ng-click="menuClick()" class="dropdown">
+                <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                            </a>
+                    </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li ng-if="!isLogin">
+                        <li>
                             <a href="#" ng-click="changePasswordDialog()">
-                                <i class="fa fa-gear fa-fw"></i>ChangePassword
+                                <i class="fa fa-gear fa-fw"></i>
+                                ChangePassword
                             </a>
                         </li>
-                        <li ng-if="!isLogin" class="divider"></li>
-                        <li ng-if="!isLogin">
+                        <li class="divider"></li>
+                        <li>
                             <a href="#" ng-click="logoutDialog()">
-                                <i class="fa fa-sign-out fa-fw"></i>Logout
-                            </a>
-                        </li>
-                        <li ng-if="isLogin">
-                            <a href="#" ng-click="loginDialog()">
-                                <i class="fa fa-sign-in fa-fw"></i>Login
+                                <i class="fa fa-sign-out fa-fw"></i>
+                                Logout
                             </a>
                         </li>
                     </ul>
@@ -76,7 +87,9 @@
                 <li class="left-li" id="aRelated"><a class="left-a" href="#Related">Related</a></li>
             </ul>
         </div>
-        <div class="row">
+        
+        </div>
+	<div class="row">
             <div class="wrap col-md-6 col-md-offset-3">
                 <div id="content-div" class="content_main">
                     <div>
@@ -160,7 +173,7 @@
                 </div>
             </div>
         </div>
-        <!-- log in modal -->
+	<!-- log in modal -->
         <div id="login" class="modal-demo">
             <button type="button" class="close" onclick="Custombox.close();">
                 <span>×</span>
@@ -187,74 +200,72 @@
                 <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
                 <button type="button" class="btn btn-primary" ng-click="log_in(username,password)">Confirm</button>
             </div>
-        </div>
-        <!--log out modal-->
-        <div id="logout" class="modal-demo">
-            <button type="button" class="close" onclick="Custombox.close();">
-                    <span>×</span>
-                    <span class="sr-only">Close</span>
-                </button>
-            <h4 class="title">Log Out</h4>
-            <div class="text">
-                <h3>Are You Sure?</h3>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="log_out()">Confirm</button>
-            </div>
-        </div>
-        <!--change password modal-->
-        <div id="cgPwd" class="modal-demo">
-            <button type="button" class="close" onclick="Custombox.close();">
-                    <span>×</span>
-                    <span class="sr-only">Close</span>
-                </button>
-            <h4 class="title">Change Password</h4>
-            <div class="text">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label for="old password" class="col-sm-2 control-label">Old Password</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" placeholder="old password" ng-model="old_password" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="new password" class="col-sm-2 control-label">New Password</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="confirm password" class="col-sm-2 control-label">Confirm Password</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password" />
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="change_password(old_password,new_password,re_password)">Confirm</button>
-            </div>
-        </div>
-        <back-button></back-button>
-    </div>
-
-</body>
-<script src="../public/custombox/dist/legacy.min.js"></script>
-<script src="../public/custombox/dist/custombox.min.js"></script>
-
-<script src="../public/angular/angular.min.js"></script>
-<script src="../public/angular-animate/angular-animate.min.js"></script>
-<script src="../public/angular-aria/angular-aria.min.js"></script>
-<script src="../public/angular-material/angular-material.min.js"></script>
-
-<script src="../public/jquery/dist/jquery.min.js"></script>
-<script src="../public/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="../public/metisMenu/metisMenu.min.js"></script>
-<script src="../public/sb-admin-2/js/sb-admin-2.min.js"></script>
-<script src="./js/query.js"></script>
-
-<!-- <script src="https://unpkg.com/element-ui@1.4.1/lib/index.js"></script> -->
-
-</html>
+        </div>    
+    <!--log out modal-->
+    <div id="logout" class="modal-demo">
+		<button type="button" class="close" onclick="Custombox.close();">
+			<span>×</span>
+			<span class="sr-only">Close</span>
+		</button>
+		<h4 class="title">Log Out</h4>
+		<div class="text">
+			<h3>Are You Sure?</h3>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+			<button type="button" class="btn btn-primary" ng-click="log_out()">Confirm</button>
+		</div>
+	</div>
+	<!--change password modal-->
+    <div id="cgPwd" class="modal-demo">
+		<button type="button" class="close" onclick="Custombox.close();">
+			<span>×</span>
+			<span class="sr-only">Close</span>
+		</button>
+		<h4 class="title">Change Password</h4>
+		<div class="text">
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+					<label for="old password" class="col-sm-2 control-label">Old Password</label>
+					<div class="col-sm-10">
+						<input type="password" class="form-control" placeholder="old password" ng-model="old_password"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="new password" class="col-sm-2 control-label">New Password</label>
+					<div class="col-sm-10">
+						<input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="confirm password" class="col-sm-2 control-label">Confirm Password</label>
+					<div class="col-sm-10">
+						<input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password"/>
+					</div>
+					
+				</div>
+			</form>
+			
+		</div>
+		
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+			<button type="button" class="btn btn-primary" ng-click="change_password(old_password,new_password,re_password)">Confirm</button>
+		</div>
+	</div>
+	
+	<script src="../public/custombox/dist/legacy.min.js"></script>
+	<script src="../public/custombox/dist/custombox.min.js"></script>
+	
+	<script src="../public/angular/angular.min.js"></script>
+	<script src="../public/angular-animate/angular-animate.min.js"></script>
+	<script src="../public/angular-aria/angular-aria.min.js"></script>
+	<script src="../public/angular-material/angular-material.min.js"></script>
+	
+	<script src="../public/jquery/dist/jquery.min.js"></script>
+	<script src="../public/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="../public/metisMenu/metisMenu.min.js"></script>
+	<script src="../public/sb-admin-2/js/sb-admin-2.min.js"></script>
+	<script src="./js/query.js"></script>
+ </body>  
+</html>  

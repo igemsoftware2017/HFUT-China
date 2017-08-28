@@ -94,3 +94,6 @@ static/project_page/devices_img/
 
 #vscode
 /.vscode/*
+
+#apple
+.DS_Store
