@@ -10,7 +10,7 @@ query.config(['$locationProvider', function ($locationProvider) {
 query.directive('backButton', function() {
     return {
         restrict: 'E',
-        template:   '<div id="back-button">' +
+		template:   '<div class="backBtn" id="back-button">' +
                         '<img src="./img/backToTop.png"/>' +
                     '</div>',
         replace: true,
@@ -18,19 +18,16 @@ query.directive('backButton', function() {
         compile: function (elem, attr) {
             elem.bind('click', function () {
                 $('html,body').animate({scrollTop:0}, 300);
-            });
+			});
             //窗口
             $(window).scroll(function() {
-                var toTop = $(window).scrollTop();
+				var toTop = $(window).scrollTop();
                 if( toTop > 200) {
-					console.log(">200");
-					console.log(elem);
-					// elem.isShow() = true;
-                    // elem.fadeIn(100);
+					elem[0].classList.add("show-back");
                 } else {
-					console.log("<200");
-					// elem.isShow() = false;
-                    // elem.fadeOut(200);
+					if(elem[0].classList.length > 1){
+						elem[0].classList.remove("show-back");						
+					}
                 }
             });
         }
