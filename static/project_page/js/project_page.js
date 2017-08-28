@@ -1,18 +1,6 @@
 var bio_pro = angular.module('projectApp', ['ngMaterial', 'ngAnimate']);
 
 bio_pro.controller('projectController', function ($scope, $http, $location, $mdToast) {
-	$scope.menuClick = function () {
-		var loginSession = sessionStorage.getItem('login');
-		if (loginSession) {
-			console.log(loginSession);
-			console.log('不为空');
-			$scope.isLogin = false;
-		}
-		else {
-			console.log('空');
-			$scope.isLogin = true;
-		}
-	}
 	$scope.errorMsg = "";
 	$scope.error = false;
 	$scope.project_info = [];//项目列表
@@ -45,6 +33,16 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 
 	//发送http请求从后台数据库导入项目列表到变量project_info中
 	$scope.init = function () {
+		var loginSession = sessionStorage.getItem('login');
+		if (loginSession) {
+			console.log(loginSession);
+			console.log('不为空');
+			$scope.isLogin = false;
+		}
+		else {
+			console.log('空');
+			$scope.isLogin = true;
+		}
 		var login_token = JSON.parse(sessionStorage.getItem('login'));
 		var opt = {
 			url: '/home/getUserProject',

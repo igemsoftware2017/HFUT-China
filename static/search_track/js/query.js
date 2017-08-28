@@ -18,7 +18,6 @@ query.directive('backButton', function() {
         compile: function (elem, attr) {
             elem.bind('click', function () {
                 $('html,body').animate({scrollTop:0}, 300);
-<<<<<<< HEAD:static/query/js/query.js
 			});
             //窗口
             $(window).scroll(function() {
@@ -30,8 +29,6 @@ query.directive('backButton', function() {
 						elem[0].classList.remove("show-back");						
 					}
                 }
-=======
->>>>>>> 9024bd7fd846d623cb3b869424184e3724081e00:static/search_track/js/query.js
             });
         }
     }
@@ -54,6 +51,13 @@ query.controller('queryController', function ($scope, $http,$location) {
 	//初始化
 	$scope.init = function () {
 		// console.log($location.search().id);
+		var loginSession = sessionStorage.getItem('login');
+		if (loginSession) {
+			$scope.isLogin = false;
+		}
+		else {
+			$scope.isLogin = true;
+		}
 		var opt = {
 			url: '/biosearch/getDetail',
 			method: 'POST',
@@ -102,16 +106,6 @@ query.controller('queryController', function ($scope, $http,$location) {
 
 	$scope.packUp = function () {
 		$scope.isMore = true;
-	}
-
-	$scope.menuClick = function () {
-		var loginSession = sessionStorage.getItem('login');
-		if (loginSession) {
-			$scope.isLogin = false;
-		}
-		else {
-			$scope.isLogin = true;
-		}
 	}
 
 	$scope.jumpToSystem = function () {

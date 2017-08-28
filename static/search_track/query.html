@@ -15,10 +15,11 @@
     <link href="../public/sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
     <!-- font-awesome -->
     <link href="../public/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="./css/query.css">
     <link rel="stylesheet" href="./css/gene_beta1.css">
-
+    <link rel="stylesheet" href="../public/css/nav.css">
+    
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="img/logo_black_small.png">
 </head>
@@ -45,9 +46,14 @@
                 <li>
                     <button class="btn btn-danger" ng-click="jumpToSystem()">System</button>
                 </li>
-                <li ng-click="menuClick()" class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                            </a>
+                <li class="log-in" ng-if="isLogin" ng-click="loginDialog()">
+                    <a href="#" class="sign-up">Log in</a> 
+                </li>
+                <li ng-if="isLogin">
+                    <a class="sign-up" href="../register/register.html">Sign up</a>
+                </li>
+                <li ng-if="!isLogin" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i></a>
                     <ul class="dropdown-menu dropdown-user">
                         <li ng-if="!isLogin">
                             <a href="#" ng-click="changePasswordDialog()">
@@ -58,11 +64,6 @@
                         <li ng-if="!isLogin">
                             <a href="#" ng-click="logoutDialog()">
                                 <i class="fa fa-sign-out fa-fw"></i>Logout
-                            </a>
-                        </li>
-                        <li ng-if="isLogin">
-                            <a href="#" ng-click="loginDialog()">
-                                <i class="fa fa-sign-in fa-fw"></i>Login
                             </a>
                         </li>
                     </ul>
@@ -76,7 +77,7 @@
                 <li class="left-li" id="aBackground"><a class="left-a" href="#Background">Background</a></li>
                 <li class="left-li" id="aAttribution"><a class="left-a" href="#Attribution">Attribution</a></li>
                 <li class="left-li" id="aDesign"><a class="left-a" href="#Design">Design</a></li>
-                <li class="left-li" id="aHumanPractice"><a class="left-a" href="#HumanPractice">Human Practice</a></li>                
+                <li class="left-li" id="aHumanPractice"><a class="left-a" href="#HumanPractice">Human Practice</a></li>
                 <li class="left-li" id="aResult"><a class="left-a" href="#Result">Result</a></li>
                 <li class="left-li" id="aRelated"><a class="left-a" href="#Related">Related</a></li>
             </ul>
@@ -131,13 +132,13 @@
                         </div>
                     </div>
                     <div class="content_info" id="Design">
-                            <h2>Design</h2>
-                            <hr style="FILTER: progid:DXImageTransform.Microsoft.Glow(color=#333333,strength=10)" width="800px" color=#333333 SIZE=1
-                            />
-                            <div id="design">
-                                <p ng-model="design">{{design}}</p>
-                            </div>
+                        <h2>Design</h2>
+                        <hr style="FILTER: progid:DXImageTransform.Microsoft.Glow(color=#333333,strength=10)" width="800px" color=#333333 SIZE=1
+                        />
+                        <div id="design">
+                            <p ng-model="design">{{design}}</p>
                         </div>
+                    </div>
                     <div class="content_info" id="HumanPractice">
                         <h2>Human Practice</h2>
                         <hr style="FILTER: progid:DXImageTransform.Microsoft.Glow(color=#333333,strength=10)" width="800px" color=#333333 SIZE=1

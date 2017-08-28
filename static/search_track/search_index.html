@@ -1,39 +1,81 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="searchApp">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BioDesigner|Gene</title>
-	
-	<link href="../public/custombox/dist/custombox.min.css" rel="stylesheet">
+
+    <link href="../public/custombox/dist/custombox.min.css" rel="stylesheet">
     <link href="../public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="../public/angular-material/angular-material.min.css" rel="stylesheet">
-    
+
     <link href="./css/index.css" rel="stylesheet">
     <link href="./css/sb-admin-2.css" rel="stylesheet">
-	<link rel="stylesheet" href="css/info.css" type="text/css" media="screen"/>
-
+    <link rel="stylesheet" href="css/info.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../public/css/nav.css">
+    
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="img/logo_black_small.png">
-<style>
-body,ul, li {  
-    margin: 0;  
-    padding: 0;  
-} 
-body{
-	background:#fff;
-}
-.gover_search{ position:relative; z-index:99; height:30px; border:1px solid ##b8cfe6; border-bottom:0; }  
-.gover_search .search_suggest{ z-index:99; position:absolute; z-index:999; left:60px; top:34px; width:500px; border:1px solid #999999; display:none; }  
-.gover_search .search_suggest li{ z-index:99;height:24px;font-size: 16px;font-family: "Segoe UI Light"; overflow:hidden; line-height:24px; background:#FFFFFF; cursor:default;}  
-.gover_search .search_suggest li.hover{ z-index:99;background:#DDDDDD;} 
-.info-wrap{z-index:99; position:absolute; z-index:999;} 
-</style>
-</head>  
+    <style>
+        body,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #fff;
+        }
+
+        .gover_search {
+            position: relative;
+            z-index: 99;
+            height: 30px;
+            border: 1px solid #b8cfe6;
+            border-bottom: 0;
+        }
+
+        .gover_search .search_suggest {
+            z-index: 99;
+            position: absolute;
+            z-index: 999;
+            left: 60px;
+            top: 34px;
+            width: 500px;
+            border: 1px solid #999999;
+            display: none;
+        }
+
+        .gover_search .search_suggest li {
+            z-index: 99;
+            height: 24px;
+            font-size: 16px;
+            font-family: "Segoe UI Light";
+            overflow: hidden;
+            line-height: 24px;
+            background: #FFFFFF;
+            cursor: default;
+        }
+
+        .gover_search .search_suggest li.hover {
+            z-index: 99;
+            background: #DDDDDD;
+        }
+
+        .info-wrap {
+            z-index: 99;
+            position: absolute;
+            z-index: 999;
+        }
+    </style>
+</head>
+
 <body ng-controller="searchController">
-<div id="wrapper">
+    <div id="wrapper">
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -44,8 +86,8 @@ body{
                     <span class="icon-bar"></span>
                 </button>
                 <div style="float:left;margin-left:6px;margin-top:6px">
-        			<img src="img/ser_l.png"  width="36" height="36" id="logo" class="logo">
-        		</div>  
+                    <img src="img/ser_l.png" width="36" height="36" id="logo" class="logo">
+                </div>
                 <a class="navbar-brand" href="#">BioDesigner Dolphin</a>
             </div>
             <!-- /.navbar-header -->
@@ -59,21 +101,24 @@ body{
                 <li>
                     <button class="btn btn-danger" ng-click="jumpToSystem()">System</button>
                 </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
+                <li class="log-in" ng-if="isLogin" ng-click="loginDialog()">
+                    <a href="#" class="sign-up">Log in</a> 
+                </li>
+                <li ng-if="isLogin">
+                    <a class="sign-up" href="../register/register.html">Sign up</a>
+                </li>
+                <li ng-if="!isLogin" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i></a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li>
+                        <li ng-if="!isLogin">
                             <a href="#" ng-click="changePasswordDialog()">
-                                <i class="fa fa-gear fa-fw"></i>
-                                ChangePassword
+                                <i class="fa fa-gear fa-fw"></i>ChangePassword
                             </a>
                         </li>
-                        <li class="divider"></li>
-                        <li>
+                        <li ng-if="!isLogin" class="divider"></li>
+                        <li ng-if="!isLogin">
                             <a href="#" ng-click="logoutDialog()">
-                                <i class="fa fa-sign-out fa-fw"></i>
-                                Logout
+                                <i class="fa fa-sign-out fa-fw"></i>Logout
                             </a>
                         </li>
                     </ul>
@@ -81,95 +126,123 @@ body{
             </ul>
         </nav>
         <center>
-        <img alt="logo" src="img/logo_design.png"  width="300px" height="300px" >
-        <div class="search_wrap">  
-		<form class="search_input " name="form" id="ui_element">
-           
-        <div class="search_wrap">
-        <!-- id="sea" -->
-        <center>
-        <div class="center-wrap">
-            <input type="text" id="gover_search_key" placeholder="Please input keywords ..." class="form-control input"  ng-model="key_word" ng-keypress="gene_info_by_board($event,key_word)">
-            <input class="sea" src="img/sea_b_img.png" width="33" height="33" ng-click="jumpToSearch(key_word)" id="sea_btn" type="image">
-        </div>
-         </center>   
-            
-               <div class="search_suggest" id="gov_search_suggest">  
-                <ul>  
-                </ul>
-               
-            </div>
-        </form>
-        </div>
+            <img alt="logo" src="img/logo_design.png" width="300px" height="300px">
+            <div class="search_wrap">
+                <form class="search_input " name="form" id="ui_element">
+
+                    <div class="search_wrap">
+                        <!-- id="sea" -->
+                        <center>
+                            <div class="center-wrap">
+                                <input type="text" id="gover_search_key" placeholder="Please input keywords ..." class="form-control input" ng-model="key_word"
+                                    ng-keypress="gene_info_by_board($event,key_word)">
+                                <input class="sea" src="img/sea_b_img.png" width="33" height="33" ng-click="jumpToSearch(key_word)" id="sea_btn" type="image">
+                            </div>
+                        </center>
+
+                        <div class="search_suggest" id="gov_search_suggest">
+                            <ul>
+                            </ul>
+
+                        </div>
+                </form>
+                </div>
         </center>
         </div>
         <center>
-        <div class="select-list con3">
-            <span ng-class="{con3:true, cur:chosen[$index]}" ng-repeat="tag in tags1" ng-click="conChoice($index)"><em>{{tag}}</em></span>
-        </div>  
-        <div class="select-list con3">
-            <span ng-class="{con3:true, cur:chosen[5+$index]}" ng-repeat="tag in tags2" ng-click="conChoice(5+$index)"><em>{{tag}}</em></span>
-        </div> 
+            <div class="select-list con3">
+                <span ng-class="{con3:true, cur:chosen[$index]}" ng-repeat="tag in tags1" ng-click="conChoice($index)"><em>{{tag}}</em></span>
+            </div>
+            <div class="select-list con3">
+                <span ng-class="{con3:true, cur:chosen[5+$index]}" ng-repeat="tag in tags2" ng-click="conChoice(5+$index)"><em>{{tag}}</em></span>
+            </div>
     </div>
     </center>
 
-   
-    
+
+    <!-- log in modal -->
+    <div id="login" class="modal-demo">
+        <button type="button" class="close" onclick="Custombox.close();">
+            <span>×</span>
+            <span class="sr-only">Close</span>
+        </button>
+        <h4 class="title">Login</h4>
+        <div class="text">
+            <form class="form-horizontal" role="form" ng-keypress="login_by_keyboard($event,username,password)">
+                <div class="form-group col-md-12">
+                    <label for="username">Username</label>
+                    <input id="username" type="text" class="form-control login-input" placeholder="User Name" ng-model="username" />
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" class="form-control login-input" placeholder="Password" ng-model="password" />
+                </div>
+            </form>
+            <a href="../register/register.html">
+                Create account
+            </a>
+        </div>
+        <div class="modal-footer">
+            <span ng-if="error" class="error-msg">{{errorMsg}}</span>
+            <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="log_in(username,password)">Confirm</button>
+        </div>
+    </div>
     <!--log out modal-->
     <div id="logout" class="modal-demo">
-		<button type="button" class="close" onclick="Custombox.close();">
+        <button type="button" class="close" onclick="Custombox.close();">
 			<span>×</span>
 			<span class="sr-only">Close</span>
 		</button>
-		<h4 class="title">Log Out</h4>
-		<div class="text">
-			<h3>Are You Sure?</h3>
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
-			<button type="button" class="btn btn-primary" ng-click="log_out()">Confirm</button>
-		</div>
-	</div>
-	<!--change password modal-->
+        <h4 class="title">Log Out</h4>
+        <div class="text">
+            <h3>Are You Sure?</h3>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="log_out()">Confirm</button>
+        </div>
+    </div>
+    <!--change password modal-->
     <div id="cgPwd" class="modal-demo">
-		<button type="button" class="close" onclick="Custombox.close();">
+        <button type="button" class="close" onclick="Custombox.close();">
 			<span>×</span>
 			<span class="sr-only">Close</span>
 		</button>
-		<h4 class="title">Change Password</h4>
-		<div class="text">
-			<form class="form-horizontal" role="form">
-				<div class="form-group">
-					<label for="old password" class="col-sm-2 control-label">Old Password</label>
-					<div class="col-sm-10">
-						<input type="password" class="form-control" placeholder="old password" ng-model="old_password"/>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="new password" class="col-sm-2 control-label">New Password</label>
-					<div class="col-sm-10">
-						<input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password"/>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="confirm password" class="col-sm-2 control-label">Confirm Password</label>
-					<div class="col-sm-10">
-						<input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password"/>
-					</div>
-					
-				</div>
-			</form>
-			
-		</div>
-		
-		<div class="modal-footer">
-			<button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
-			<button type="button" class="btn btn-primary" ng-click="change_password(old_password,new_password,re_password)">Confirm</button>
-		</div>
-	</div>
-	
-	<script type="text/javascript" src="./js/jquery-3.2.1.slim.js"></script>  
- 	<script src="../public/custombox/dist/legacy.min.js"></script>
+        <h4 class="title">Change Password</h4>
+        <div class="text">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="old password" class="col-sm-2 control-label">Old Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" placeholder="old password" ng-model="old_password" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="new password" class="col-sm-2 control-label">New Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="confirm password" class="col-sm-2 control-label">Confirm Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password" />
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="change_password(old_password,new_password,re_password)">Confirm</button>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="./js/jquery-3.2.1.slim.js"></script>
+    <script src="../public/custombox/dist/legacy.min.js"></script>
     <script src="../public/custombox/dist/custombox.min.js"></script>
     <script src="../public/angular/angular.min.js"></script>
     <script src="../public/angular-animate/angular-animate.min.js"></script>
@@ -181,7 +254,7 @@ body{
     <script src="./js/search.js"></script>
     <script src="./js/draw.js"></script>
     <script src="js/jquery-1.10.2.min.js"></script>
- <!-- <script type="text/javascript">  
+    <!-- <script type="text/javascript">  
   
  $(document).ready(function () {
 		var menuYloc = $("#right").offset().top; //此ID为随着屏幕滚动div的ID
@@ -342,6 +415,7 @@ function sendKeyWordToBack(keyword){
 
  
 </script>   -->
-<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
-</body>  
-</html>  
+    <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+</body>
+
+</html>

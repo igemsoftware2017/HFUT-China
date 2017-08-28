@@ -2,19 +2,6 @@ var gi = angular.module('geneInfoApp', []);
 
 gi.controller('geneInfoController', function ($scope, $http) {
 
-	$scope.menuClick = function () {
-		var loginSession = sessionStorage.getItem('login');
-		if (loginSession) {
-			console.log(loginSession);
-			console.log('不为空');
-			$scope.isLogin = false;
-		}
-		else {
-			console.log('空');
-			$scope.isLogin = true;
-		}
-	}
-
 	//数据定义
 	$scope.errorMsg = "";
 	$scope.error = false;
@@ -155,6 +142,16 @@ gi.controller('geneInfoController', function ($scope, $http) {
 	}
 	//网页初始化
 	$scope.init = function () {
+		var loginSession = sessionStorage.getItem('login');
+		if (loginSession) {
+			console.log(loginSession);
+			console.log('不为空');
+			$scope.isLogin = false;
+		}
+		else {
+			console.log('空');
+			$scope.isLogin = true;
+		}
 		var gene_name = sessionStorage.getItem("gene_name");
 		var login_token = JSON.parse(sessionStorage.getItem('login'));
 		var opt = {

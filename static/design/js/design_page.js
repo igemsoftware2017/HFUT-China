@@ -1,18 +1,6 @@
 var editPro = angular.module('designApp', ['ngMaterial', 'ngAnimate', 'ng-sortable', 'ui.bootstrap.contextMenu']);
 
 editPro.controller('designController', function ($scope, $http, $location, $mdToast) {
-	$scope.menuClick = function () {
-		var loginSession = sessionStorage.getItem('login');
-		if (loginSession) {
-			console.log(loginSession);
-			console.log('不为空');
-			$scope.isLogin = false;
-		}
-		else {
-			console.log('空');
-			$scope.isLogin = true;
-		}
-	}
 	$scope.errorMsg = "";
 	$scope.error = false;
 	$scope.search_info = [];//搜索结果
@@ -355,6 +343,16 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 	}
 	//页面初始化
 	$scope.init = function () {
+		var loginSession = sessionStorage.getItem('login');
+		if (loginSession) {
+			console.log(loginSession);
+			console.log('不为空');
+			$scope.isLogin = false;
+		}
+		else {
+			console.log('空');
+			$scope.isLogin = true;
+		}
 		var login_token = JSON.parse(sessionStorage.getItem('login'));
 		var chain_id = JSON.parse(sessionStorage.getItem('chain_id'));
 		var project_id = JSON.parse(sessionStorage.getItem('project_id'));

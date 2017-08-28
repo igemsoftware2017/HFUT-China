@@ -1,8 +1,7 @@
 var system = angular.module('systemApp', ['ngMaterial', 'ngAnimate']);
 
 system.controller('systemController', function ($scope, $http, $location, $mdToast) {
-
-	$scope.menuClick = function () {
+	$scope.init = function() {
 		var loginSession = sessionStorage.getItem('login');
 		if (loginSession) {
 			console.log(loginSession);
@@ -14,7 +13,6 @@ system.controller('systemController', function ($scope, $http, $location, $mdToa
 			$scope.isLogin = true;
 		}
 	}
-	
 	$scope.errorMsg = "";
 	$scope.error = false;
 	$scope.compound_info = [];//侧边栏数据
@@ -267,6 +265,7 @@ system.controller('systemController', function ($scope, $http, $location, $mdToa
 		});
 
 	}
+	$scope.init();
 });
 
 var last = {

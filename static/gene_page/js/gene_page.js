@@ -3,20 +3,6 @@ var gene = angular.module('geneApp', ['ngMaterial', 'ngAnimate']);
 gene.controller('geneController', function ($scope, $http, $location, $mdToast) {
 
 	$scope.gene_info = [];
-
-	$scope.menuClick = function () {
-		var loginSession = sessionStorage.getItem('login');
-		if (loginSession) {
-			console.log(loginSession);
-			console.log('不为空');
-			$scope.isLogin = false;
-		}
-		else {
-			console.log('空');
-			$scope.isLogin = true;
-		}
-	}
-
 	$scope.errorMsg = "";
 	$scope.error = false;
 	
@@ -207,6 +193,16 @@ gene.controller('geneController', function ($scope, $http, $location, $mdToast) 
 
 	//初始化
 	$scope.init = function () {
+		var loginSession = sessionStorage.getItem('login');
+		if (loginSession) {
+			console.log(loginSession);
+			console.log('不为空');
+			$scope.isLogin = false;
+		}
+		else {
+			console.log('空');
+			$scope.isLogin = true;
+		}
 		$scope.getRandomGene();
 	}
 

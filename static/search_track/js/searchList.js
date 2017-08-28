@@ -22,7 +22,40 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 		console.log(tag);
 		$scope.chosen[tag] = !$scope.chosen[tag];
 	}
-	
+	//登录模态框
+	$scope.loginDialog = function () {
+		Custombox.open({
+			target: '#login',
+			effect: 'fadein',
+		})
+	}
+
+	//确认登录
+	$scope.log_in = function (username, password) {
+		var opt = {
+			url: '/accounts/login',
+			method: 'POST',
+			data: JSON.stringify({
+				username: username,
+				password: password,
+			}),
+			headers: { 'Content-Type': 'application/json' }
+		};
+		$http(opt).success(function (data) {
+			if (data.successful) {
+				$scope.error = false;
+				sessionStorage.setItem('login', JSON.stringify(data.data.token));
+				window.location.href = "../project_page/project_page.html";
+			} else {
+				$scope.error = true;
+				if (data.error.id == '1') {
+					$scope.errorMsg = data.error.msg;
+				} else {
+					$scope.errorMsg = "LOGIN FAILED!";
+				}
+			}
+		});
+	};
 	//修改密码模态框
 	$scope.changePasswordDialog = function(){
 		Custombox.open({
@@ -212,6 +245,13 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 	
 	//初始化
 	$scope.init = function(){
+		var loginSession = sessionStorage.getItem('login');
+		if (loginSession) {
+			$scope.isLogin = false;
+		}
+		else {
+			$scope.isLogin = true;
+		}
         $scope.key_word = $location.search().key_word;
         $scope.track = $location.search().track;
         $scope.getList();

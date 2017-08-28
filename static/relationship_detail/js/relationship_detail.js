@@ -2,19 +2,6 @@ var bio_pro = angular.module('relationshipDetailApp', ['ngMaterial', 'ngAnimate'
 
 bio_pro.controller('relationshipDetailController', function ($scope, $http, $location, $mdToast) {
 
-	$scope.menuClick = function () {
-		var loginSession = sessionStorage.getItem('login');
-		if (loginSession) {
-			console.log(loginSession);
-			console.log('不为空');
-			$scope.isLogin = false;
-		}
-		else {
-			console.log('空');
-			$scope.isLogin = true;
-		}
-	}
-
 	$scope.errorMsg = "";
 	$scope.error = false;
 	$scope.relate_detail_info = [];
@@ -142,6 +129,16 @@ bio_pro.controller('relationshipDetailController', function ($scope, $http, $loc
 	}
 
 	$scope.init = function () {
+		var loginSession = sessionStorage.getItem('login');
+		if (loginSession) {
+			console.log(loginSession);
+			console.log('不为空');
+			$scope.isLogin = false;
+		}
+		else {
+			console.log('空');
+			$scope.isLogin = true;
+		}
 		var source_name = sessionStorage.getItem("source_name");
 		var target_name = sessionStorage.getItem("target_name");
 		var login_token = JSON.parse(sessionStorage.getItem('login'));

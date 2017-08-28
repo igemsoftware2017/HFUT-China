@@ -14,7 +14,8 @@
 	<link href="./css/gene_info.css" rel="stylesheet">
 	<link href="./css/style.css" rel="stylesheet" />
 	<link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="../public/css/nav.css">
+	
 	<!-- Favicon and touch icons -->
 	<link rel="shortcut icon" href="img/logo_black_small.png">
 </head>
@@ -43,28 +44,25 @@
 				<li>
 					<button class="btn btn-danger" ng-click="jumpToSystem()">System</button>
 				</li>
-				<li ng-click="menuClick()" class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
+				<li class="log-in" ng-if="isLogin" ng-click="loginDialog()">
+                    <a href="#" class="sign-up">Log in</a> 
+                </li>
+                <li ng-if="isLogin">
+                    <a class="sign-up" href="../register/register.html">Sign up</a>
+                </li>
+				<li ng-if="!isLogin" class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i></a>
 					<ul class="dropdown-menu dropdown-user">
 						<li ng-if="!isLogin">
 							<a href="#" ng-click="changePasswordDialog()">
-                                <i class="fa fa-gear fa-fw"></i>
-                                ChangePassword
-                            </a>
+								<i class="fa fa-gear fa-fw"></i>ChangePassword
+							</a>
 						</li>
 						<li ng-if="!isLogin" class="divider"></li>
 						<li ng-if="!isLogin">
 							<a href="#" ng-click="logoutDialog()">
-                                <i class="fa fa-sign-out fa-fw"></i>
-                                Logout
-                            </a>
-						</li>
-						<li ng-if="isLogin">
-							<a href="#" ng-click="loginDialog()">
-                                <i class="fa fa-sign-in fa-fw"></i>
-                                Login
-                            </a>
+								<i class="fa fa-sign-out fa-fw"></i>Logout
+							</a>
 						</li>
 					</ul>
 				</li>
