@@ -10,7 +10,7 @@ query.config(['$locationProvider', function ($locationProvider) {
 query.directive('backButton', function() {
     return {
         restrict: 'E',
-		template:   '<div class="backBtn" id="back-button">' +
+        template:   '<div id="back-button">' +
                         '<img src="./img/backToTop.png"/>' +
                     '</div>',
         replace: true,
@@ -18,17 +18,6 @@ query.directive('backButton', function() {
         compile: function (elem, attr) {
             elem.bind('click', function () {
                 $('html,body').animate({scrollTop:0}, 300);
-			});
-            //窗口
-            $(window).scroll(function() {
-				var toTop = $(window).scrollTop();
-                if( toTop > 200) {
-					elem[0].classList.add("show-back");
-                } else {
-					if(elem[0].classList.length > 1){
-						elem[0].classList.remove("show-back");						
-					}
-                }
             });
         }
     }
@@ -38,9 +27,9 @@ query.controller('queryController', function ($scope, $http,$location) {
 	$scope.year = '2017';
 	$scope.track = 'track';
 	$scope.type = 'type';
-	$scope.keywords = 'keywords';
+	$scope.keywords = 'keywords keywords keywords keywords keywordsss keywords keywords keywords keywords keywords v keywords keywords keywordsss keywords keywords keywords keywords keywords v ';
 	$scope.award = 'award';
-	$scope.description = 'ssssssssssssssssss';
+	$scope.description = 'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss123456789123456789123456789123456789123456789123456789123456789123456789123456789sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss';
 	$scope.background = 'kkkkkkkkkkkkkkkkkk';
 	$scope.attribution = '';
 
@@ -51,13 +40,6 @@ query.controller('queryController', function ($scope, $http,$location) {
 	//初始化
 	$scope.init = function () {
 		// console.log($location.search().id);
-		var loginSession = sessionStorage.getItem('login');
-		if (loginSession) {
-			$scope.isLogin = false;
-		}
-		else {
-			$scope.isLogin = true;
-		}
 		var opt = {
 			url: '/biosearch/getDetail',
 			method: 'POST',
@@ -106,6 +88,16 @@ query.controller('queryController', function ($scope, $http,$location) {
 
 	$scope.packUp = function () {
 		$scope.isMore = true;
+	}
+
+	$scope.menuClick = function () {
+		var loginSession = sessionStorage.getItem('login');
+		if (loginSession) {
+			$scope.isLogin = false;
+		}
+		else {
+			$scope.isLogin = true;
+		}
 	}
 
 	$scope.jumpToSystem = function () {

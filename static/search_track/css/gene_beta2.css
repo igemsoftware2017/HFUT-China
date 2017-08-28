@@ -359,14 +359,14 @@ span.disabled{
 	background: #f2f2f2;
 	margin: 0 5px;
 }
-.current{
+/* .current{
 	color: #ffffff;
 	background: #6b9de2;
 	width: 35px;
 	height: 35px;
 	line-height: 35px;
 	margin: 0 5 px;
-}
+} */
 .zxfPagenum{
 	color: #999999;
 	background: #FFFFFF;

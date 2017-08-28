@@ -15,34 +15,7 @@ gene.controller('searchController',function($scope, $http, $location, $mdToast){
 		console.log(tag);
 		$scope.chosen[tag] = !$scope.chosen[tag];
 	}
-	//登出模态框
-	$scope.logoutDialog = function(){
-		Custombox.open({
-            target:'#logout',
-            effect:'fadein',
-       	});
-	}
-	//确认登出
-	$scope.log_out = function(){
-   		var login_token = JSON.parse(sessionStorage.getItem('login'));
-   		var opt = {
-   			url: '/accounts/logout',
-   			method: 'POST',
-   			data: JSON.stringify({
-   				token: login_token,
-   			}),
-   			headers: {'Content-Type': 'application/json'}
-   		};
-   		$http(opt).success(function(data){
-   			if (data.successful) {
-   				Custombox.close();
-   				window.location.href = "../login_register/login_register.html";
-   			} else{
-				Custombox.close();
-				showToast($mdToast, "Something Strange Happened!!!");
-   			}
-   		});
-   	}
+	
 	//修改密码模态框
 	$scope.changePasswordDialog = function(){
 		Custombox.open({
@@ -159,13 +132,6 @@ gene.controller('searchController',function($scope, $http, $location, $mdToast){
 	}
 	//初始化
 	$scope.init = function(){
-		var loginSession = sessionStorage.getItem('login');
-		if (loginSession) {
-			$scope.isLogin = false;
-		}
-		else {
-			$scope.isLogin = true;
-		}
 	}
 	
 	$scope.init();
