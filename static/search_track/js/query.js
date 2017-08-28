@@ -1,4 +1,4 @@
-var query = angular.module('queryInfoApp', []);
+var query = angular.module('searchApp', []);
 query.config(['$locationProvider', function ($locationProvider) {
 	$locationProvider.html5Mode({
 		enabled: true,
@@ -33,7 +33,7 @@ query.directive('backButton', function() {
         }
     }
 });
-query.controller('queryController', function ($scope, $http,$location) {
+query.controller('searchController', function ($scope, $http,$location) {
 	$scope.name = 'name';
 	$scope.year = '2017';
 	$scope.track = 'track';
@@ -51,13 +51,7 @@ query.controller('queryController', function ($scope, $http,$location) {
 	//初始化
 	$scope.init = function () {
 		// console.log($location.search().id);
-		var loginSession = sessionStorage.getItem('login');
-		if (loginSession) {
-			$scope.isLogin = false;
-		}
-		else {
-			$scope.isLogin = true;
-		}
+		console.log("11111111111");
 		var opt = {
 			url: '/biosearch/getDetail',
 			method: 'POST',
@@ -226,7 +220,7 @@ query.controller('queryController', function ($scope, $http,$location) {
 			}
 		});
 	}
-
+	// $scope.init();
 });
 $(function () {
 	$(window).scroll(function () {

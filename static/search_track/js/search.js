@@ -139,7 +139,7 @@ gene.controller('searchController',function($scope, $http, $location, $mdToast){
 				}
 			}
 		}
-		url = `../search_track/search_beta1.html?key_word=${$scope.key_word}`;
+		url = `../search_track/search_results.html?key_word=${$scope.key_word}`;
 		url = url + trackStr;
 		window.location.href = url;
 		// var opt = {
