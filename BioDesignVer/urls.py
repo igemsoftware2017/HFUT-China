@@ -21,7 +21,7 @@ from django.views.generic import RedirectView
 from django.conf.urls import *
 
 urlpatterns = [
-	url(r'^$', RedirectView.as_view(url='/static/login_register/login_register.html')),
+	url(r'^$', RedirectView.as_view(url='/static/search_track/search_index.html')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^home/', include('projectManage.urls')),

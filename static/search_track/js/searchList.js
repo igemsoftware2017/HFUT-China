@@ -164,7 +164,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 					team.highlight.forEach(function(hightlight){
 						team.abstract = team.abstract + "..." + hightlight;
 					});
-					team.abstract = $sce.trustAsHtml(team.abstract);
+					team.abstract = $sce.trustAsHtml(team.abstract+" ...");
 					return team;
 				});
 				$scope.words = data.data.suggestions;

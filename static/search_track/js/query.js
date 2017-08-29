@@ -1,4 +1,4 @@
-var query = angular.module('searchApp', []);
+var query = angular.module('queryInfoApp', []);
 query.config(['$locationProvider', function ($locationProvider) {
 	$locationProvider.html5Mode({
 		enabled: true,
@@ -22,7 +22,7 @@ query.directive('backButton', function() {
         }
     }
 });
-query.controller('searchController', function ($scope, $http,$location) {
+query.controller('queryController', function ($scope, $http,$location) {
 	$scope.name = 'name';
 	$scope.year = '2017';
 	$scope.track = 'track';
