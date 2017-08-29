@@ -15,6 +15,39 @@ gene.controller('searchController',function($scope, $http, $location, $mdToast){
 		console.log(tag);
 		$scope.chosen[tag] = !$scope.chosen[tag];
 	}
+
+	$scope.loginDialog = function () {
+		Custombox.open({
+			target: '#login',
+			effect: 'fadein',
+		})
+	}
+	//确认登录
+	$scope.log_in = function (username, password) {
+		var opt = {
+			url: '/accounts/login',
+			method: 'POST',
+			data: JSON.stringify({
+				username: username,
+				password: password,
+			}),
+			headers: { 'Content-Type': 'application/json' }
+		};
+		$http(opt).success(function (data) {
+			if (data.successful) {
+				$scope.error = false;
+				sessionStorage.setItem('login', JSON.stringify(data.data.token));
+				window.location.reload();
+			} else {
+				$scope.error = true;
+				if (data.error.id == '1') {
+					$scope.errorMsg = data.error.msg;
+				} else {
+					$scope.errorMsg = "LOGIN FAILED!";
+				}
+			}
+		});
+	};
 	//登出模态框
 	$scope.logoutDialog = function(){
 		Custombox.open({
@@ -35,6 +68,7 @@ gene.controller('searchController',function($scope, $http, $location, $mdToast){
    		};
    		$http(opt).success(function(data){
    			if (data.successful) {
+				sessionStorage.removeItem('login');
    				Custombox.close();
    				window.location.href = "../login_register/login_register.html";
    			} else{
@@ -79,34 +113,6 @@ gene.controller('searchController',function($scope, $http, $location, $mdToast){
    				}
    			});
    	 	}
-   	}
-	//登出模态框
-	$scope.logoutDialog = function(){
-		Custombox.open({
-            target:'#logout',
-            effect:'fadein',
-       	});
-	}
-	//确认登出
-	$scope.log_out = function(){
-   		var login_token = JSON.parse(sessionStorage.getItem('login'));
-   		var opt = {
-   			url: '/accounts/logout',
-   			method: 'POST',
-   			data: JSON.stringify({
-   				token: login_token,
-   			}),
-   			headers: {'Content-Type': 'application/json'}
-   		};
-   		$http(opt).success(function(data){
-   			if (data.successful) {
-   				Custombox.close();
-   				window.location.href = "../login_register/login_register.html";
-   			} else{
-				Custombox.close();
-				showToast($mdToast, "Something Strange Happened!!!");
-   			}
-   		});
    	}
 	
 	$scope.jumpToSystem = function(){
@@ -160,11 +166,12 @@ gene.controller('searchController',function($scope, $http, $location, $mdToast){
 	//初始化
 	$scope.init = function(){
 		var loginSession = sessionStorage.getItem('login');
+		console.log(loginSession);
 		if (loginSession) {
-			$scope.isLogin = false;
+			$scope.isLogin = true;
 		}
 		else {
-			$scope.isLogin = true;
+			$scope.isLogin = false;
 		}
 	}
 	

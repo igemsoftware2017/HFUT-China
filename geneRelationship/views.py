@@ -17,11 +17,6 @@ import random
 def randomGene(request):
 	try:
 		data = json.loads(request.body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		gene_file = open('data/gene_name.json', 'r')
 		gene_list = json.loads(gene_file.read())
 		gene_name = random.choice(gene_list)
@@ -67,11 +62,6 @@ def randomGene(request):
 def searchGenes(request):
 	try:
 		data = json.loads(request.body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		keyword = data['keyword']
 		search_result = search_genes(keyword)
 		result = {
@@ -105,11 +95,6 @@ def searchGenes(request):
 def getGeneInfo(request):
 	try:
 		data = json.loads(request.body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		gene_name = data['gene_name']
 		gene = Gene.objects.filter(name=gene_name).first()
 		gene_id = gene.gene_id
@@ -144,11 +129,6 @@ def getGeneInfo(request):
 def getRelatedGene(request):
 	try:
 		data = json.loads(request.body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		gene_name = data['gene_name']
 		realated_gene_list = []
 		realated_genes = search_relation(gene_name)
@@ -185,11 +165,6 @@ def getRelatedGene(request):
 def getRelatedPaper(request):
 	try:
 		data = json.loads(request.body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		gene_name = data['gene_name']
 		related_paper_list = search_papers(gene_name)
 		result = {
@@ -222,11 +197,6 @@ def getRelatedPaper(request):
 def getOneSentence(request):
 	try:
 		data = json.loads(request.body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		gene_name_one = data['source_name']
 		gene_name_two = data['target_name']
 		sentenceList = search_one_sentence(gene_name_one,gene_name_two)
@@ -260,11 +230,6 @@ def getOneSentence(request):
 def getThreeSentences(request):
 	try:
 		data = json.loads(request.body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		gene_name_one = data['source_name']
 		gene_name_two = data['target_name']
 		sentenceList = search_three_sentence(gene_name_one,gene_name_two)
@@ -298,11 +263,6 @@ def getThreeSentences(request):
 def getRelatedDisease(request):
 	try:
 		data = json.loads(request.body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		gene_name = data['gene_name']
 		realated_disease_list = search_related_disease(gene_name)
 		result = {

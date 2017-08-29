@@ -48,6 +48,15 @@ query.controller('queryController', function ($scope, $http,$location) {
 	
 	//初始化
 	$scope.init = function () {
+		var loginSession = sessionStorage.getItem('login');
+		console.log(loginSession);
+		if (loginSession) {
+			$scope.isLogin = true;
+		}
+		else {
+			$scope.isLogin = false;
+		}
+		
 		// console.log($location.search().id);
 		var opt = {
 			url: '/biosearch/getDetail',
@@ -218,15 +227,15 @@ query.controller('queryController', function ($scope, $http,$location) {
 			}),
 			headers: { 'Content-Type': 'application/json' }
 		};
-		$http(opt).success(function (data) {
-			if (data.successful) {
-				Custombox.close();
-				window.location.href = "../login_register/login_register.html";
-			} else {
-				Custombox.close();
+		$http(opt).success(function(data){
+			Custombox.close();
+   			if (data.successful) {
+				sessionStorage.removeItem('login');
+   				window.location.href = "../login_register/login_register.html";
+   			} else{
 				showToast($mdToast, "Something Strange Happened!!!");
-			}
-		});
+   			}
+   		});
 	}
 	// $scope.init();
 });

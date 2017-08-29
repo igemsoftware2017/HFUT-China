@@ -16,11 +16,6 @@ import string
 def searchCompound(request):
 	try:
 		data = json.loads(request.body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		keyword = data['keyword']
 		search_result = search_compound(keyword)
 		result = {
@@ -53,11 +48,6 @@ def searchCompound(request):
 def getCompound(request):
 	try:
 		data = json.loads(request.body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		compound_id = data['compound_id']
 		get_result = get_compound_info(compound_id)
 		result = {
@@ -90,11 +80,6 @@ def getCompound(request):
 def getGene(request):
 	try:
 		data = json.loads(request.body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		gene_id = data['gene_id']
 		get_result = get_gene_info(gene_id)
 		result = {
@@ -127,11 +112,6 @@ def getGene(request):
 def getRelatedCompound(request):
 	try:
 		data = json.loads(request.body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		compound_tags = data['compound_tags']
 		cid_list = []
 		for compound in compound_tags:

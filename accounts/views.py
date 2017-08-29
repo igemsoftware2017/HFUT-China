@@ -128,7 +128,6 @@ def logout(request):
 	try:
 		data = json.loads(request.body)
 		customerToken = data['token']
-		token = Token()
 		token = Token.objects.get(token=customerToken)
 		token.delete()
 		result = {
@@ -139,6 +138,7 @@ def logout(request):
 			},
 		}
 	except Exception as e:
+		print(str(e));
 		result = {
 			'successful': False,
 			'error': {

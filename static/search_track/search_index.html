@@ -62,22 +62,22 @@ body{
                 <li>
                     <button class="btn btn-danger" ng-click="jumpToSystem()">System</button>
                 </li>
-                <li class="log-in" ng-if="isLogin" ng-click="loginDialog()">
+                <li class="log-in" ng-if="isLogin === false" ng-click="loginDialog()">
                     <a href="#" class="sign-up">Log in</a>
                 </li>
-                <li ng-if="isLogin">
+                <li ng-if="isLogin === false">
                     <a class="sign-up" href="../register/register.html">Sign up</a>
                 </li>
-                <li ng-if="!isLogin" class="dropdown">
+                <li ng-if="isLogin" class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i></a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li ng-if="!isLogin">
+                        <li>
                             <a href="#" ng-click="changePasswordDialog()">
                                 <i class="fa fa-gear fa-fw"></i>ChangePassword
                             </a>
                         </li>
-                        <li ng-if="!isLogin" class="divider"></li>
-                        <li ng-if="!isLogin">
+                        <li class="divider"></li>
+                        <li>
                             <a href="#" ng-click="logoutDialog()">
                                 <i class="fa fa-sign-out fa-fw"></i>Logout
                             </a>

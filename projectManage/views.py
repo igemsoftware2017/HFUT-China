@@ -24,11 +24,6 @@ def getUserProject(request):
 	try:
 		body = request.body.decode('utf-8')
 		data = json.loads(body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		projects = Project.objects.filter(creator=user)
 		projectsList = []
 		for project in projects:
@@ -99,15 +94,10 @@ def createNewProject(request):
 	try:
 		body = request.body.decode('utf-8')
 		data = json.loads(body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		project_name = data['project_name']
 		if not project_name:
 			raise myError('Project_name can\'t be null.' )
-		track = Tracks.objects.filter(track=data['track']).first()
+		# track = Tracks.objects.filter(track=data['track']).first()
 		# function = Functions.objects.filter(function=data['function']),first()
 		project = Project()
 		project.creator = user
@@ -145,11 +135,6 @@ def changeProjectName(request):
 	try:
 		body = request.body.decode('utf-8')
 		data = json.loads(body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		project_id = data['project_id']
 		project = Project()
 		project = Project.objects.filter(id=project_id).first()
@@ -187,11 +172,6 @@ def  deleteProject(request):
 	try:
 		body = request.body.decode('utf-8')
 		data = json.loads(body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		project_id = data['project_id']
 		project = Project()
 		project = Project.objects.filter(id=project_id).first()
@@ -228,11 +208,6 @@ def getProjectDevices(request):
 	try:
 		body = request.body.decode('utf-8')
 		data = json.loads(body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		project_id = data['project_id']
 		project = Project()
 		project = Project.objects.filter(id=project_id).first()
@@ -290,11 +265,6 @@ def createProjectDevice(request):
 	try:
 		body = request.body.decode('utf-8')
 		data = json.loads(body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		project_id = data['project_id']
 		project = Project.objects.filter(id=project_id).first()
 		if user != project.creator:
@@ -335,11 +305,6 @@ def deleteProjectDevice(request):
 	try:
 		body = request.body.decode('utf-8')
 		data = json.loads(body)
-		try:
-			token = Token.objects.filter(token=data['token']).first()
-			user = token.user
-		except:
-			raise myError('Please Log In.')
 		project_id = data['project_id']
 		project = Project.objects.filter(id=project_id).first()
 		if user != project.creator:

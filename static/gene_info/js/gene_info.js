@@ -134,15 +134,15 @@ gi.controller('geneInfoController', function ($scope, $http) {
 			}),
 			headers: { 'Content-Type': 'application/json' }
 		};
-		$http(opt).success(function (data) {
-			if (data.successful) {
-				Custombox.close();
-				window.location.href = "../login_register/login_register.html";
-			} else {
-				Custombox.close();
+		$http(opt).success(function(data){
+			Custombox.close();
+   			if (data.successful) {
+				sessionStorage.removeItem('login');
+   				window.location.href = "../login_register/login_register.html";
+   			} else{
 				showToast($mdToast, "Something Strange Happened!!!");
-			}
-		});
+   			}
+   		});
 	}
 	//网页初始化
 	$scope.init = function () {

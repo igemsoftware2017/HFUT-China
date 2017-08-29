@@ -112,11 +112,11 @@ searchList.controller('searchListController',function($scope, $http, $location, 
    			headers: {'Content-Type': 'application/json'}
    		};
    		$http(opt).success(function(data){
+			Custombox.close();
    			if (data.successful) {
-   				Custombox.close();
+				sessionStorage.removeItem('login');
    				window.location.href = "../login_register/login_register.html";
    			} else{
-				Custombox.close();
 				showToast($mdToast, "Something Strange Happened!!!");
    			}
    		});
@@ -247,10 +247,10 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 	$scope.init = function(){
 		var loginSession = sessionStorage.getItem('login');
 		if (loginSession) {
-			$scope.isLogin = false;
+			$scope.isLogin = true;
 		}
 		else {
-			$scope.isLogin = true;
+			$scope.isLogin = false;
 		}
         $scope.key_word = $location.search().key_word;
         $scope.track = $location.search().track;
