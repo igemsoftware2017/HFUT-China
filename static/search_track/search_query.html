@@ -62,34 +62,40 @@
                 <div style="float:left;margin-left:6px;margin-top:6px">
         			<img src="img/ser_l.png"  width="36" height="36" id="logo" class="logo">
         		</div>  
-                <a class="navbar-brand" href="#">BioDesigner Dolphin</a>
+                <a class="navbar-brand" href="../search_track/search_index.html">BioDesigner Dolphin</a>
             </div>
             <!-- /.navbar-header -->
             <ul class="nav navbar-top-links navbar-right">
+            	<li>
+					<button class="btn btn-success" ng-click="jumpToSearchIndex()">Search</button>
+				</li>
                 <li>
                     <button class="btn btn-danger" ng-click="jumpToProject()">Project</button>
                 </li>
                 <li>
-                    <button class="btn btn-success" ng-click="jumpToGene()">Gene Relationship</button>
+                    <button class="btn btn-danger" ng-click="jumpToGene()">Gene Relationship</button>
                 </li>
                 <li>
                     <button class="btn btn-danger" ng-click="jumpToSystem()">System</button>
                 </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
+                <li class="log-in" ng-if="isLogin" ng-click="loginDialog()">
+                    <a href="#" class="sign-up">Log in</a>
+                </li>
+                <li ng-if="isLogin">
+                    <a class="sign-up" href="../register/register.html">Sign up</a>
+                </li>
+                <li ng-if="!isLogin" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i></a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li>
+                        <li ng-if="!isLogin">
                             <a href="#" ng-click="changePasswordDialog()">
-                                <i class="fa fa-gear fa-fw"></i>
-                                ChangePassword
+                                <i class="fa fa-gear fa-fw"></i>ChangePassword
                             </a>
                         </li>
-                        <li class="divider"></li>
-                        <li>
+                        <li ng-if="!isLogin" class="divider"></li>
+                        <li ng-if="!isLogin">
                             <a href="#" ng-click="logoutDialog()">
-                                <i class="fa fa-sign-out fa-fw"></i>
-                                Logout
+                                <i class="fa fa-sign-out fa-fw"></i>Logout
                             </a>
                         </li>
                     </ul>
@@ -205,11 +211,11 @@
                         /> -->
                         <hr  style="margin-top:3px;margin-bottom:9px;width:100%;background-color:#ccc;height:0.4px;" >
                         <div ng-class="{'content_container':isMore}" id="description">
-                            <p ng-model="description">{{description}}</p>
+                            <p ng-model="description" >{{description}}</p>
                         </div>
 
                     </div>
-                    <!-- <center><div>
+                     <center><div>
                         <button ng-if="isMore" ng-click="more()" class="bothbtn btn btn-default more-btn">
                             <i class="fa fa-chevron-down"></i>more
                         </button>
@@ -217,7 +223,7 @@
                             <i class="fa fa-chevron-up"></i>pack up
                         </button>
                     </div>
-					</center> -->
+					</center> 
                     <div class="content_info" id="Background">
                         <font size=5px>Background</font>
                         <hr  style="margin-top:3px;margin-bottom:9px;width:100%;background-color:#ccc;height:0.4px;" >

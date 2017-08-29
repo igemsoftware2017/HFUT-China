@@ -326,6 +326,10 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 		});
 	}
 
+	$scope.jumpToSearch = function () {
+		window.location.href = "../search_track/search_index.html";
+	}
+
 	$scope.jumpToDesign = function () {
 		window.location.href = "../design/design.html";
 	}

@@ -514,18 +514,16 @@ body{
     background-color:##fdfdfd; 
 	border: #ccc solid 1px;
 	padding:13px;
-	border-radius: 20px
+	border-radius: 20px;
+	word-wrap: break-word;
 }
 .content_container{
 	text-align:left;
 	word-wrap: break-word;
 	margin:0 auto;
 	overflow:hidden;
-	display:inline-block !important; 
-	display:inline; 
 	width:100%;
-	min-height:0px; 
-	height:auto;
+	max-height:100px;
 }
 .bothbtn{
 	border-color:white;

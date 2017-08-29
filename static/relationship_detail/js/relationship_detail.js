@@ -116,6 +116,10 @@ bio_pro.controller('relationshipDetailController', function ($scope, $http, $loc
 		});
 	}
 
+	$scope.jumpToSearch = function () {
+		window.location.href = "../search_track/search_index.html";
+	}
+	
 	$scope.jumpToSystem = function () {
 		window.location.href = "../system_page/system_page.html";
 	}

@@ -51,15 +51,40 @@ body{
             <!-- /.navbar-header -->
             <ul class="nav navbar-top-links navbar-right">
                 <li>
+					<button class="btn btn-success" ng-click="jumpToSearchIndex()">Search</button>
+				</li>
+                <li>
                     <button class="btn btn-danger" ng-click="jumpToProject()">Project</button>
                 </li>
                 <li>
-                    <button class="btn btn-success" ng-click="jumpToGene()">Gene Relationship</button>
+                    <button class="btn btn-danger" ng-click="jumpToGene()">Gene Relationship</button>
                 </li>
                 <li>
                     <button class="btn btn-danger" ng-click="jumpToSystem()">System</button>
                 </li>
-                <li class="dropdown">
+                <li class="log-in" ng-if="isLogin" ng-click="loginDialog()">
+                    <a href="#" class="sign-up">Log in</a>
+                </li>
+                <li ng-if="isLogin">
+                    <a class="sign-up" href="../register/register.html">Sign up</a>
+                </li>
+                <li ng-if="!isLogin" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i></a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li ng-if="!isLogin">
+                            <a href="#" ng-click="changePasswordDialog()">
+                                <i class="fa fa-gear fa-fw"></i>ChangePassword
+                            </a>
+                        </li>
+                        <li ng-if="!isLogin" class="divider"></li>
+                        <li ng-if="!isLogin">
+                            <a href="#" ng-click="logoutDialog()">
+                                <i class="fa fa-sign-out fa-fw"></i>Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
@@ -77,7 +102,7 @@ body{
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
             </ul>
         </nav>
         <center>
@@ -114,7 +139,34 @@ body{
     </center>
 
    
-    
+    <!-- log in modal -->
+        <div id="login" class="modal-demo">
+            <button type="button" class="close" onclick="Custombox.close();">
+                <span>×</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <h4 class="title">Login</h4>
+            <div class="text">
+                <form class="form-horizontal" role="form" ng-keypress="login_by_keyboard($event,username,password)">
+                    <div class="form-group col-md-12">
+                        <label for="username">Username</label>
+                        <input id="username" type="text" class="form-control login-input" placeholder="User Name" ng-model="username" />
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="password">Password</label>
+                        <input id="password" type="password" class="form-control login-input" placeholder="Password" ng-model="password" />
+                    </div>
+                </form>
+                <a href="../register/register.html">
+                    Create account
+                </a>
+            </div>
+            <div class="modal-footer">
+                <span ng-if="error" class="error-msg">{{errorMsg}}</span>
+                <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+                <button type="button" class="btn btn-primary" ng-click="log_in(username,password)">Confirm</button>
+            </div>
+        </div>
     <!--log out modal-->
     <div id="logout" class="modal-demo">
 		<button type="button" class="close" onclick="Custombox.close();">

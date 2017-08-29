@@ -22,6 +22,7 @@ query.directive('backButton', function() {
         }
     }
 });
+
 query.controller('queryController', function ($scope, $http,$location) {
 	$scope.name = 'name';
 	$scope.year = '2017';
@@ -29,14 +30,22 @@ query.controller('queryController', function ($scope, $http,$location) {
 	$scope.type = 'type';
 	$scope.keywords = 'keywords keywords keywords keywords keywordsss keywords keywords keywords keywords keywords v keywords keywords keywordsss keywords keywords keywords keywords keywords v ';
 	$scope.award = 'award';
-	$scope.description = 'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss123456789123456789123456789123456789123456789123456789123456789123456789123456789sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss';
+	if($scope.award==""){$scope.award="Not the winning";}
+	$scope.description = 'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss1234567891234567891234ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss1234567891234567891234ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss1234567891234567891234ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss1234567891234567891234ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss123456789123456789123456789123456789123456789123456789123456789123456789123456789sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss';
+	if($scope.description==""){$scope.description="Sorry, this information is empty.";}
 	$scope.background = 'kkkkkkkkkkkkkkkkkk';
+	if($scope.background==""){$scope.background="Sorry, this information is empty.";}
 	$scope.attribution = '';
-
+	if($scope.attribution==""){$scope.attribution="Sorry, this information is empty.";}
 	$scope.design = '';
+	if($scope.design==""){$scope.design="Sorry, this information is empty.";}
 	$scope.human_practice = '';
+	if($scope.human_practice==""){$scope.human_practice="Sorry, this information is empty.";}
 	$scope.result = '';
+	if($scope.result==""){$scope.result="Sorry, this information is empty.";}
 	$scope.related = [];
+	if($scope.related==""){$scope.related="Sorry, this information is empty.";}
+	
 	//初始化
 	$scope.init = function () {
 		// console.log($location.search().id);
@@ -60,6 +69,7 @@ query.controller('queryController', function ($scope, $http,$location) {
 				$scope.keywords = data.data.keywords;
 				// $scope.award = data.data.award;
 				$scope.description = data.data.description;
+				if ($scope.description=="") {$scope.description="123"}
 				$scope.background = data.data.background;
 				$scope.attribution = data.data.attribution;
 				$scope.design = data.data.design;

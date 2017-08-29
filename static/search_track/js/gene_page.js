@@ -4,7 +4,48 @@ var vari;
 gene.controller('geneController',function($scope, $http, $location, $mdToast){
 	
 	$scope.gene_info = [];
-	
+	//登录模态框
+	$scope.loginDialog = function () {
+		Custombox.open({
+			target: '#login',
+			effect: 'fadein',
+		})
+	}
+
+	//确认登录
+	$scope.log_in = function (username, password) {
+		var opt = {
+			url: '/accounts/login',
+			method: 'POST',
+			data: JSON.stringify({
+				username: username,
+				password: password,
+			}),
+			headers: { 'Content-Type': 'application/json' }
+		};
+		$http(opt).success(function (data) {
+			if (data.successful) {
+				$scope.error = false;
+				sessionStorage.setItem('login', JSON.stringify(data.data.token));
+				window.location.href = "../project_page/project_page.html";
+			} else {
+				$scope.error = true;
+				if (data.error.id == '1') {
+					$scope.errorMsg = data.error.msg;
+					// showToast($mdToast, data.error.msg);
+				} else {
+					$scope.errorMsg = "LOGIN FAILED!";
+					// showToast($mdToast, "LOGIN FAILED!");
+				}
+			}
+		});
+	};
+
+	$scope.login_by_keyboard = function ($event, username, password) {
+		if ($event.keyCode == 13) {//回车
+			$scope.log_in(username, password);
+		}
+	};
 	//修改密码模态框
 	$scope.changePasswordDialog = function(){
 		Custombox.open({
@@ -71,9 +112,9 @@ gene.controller('geneController',function($scope, $http, $location, $mdToast){
    		});
    	}
 	
-	$scope.jumpToSearch = function(){
-  		window.location.href = "../search_track/search_beta1.html";
-  	}
+	$scope.jumpToSearchIndex = function () {
+		window.location.href = "../search_track/search_index.html";
+	}
 	
 	$scope.jumpToSystem = function(){
   		window.location.href = "../system_page/system_page.html";
@@ -143,10 +184,48 @@ gene.controller('geneController',function($scope, $http, $location, $mdToast){
 	}
 	
 	//初始化
-	$scope.init = function(){
+/*	$scope.init = function(){
+		$scope.getRandomGene();
+	}*/
+	$scope.init = function () {
+		var loginSession = sessionStorage.getItem('login');
+		if (loginSession) {
+			console.log(loginSession);
+			console.log('不为空');
+			$scope.isLogin = false;
+		}
+		else {
+			console.log('空');
+			$scope.isLogin = true;
+		}
+		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var opt = {
+			url: '/home/getUserProject',
+			method: 'POST',
+			data: {
+				token: login_token
+			},
+			headers: { 'Content-Type': 'application/json' }
+		};
+		$http(opt).success(function (data) {
+			if (data.successful) {
+				data.data.forEach(function (x) {
+					$scope.project_info.push({
+						id: x.project_id,
+						name: x.project_name,
+						devices: [],
+						isDeviceShowed: true,
+						track: x.track,
+						function: x.function,
+						creator: x.creator
+					});
+				})
+			}
+		});
+
 		$scope.getRandomGene();
 	}
-	
+
 	$scope.init();
 });
 
