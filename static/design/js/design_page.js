@@ -222,6 +222,10 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 		}
 	}
 
+	$scope.jumpToSearch = function () {
+		window.location.href = "../search_track/search_index.html";
+	}
+
 	$scope.jumpToSystem = function () {
 		window.location.href = "../system_page/system_page.html";
 	}

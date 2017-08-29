@@ -113,6 +113,10 @@ gene.controller('geneController', function ($scope, $http, $location, $mdToast) 
 		});
 	}
 
+	$scope.jumpToSearch = function () {
+		window.location.href = "../search_track/search_index.html";
+	}
+
 	$scope.jumpToSystem = function () {
 		window.location.href = "../system_page/system_page.html";
 	}
