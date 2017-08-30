@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'^firstPage', views.firstPage),
     url(r'^turnPage', views.turnPage),
     url(r'^getDetail', views.getDetail),
+    url(r'^bioSearchFirst', views.bioSearchFirst),
 ]

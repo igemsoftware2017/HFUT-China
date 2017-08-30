@@ -12,24 +12,24 @@ numOfEachPage = 20
 def firstPage(request):
     data = json.loads(request.body)
     keyword = data['keyword']
-    track = data['track']
+    track = data.get('track')
     answers = []
     result = {}
     try:
-        keyword = data['keyword']
-        track = data['track']
-
         parts = getPart(keyword)
 
         answers = getanswer(keyword,track)
         teamList = answers['teamList']
-        request.session['answers'] = teamList
+        teamIds = list()
+        for team in teamList:
+            teamIds.append(team["_id"])
+        request.session['answers'] = teamIds
         r = Retrieve()
         suggestions = r.retrieve(keyword)
         result = {
             'successful': True,
             'data': {
-                'pageSum':math.ceil(answers.__len__()/numOfEachPage),
+                'pageSum':math.ceil(teamList.__len__()/numOfEachPage),
                 'content':teamList[0:numOfEachPage],
                 'groups': answers['groups'],
                 'suggestions': suggestions,
@@ -55,12 +55,15 @@ def turnPage(request):
     try:
         data = json.loads(request.body)
         page = data['page']
+        keyword = data['keyword']
         answers = request.session.get('answers')
-        answers = answers[0+page*numOfEachPage:0+(page+1)*numOfEachPage]
+        answers = answers[(page-1)*numOfEachPage:page*numOfEachPage]
+        teams = getTeamWiki(answers, keyword)
+        print(teams)
     except Exception as e:
-        print(e)
+        print(str(e))
     finally:
-        return HttpResponse(json.dumps(answers), content_type='application/json')
+        return HttpResponse(json.dumps(teams), content_type='application/json')
 # Create your views here.
 
 def getDetail(request):
@@ -82,20 +85,36 @@ def getDetail(request):
 
 def bioSearchFirst(request):
     data = json.loads(request.body)
+    _id = data["_id"]
     keyword = data["keyword"]
-    parts = getPart(keyword)
+    part = getPartDetail(_id)
+    r = Retrieve()
     suggestions = r.retrieve(keyword)
-    if len(parts)>0:
-        part = parts[0]
-        teamIds = part["teams"]
-        teams = getTeamWiki(teamIds)
-        result = {
-            'successful': True,
-            'data': {
-                'pageSum':math.ceil(teams.__len__()/numOfEachPage),
-                'content':teams[0:numOfEachPage],
-                'suggestions': suggestions,
-                'parts':parts
-            }
+    teamIdsStr = part["teams"]
+    teamIds = teamIdsStr.split(',')
+    teams = getTeamWiki(teamIds, None)
+    result = {
+        'successful': True,
+        'data': {
+            'pageSum':math.ceil(teams.__len__()/numOfEachPage),
+            'content':teams[0:numOfEachPage],
+            'suggestions': suggestions,
+            'part':part
         }
+    }
+    return HttpResponse(json.dumps(result), content_type='application/json')
+
+def classify(request):
+    data = json.loads(request.body)
+    keyword = data.get("keyword")
+    classification = data["classification"]
+    teamsIds = request.session.get('answers')
+    teams = getClassification(classification, keyword)
+    result = {
+        'successful': True,
+        'data': {
+            'pageSum':math.ceil(teams.__len__()/numOfEachPage),
+            'content':teams[0:numOfEachPage]
+        }
+    }
     return HttpResponse(json.dumps(result), content_type='application/json')
