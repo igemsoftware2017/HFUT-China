@@ -20,7 +20,9 @@ import string
 
 def getChain(request):
     try:
-        data = json.loads(request.body)
+        body = request.body
+        body = body.decode('utf-8')
+        data = json.loads(body)
         try:
             token = Token.objects.filter(token=data['token']).first()
             user = token.user
@@ -77,7 +79,9 @@ def getChain(request):
 
 def searchParts(request):
     try:
-        data = json.loads(request.body)
+        body = request.body
+        body = body.decode('utf-8')
+        data = json.loads(body)
         try:
             token = Token.objects.filter(token=data['token']).first()
             user = token.user
@@ -118,7 +122,9 @@ def searchParts(request):
 
 def getParts(request):
     try:
-        data = json.loads(request.body)
+        body = request.body
+        body = body.decode('utf-8')
+        data = json.loads(body)
         try:
             token = Token.objects.filter(token=data['token']).first()
             user = token.user
@@ -159,7 +165,9 @@ def getParts(request):
 
 def updateChain(request):
     try:
-        data = json.loads(request.body)
+        body = request.body
+        body = body.decode('utf-8')
+        data = json.loads(body)
         try:
             token = Token.objects.filter(token=data['token']).first()
             user = token.user
@@ -211,7 +219,9 @@ def updateChain(request):
 
 def getARecommend(request):
     try:
-        data = json.loads(request.body)
+        body = request.body
+        body = body.decode('utf-8')
+        data = json.loads(body)
         token = Token()
         token = Token.objects.filter(token=data.data['token']).first()
         chainStr = data.data['seq']
@@ -253,7 +263,9 @@ def getARecommend(request):
 
 def getMRecommend(request):
     try:
-        data = json.loads(request.body)
+        body = request.body
+        body = body.decode('utf-8')
+        data = json.loads(body)
         try:
             token = Token.objects.filter(token=data['token']).first()
             user = token.user
@@ -300,7 +312,9 @@ def getMRecommend(request):
 
 def getResultImage(request):
     try:
-        data = json.loads(request.body)
+        body = request.body
+        body = body.decode('utf-8')
+        data = json.loads(body)
         try:
             token = Token.objects.filter(token=data['token']).first()
             user = token.user

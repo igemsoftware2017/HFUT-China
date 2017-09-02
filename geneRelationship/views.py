@@ -16,7 +16,9 @@ import random
 
 def randomGene(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body
+		body = body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user
@@ -66,7 +68,9 @@ def randomGene(request):
 
 def searchGenes(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body
+		body = body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user
@@ -104,7 +108,9 @@ def searchGenes(request):
 
 def getGeneInfo(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body
+		body = body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user
@@ -143,7 +149,9 @@ def getGeneInfo(request):
 
 def getRelatedGene(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body
+		body = body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user
@@ -184,7 +192,9 @@ def getRelatedGene(request):
 
 def getRelatedPaper(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body
+		body = body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user
@@ -221,7 +231,9 @@ def getRelatedPaper(request):
 
 def getOneSentence(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body
+		body = body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user
@@ -259,7 +271,9 @@ def getOneSentence(request):
 
 def getThreeSentences(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body
+		body = body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user
@@ -297,7 +311,9 @@ def getThreeSentences(request):
 
 def getRelatedDisease(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body
+		body = body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user

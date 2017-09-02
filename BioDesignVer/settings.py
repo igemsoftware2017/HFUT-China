@@ -25,7 +25,7 @@ SECRET_KEY = 't(hjf)w5qshwtfe2a^n1nsxamgyk#em+8&ff289i%9k0(s68$r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*',]
 
 # Application definition
 
@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'projectManage',
     'design',
     'system',
-    'geneRelationship'
+    'geneRelationship',
+    'gunicorn'
 ]
 
 MIDDLEWARE = [
@@ -82,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'biodesignver',
         'USER': 'root',
-        'PASSWORD': 'qaz123',
+        'PASSWORD': '',
         'HOST': '',
         'PORT': '3306',
     }
@@ -129,3 +130,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'static'),
 )
+STATIC_ROOT = '/root/HFUT-2017/static'

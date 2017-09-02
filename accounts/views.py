@@ -19,7 +19,9 @@ import random
 
 def register(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body
+		body = body.decode('utf-8')
+		data = json.loads(body)
 		userName = noneIfEmptyString(data['username'])
 		if not userName:
 			raise myError('The username can\'t be none.' )
@@ -72,7 +74,9 @@ def getLogin(request):
 
 def login(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body
+		body = body.decode('utf-8')
+		data = json.loads(body)
 		user = data['username']
 		password = data['password']
 		customerUser = User()

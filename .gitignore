@@ -94,3 +94,10 @@ static/project_page/devices_img/
 
 #vscode
 /.vscode/*
+
+#conf
+bio_nginx.conf
+gunicorn.conf.py
+
+#log
+log/*

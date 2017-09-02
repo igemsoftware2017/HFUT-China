@@ -29,8 +29,16 @@ def saveInfoToES(es, compound_list):
 def mainFunc():
     es = Elasticsearch()
     print('process started')
-    compound_list = compound.objects.all()[1000:5000]
-    saveInfoToES(es, compound_list)
+    x = 0
+    y = 1000
+    total = compound.objects.count()
+    while y < total:
+        compound_list = compound.objects.all()[x:y]
+        saveInfoToES(es, compound_list)
+        x = y
+        y = y+1000
+        if y > total:
+            y = total
     print('process ended')
 
 if __name__ == '__main__':

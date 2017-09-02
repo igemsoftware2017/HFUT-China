@@ -15,7 +15,9 @@ import string
 
 def searchCompound(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body
+		body = body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user
@@ -52,7 +54,9 @@ def searchCompound(request):
 
 def getCompound(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body
+		body = body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user
@@ -89,7 +93,9 @@ def getCompound(request):
 
 def getGene(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body
+		body = body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user
@@ -126,7 +132,9 @@ def getGene(request):
 
 def getRelatedCompound(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body
+		body = body.decode('utf-8')
+		data = json.loads(body)
 		try:
 			token = Token.objects.filter(token=data['token']).first()
 			user = token.user
