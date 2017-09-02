@@ -40,6 +40,7 @@ def mainFunc():
         if y > total:
             y = total
     print('process ended')
+    
 
 if __name__ == '__main__':
     django.setup()

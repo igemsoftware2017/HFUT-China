@@ -1,18 +1,6 @@
 var editPro = angular.module('designApp', ['ngMaterial', 'ngAnimate', 'ng-sortable', 'ui.bootstrap.contextMenu']);
 
 editPro.controller('designController', function ($scope, $http, $location, $mdToast) {
-	$scope.menuClick = function () {
-		var loginSession = sessionStorage.getItem('login');
-		if (loginSession) {
-			console.log(loginSession);
-			console.log('不为空');
-			$scope.isLogin = false;
-		}
-		else {
-			console.log('空');
-			$scope.isLogin = true;
-		}
-	}
 	$scope.errorMsg = "";
 	$scope.error = false;
 	$scope.search_info = [];//搜索结果
@@ -234,6 +222,10 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 		}
 	}
 
+	$scope.jumpToSearch = function () {
+		window.location.href = "../search_track/search_index.html";
+	}
+
 	$scope.jumpToSystem = function () {
 		window.location.href = "../system_page/system_page.html";
 	}
@@ -343,18 +335,28 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 			}),
 			headers: { 'Content-Type': 'application/json' }
 		};
-		$http(opt).success(function (data) {
-			if (data.successful) {
-				Custombox.close();
-				window.location.href = "../login_register/login_register.html";
-			} else {
-				Custombox.close();
+		$http(opt).success(function(data){
+			Custombox.close();
+   			if (data.successful) {
+				sessionStorage.removeItem('login');
+   				window.location.href = "../login_register/login_register.html";
+   			} else{
 				showToast($mdToast, "Something Strange Happened!!!");
-			}
-		});
+   			}
+   		});
 	}
 	//页面初始化
 	$scope.init = function () {
+		var loginSession = sessionStorage.getItem('login');
+		if (loginSession) {
+			console.log(loginSession);
+			console.log('不为空');
+			$scope.isLogin = false;
+		}
+		else {
+			console.log('空');
+			$scope.isLogin = true;
+		}
 		var login_token = JSON.parse(sessionStorage.getItem('login'));
 		var chain_id = JSON.parse(sessionStorage.getItem('chain_id'));
 		var project_id = JSON.parse(sessionStorage.getItem('project_id'));

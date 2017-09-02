@@ -2,19 +2,6 @@ var gi = angular.module('geneInfoApp', []);
 
 gi.controller('geneInfoController', function ($scope, $http) {
 
-	$scope.menuClick = function () {
-		var loginSession = sessionStorage.getItem('login');
-		if (loginSession) {
-			console.log(loginSession);
-			console.log('不为空');
-			$scope.isLogin = false;
-		}
-		else {
-			console.log('空');
-			$scope.isLogin = true;
-		}
-	}
-
 	//数据定义
 	$scope.errorMsg = "";
 	$scope.error = false;
@@ -34,6 +21,10 @@ gi.controller('geneInfoController', function ($scope, $http) {
 	$scope.show_d = function () {
 		$scope.showRa = false;
 		$scope.showD = true;
+	}
+
+	$scope.jumpToSearch = function () {
+		window.location.href = "../search_track/search_index.html";
 	}
 
 	$scope.jumpToSystem = function () {
@@ -143,18 +134,28 @@ gi.controller('geneInfoController', function ($scope, $http) {
 			}),
 			headers: { 'Content-Type': 'application/json' }
 		};
-		$http(opt).success(function (data) {
-			if (data.successful) {
-				Custombox.close();
-				window.location.href = "../login_register/login_register.html";
-			} else {
-				Custombox.close();
+		$http(opt).success(function(data){
+			Custombox.close();
+   			if (data.successful) {
+				sessionStorage.removeItem('login');
+   				window.location.href = "../login_register/login_register.html";
+   			} else{
 				showToast($mdToast, "Something Strange Happened!!!");
-			}
-		});
+   			}
+   		});
 	}
 	//网页初始化
 	$scope.init = function () {
+		var loginSession = sessionStorage.getItem('login');
+		if (loginSession) {
+			console.log(loginSession);
+			console.log('不为空');
+			$scope.isLogin = false;
+		}
+		else {
+			console.log('空');
+			$scope.isLogin = true;
+		}
 		var gene_name = sessionStorage.getItem("gene_name");
 		var login_token = JSON.parse(sessionStorage.getItem('login'));
 		var opt = {

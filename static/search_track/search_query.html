@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>BioDesigner|gene</title>
+    <link href="../public/custombox/dist/custombox.min.css" rel="stylesheet">
+    <link href="../public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../public/angular-material/angular-material.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="../public/metisMenu/metisMenu.min.css">
+    <!-- sb-admin -->
+    <link href="../public/sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- font-awesome -->
+    <link href="../public/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="./css/query.css">
+    <link rel="stylesheet" href="./css/gene_beta2.css">
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="img/logo_black_small.png">
+<style>
+	body,ul, li {  
+	    margin: 0;  
+	    padding: 0;  
+	} 
+	body{
+		background:#fff;
+	}
+  .totop{
+			position:fixed;
+			right:10px;
+			bottom:60px;
+			display:block;
+			width:60px;
+			height:60px;
+			background-color:#5cb85;
+			background:url(img/top0.png) no-repeat 0 0;
+			-webkit-transition: all 0.2s ease-in-out;
+			border: 1px solid #d0d0d0;
+			border-radius:10px;
+		}
+		.totop:hover{
+			background:url(img/topt.png) no-repeat 0 -10px;
+			background-color:#5cb85;
+		}
+</style>
+</head>  
+<body ng-app="queryInfoApp" ng-controller="queryController" ng-init="init()">
+<div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div style="float:left;margin-left:6px;margin-top:6px">
+        			<img src="img/ser_l.png"  width="36" height="36" id="logo" class="logo">
+        		</div>  
+                <a class="navbar-brand" href="../search_track/search_index.html">BioDesigner Dolphin</a>
+            </div>
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right">
+            	<li>
+					<button class="btn btn-success" ng-click="jumpToSearchIndex()">Search</button>
+				</li>
+                <li>
+                    <button class="btn btn-danger" ng-click="jumpToProject()">Project</button>
+                </li>
+                <li>
+                    <button class="btn btn-danger" ng-click="jumpToGene()">Gene Relationship</button>
+                </li>
+                <li>
+                    <button class="btn btn-danger" ng-click="jumpToSystem()">System</button>
+                </li>
+                <li class="log-in" ng-if="isLogin === false" ng-click="loginDialog()">
+                    <a href="#" class="sign-up">Log in</a>
+                </li>
+                <li ng-if="isLogin === false">
+                    <a class="sign-up" href="../register/register.html">Sign up</a>
+                </li>
+                <li ng-if="isLogin" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i></a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="#" ng-click="changePasswordDialog()">
+                                <i class="fa fa-gear fa-fw"></i>ChangePassword
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#" ng-click="logoutDialog()">
+                                <i class="fa fa-sign-out fa-fw"></i>Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+         <div class="left">
+            <ul class="left-menu">
+
+                <li class="left-li" id="aDescription"><a class="left-a color" href="#Description">Description</a></li>
+                <li class="left-li" id="aBackground"><a class="left-a color" href="#Background">Background</a></li>
+                <li class="left-li" id="aAttribution"><a class="left-a color" href="#Attribution">Attribution</a></li>
+                <li class="left-li" id="aDesign"><a class="left-a color" href="#Design">Design</a></li>
+                <li class="left-li" id="aHumanPractice"><a class="left-a color" href="#HumanPractice">Human Practice</a></li>                
+                <li class="left-li" id="aResult"><a class="left-a color" href="#Result">Result</a></li>
+                <li class="left-li" id="aRelated"><a class="left-a color" href="#Related">Related</a></li>
+            </ul>
+        </div> 
+        
+        </div>
+	<div class="row">
+            <div class="wrap col-md-6 col-md-offset-3">
+                <div id="content-div" class="content_main">
+                    <div>
+                        <div class="point3"></div>
+                        <div class="title-team"><h1><b>{{year}}-{{name}}</b></h1><div class="type">type:{{type}}</div></div>
+                        <div class="which1">
+                            keywords
+                         </div>&nbsp;
+                         {{keywords}}
+                          <hr  style="margin-top:0px;width:100%;background-color:#fff;height:1px;" >
+                         <div class="which1">
+                            track
+                         </div>&nbsp;
+                         {{track}}
+                          <hr  style="margin-top:0px;width:100%;background-color:#fff;height:1px;" >
+                         <div class="which2">
+                            awards
+                         </div>&nbsp;
+                         <font color="#fab735">{{award}}</font>
+                    </div>
+                     <hr  style="margin-top:0px;width:100%;background-color:#fff;height:1px;" >
+                   <!--  <div>
+                        <div ng-model="track">{{track}}</div>
+                        <div ng-model="type">{{type}}</div>
+                        <div ng-model="keywords">{{keywords}}</div>
+                        <div ng-model="award">{{award}}</div>
+                    </div> -->
+                    
+                    <!-- <div class="list-div">
+                        <div class="result-title color"  style="font-weight:bold">
+                         <div class="type" style="background-color:##f9a731;border-color:#fefefe;border-radius:3px;">
+                             type : high-school 
+                        </div>
+                        <div ng-model="track">{{track}}</div>
+                        <div class="content color">
+                            <div class="keywords key"><span><em class="key">keywords:{{team.keywords}}</em></span>
+                            <div class="keywords_beta color-key"><span><em class="key"><font size=3px color="white" style="background-color:#6b9de2;border-radius:3px;padding:2px;margin:3px;font-weight:bold">keywords: </font><font size=2px; style="font-weight:bold" color="#333"><div ng-model="keywords">{{keywords}}</div></font></em></span>
+                            </div>
+                            <div class="results color-key">
+                            	<b><font size=3px; color="#ffffff"  style="background-color:#f9a731;border-radius:3px;">&nbsp;&nbsp;awards: </font>&nbsp;<img src="img/results.png" height="23px"><font size=3px;><font>&nbsp;<div ng-model="award">{{award}}</div>&nbsp;</font></b>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    </div> -->
+                    
+                   <!--  <table  class="altrowstable" id="alternatecolor">
+                    <tr>
+                    <td style="text-align:center;font-weight:bold;">type</td>
+                     <td>high-school</td>
+                     </tr>
+                     <tr>
+                    <td style="text-align:center;font-weight:bold;">track</td>
+                     <td width="900px"><div ng-model="keywords">{{track}}</td>
+                     </tr>
+                     
+                     <tr>
+                    <td style="text-align:center;font-weight:bold;">keywords</td>
+                     <td><div ng-model="keywords">{{keywords}}</div></td>
+                     </tr>
+                     
+                     <tr>
+                    <td style="text-align:center;font-weight:bold;">award</td>
+                     <td><div ng-model="award">{{award}}</div></td>
+                     </tr>
+
+                    </table> -->
+		<script type="text/javascript">  
+		function altRows(id){  
+		    if(document.getElementsByTagName){    
+		          
+		        var table = document.getElementById(id);    
+		        var rows = table.getElementsByTagName("tr");   
+		           
+		        for(i = 0; i < rows.length; i++){            
+		            if(i % 2 == 0){  
+		                rows[i].className = "evenrowcolor";  
+		            }else{  
+		                rows[i].className = "oddrowcolor";  
+		            }        
+		        }  
+		    }  
+		}  
+		  
+		window.onload=function(){  
+		    altRows('alternatecolor');  
+		}  
+		</script>  
+                    <div class="content_info" id="Description">
+                        <font size=5px>Description</font>
+                        <!-- <hr style="FILTER: progid:DXImageTransform.Microsoft.Glow(color=#111111,strength=10)" width="900px" color=#111111 SIZE=1
+                        /> -->
+                        <hr  style="margin-top:3px;margin-bottom:9px;width:100%;background-color:#ccc;height:0.4px;" >
+                        <div ng-class="{'content_container':isMore}" id="description">
+                            <p ng-model="description" >{{description}}</p>
+                        </div>
+
+                    </div>
+                     <center><div>
+                        <button ng-if="isMore" ng-click="more()" class="bothbtn btn btn-default more-btn">
+                            <i class="fa fa-chevron-down"></i>more
+                        </button>
+                        <button ng-if="!isMore" ng-click="packUp()" class="bothbtn btn btn-default more-btn">
+                            <i class="fa fa-chevron-up"></i>pack up
+                        </button>
+                    </div>
+					</center> 
+                    <div class="content_info" id="Background">
+                        <font size=5px>Background</font>
+                        <hr  style="margin-top:3px;margin-bottom:9px;width:100%;background-color:#ccc;height:0.4px;" >
+                        <div id="background">
+                            <p ng-model="background">{{background}}</p>
+                        </div>
+                    </div>
+                    <div class="content_info" id="Attribution">
+                        <font size=5px>Attribution</font>
+                        <hr  style="margin-top:3px;margin-bottom:9px;width:100%;background-color:#ccc;height:0.4px;" >
+                        <div id="attribution">
+                            <p ng-model="attribution">{{attribution}}</p>
+                        </div>
+                    </div>
+                    <div class="content_info" id="Design">
+                        <font size=5px>Design</font>
+                            <hr  style="margin-top:3px;margin-bottom:9px;width:100%;background-color:#ccc;height:0.4px;" >
+                            <div id="design">
+                                <p ng-model="design">{{design}}</p>
+                            </div>
+                        </div>
+                    <div class="content_info" id="HumanPractice">
+                        <font size=5px>Human Practice</font>
+                        <hr  style="margin-top:3px;margin-bottom:9px;width:100%;background-color:#ccc;height:0.4px;" >
+                        <div id="human_practice">
+                            <p ng-model="human_practice">{{human_practice}}</p>
+                        </div>
+                    </div>
+                    <div class="content_info" id="Result">
+                        <font size=5px>Result</font>
+                        <hr  style="margin-top:3px;margin-bottom:9px;width:100%;background-color:#ccc;height:0.4px;" >
+                        <div id="result">
+                            <p ng-model="result">{{result}}</p>
+                        </div>
+                    </div>
+                    <div class="content_info" id="Related">
+                        <font size=5px>Related</font>
+                        <hr  style="margin-top:3px;margin-bottom:9px;width:100%;background-color:#ccc;height:0.4px;" >
+                        <div ng-repeat="re in related">
+                            <a ng-href="{{re.link}}" ng-model="re.project_name">{{re.project_name}}</a>
+                        </div>
+                    </div>
+                     <div class="con-end"></div> 
+                </div>
+            </div>
+        </div>
+      <a href="#" onclick="gotoTop();return false;" class="totop"></a>
+      
+	<!-- log in modal -->
+        <div id="login" class="modal-demo">
+            <button type="button" class="close" onclick="Custombox.close();">
+                <span>×</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <h4 class="title">Login</h4>
+            <div class="text">
+                <form class="form-horizontal" role="form" ng-keypress="login_by_keyboard($event,username,password)">
+                    <div class="form-group col-md-12">
+                        <label for="username">Username</label>
+                        <input id="username" type="text" class="form-control login-input" placeholder="User Name" ng-model="username" />
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="password">Password</label>
+                        <input id="password" type="password" class="form-control login-input" placeholder="Password" ng-model="password" />
+                    </div>
+                </form>
+                <a href="../register/register.html">
+                        Create account
+                    </a>
+            </div>
+            <div class="modal-footer">
+                <span ng-if="error" class="error-msg">{{errorMsg}}</span>
+                <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+                <button type="button" class="btn btn-primary" ng-click="log_in(username,password)">Confirm</button>
+            </div>
+        </div> 
+        
+    <!--log out modal-->
+    <div id="logout" class="modal-demo">
+		<button type="button" class="close" onclick="Custombox.close();">
+			<span>×</span>
+			<span class="sr-only">Close</span>
+		</button>
+		<h4 class="title">Log Out</h4>
+		<div class="text">
+			<h3>Are You Sure?</h3>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+			<button type="button" class="btn btn-primary" ng-click="log_out()">Confirm</button>
+		</div>
+	</div>
+	<!--change password modal-->
+    <div id="cgPwd" class="modal-demo">
+		<button type="button" class="close" onclick="Custombox.close();">
+			<span>×</span>
+			<span class="sr-only">Close</span>
+		</button>
+		<h4 class="title">Change Password</h4>
+		<div class="text">
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+					<label for="old password" class="col-sm-2 control-label">Old Password</label>
+					<div class="col-sm-10">
+						<input type="password" class="form-control" placeholder="old password" ng-model="old_password"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="new password" class="col-sm-2 control-label">New Password</label>
+					<div class="col-sm-10">
+						<input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="confirm password" class="col-sm-2 control-label">Confirm Password</label>
+					<div class="col-sm-10">
+						<input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password"/>
+					</div>
+					
+				</div>
+			</form>
+			
+		</div>
+		
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+			<button type="button" class="btn btn-primary" ng-click="change_password(old_password,new_password,re_password)">Confirm</button>
+		</div>
+	</div>
+	
+	<script src="../public/custombox/dist/legacy.min.js"></script>
+	<script src="../public/custombox/dist/custombox.min.js"></script>
+	
+	<script src="../public/angular/angular.min.js"></script>
+	<script src="../public/angular-animate/angular-animate.min.js"></script>
+	<script src="../public/angular-aria/angular-aria.min.js"></script>
+	<script src="../public/angular-material/angular-material.min.js"></script>
+	
+	<script src="../public/jquery/dist/jquery.min.js"></script>
+	<script src="../public/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="../public/metisMenu/metisMenu.min.js"></script>
+	<script src="../public/sb-admin-2/js/sb-admin-2.min.js"></script>
+	
+	<script src="./js/query.js"></script> 
+	<script>
+	function gotoTop(acceleration,stime) {
+		   acceleration = acceleration || 0.1;
+		   stime = stime || 10;
+		   var x1 = 0;
+		   var y1 = 0;
+		   var x2 = 0;
+		   var y2 = 0;
+		   var x3 = 0;
+		   var y3 = 0; 
+		   if (document.documentElement) {
+		       x1 = document.documentElement.scrollLeft || 0;
+		       y1 = document.documentElement.scrollTop || 0;
+		   }
+		   if (document.body) {
+		       x2 = document.body.scrollLeft || 0;
+		       y2 = document.body.scrollTop || 0;
+		   }
+		   var x3 = window.scrollX || 0;
+		   var y3 = window.scrollY || 0;
+		 
+		   // 滚动条到页面顶部的水平距离
+		   var x = Math.max(x1, Math.max(x2, x3));
+		   // 滚动条到页面顶部的垂直距离
+		   var y = Math.max(y1, Math.max(y2, y3));
+		 
+		   // 滚动距离 = 目前距离 / 速度, 因为距离原来越小, 速度是大于 1 的数, 所以滚动距离会越来越小
+		   var speeding = 1 + acceleration;
+		   window.scrollTo(Math.floor(x / speeding), Math.floor(y / speeding));
+		 
+		   // 如果距离不为零, 继续调用函数
+		   if(x > 0 || y > 0) {
+		       var run = "gotoTop(" + acceleration + ", " + stime + ")";
+		       window.setTimeout(run, stime);
+		   }
+		}
+	</script>
+</body>  
+</html>  

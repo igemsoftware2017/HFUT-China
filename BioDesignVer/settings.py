@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'design',
     'system',
     'geneRelationship',
-    'gunicorn'
+    'gunicorn',
+    'biosearch'
 ]
 
 MIDDLEWARE = [

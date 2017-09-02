@@ -1,52 +1,64 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="designApp">
+
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BioDesigner|Design</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>BioDesigner|Design</title>
+
+	<link href="../public/custombox/dist/custombox.min.css" rel="stylesheet">
+	<link href="../public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../public/angular-material/angular-material.min.css" rel="stylesheet">
+	<link href="./css/sb-admin-2.css" rel="stylesheet">
+	<link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="./css/design.css" rel="stylesheet">
+	<link href="./css/advanced.css" rel="stylesheet" />
+	<link href="./css/dashboard.css" rel="stylesheet" />
+	<link href="./css/drag.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../public/css/nav.css">
 	
-	<link href="../public/custombox/dist/custombox.min.css" rel="stylesheet"> 
-    <link href="../public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../public/angular-material/angular-material.min.css" rel="stylesheet">
-    <link href="./css/sb-admin-2.css" rel="stylesheet">
-    <link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="./css/design.css" rel="stylesheet">
-    <link href="./css/advanced.css" rel="stylesheet"/>
-    <link href="./css/dashboard.css" rel="stylesheet"/>
-    <link href="./css/drag.css" rel="stylesheet"/>
-    
-    <!-- Favicon and touch icons -->
-    <link rel="shortcut icon" href="img/logo_black_small.png">
+	<!-- Favicon and touch icons -->
+	<link rel="shortcut icon" href="img/logo_black_small.png">
 </head>
-<body ng-controller="designController">
-    <div id="wrapper">
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+
+<body ng-controller="designController" ng-init="init()">
+	<div id="wrapper">
+		<!-- Navigation -->
+		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">BioDesigner Coral</a>
-            </div>
-            <!-- /.navbar-header -->
-            <ul class="nav navbar-top-links navbar-right">
-                <li>
-                    <button class="btn btn-danger" ng-click="jumpToProject()">Project</button>
+				<a class="navbar-brand" href="../search_track/search_index.html">BioDesigner Dophin</a>
+			</div>
+			<!-- /.navbar-header -->
+			<ul class="nav navbar-top-links navbar-right">
+				<li>
+					<button class="btn btn-danger" ng-click="jumpToSearch()">Search</button>
+				</li>
+				<li>
+					<button class="btn btn-danger" ng-click="jumpToProject()">Project</button>
+				</li>
+				<li>
+					<button class="btn btn-danger" ng-click="jumpToGene()">Gene Relationship</button>
+				</li>
+				<li>
+					<button class="btn btn-danger" ng-click="jumpToSystem()">System</button>
+				</li>
+				<li class="log-in" ng-if="isLogin" ng-click="loginDialog()">
+                    <a href="#" class="sign-up">Log in</a> 
                 </li>
-                <li>
-                    <button class="btn btn-danger" ng-click="jumpToGene()">Gene Relationship</button>
+                <li ng-if="isLogin">
+                    <a class="sign-up" href="../register/register.html">Sign up</a>
                 </li>
-                <li>
-                    <button class="btn btn-danger" ng-click="jumpToSystem()">System</button>
-                </li>
-                <li ng-click="menuClick()" class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+				<li ng-if="!isLogin" class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-user">
+					<ul class="dropdown-menu dropdown-user">
 						<li ng-if="!isLogin">
 							<a href="#" ng-click="changePasswordDialog()">
                                 <i class="fa fa-gear fa-fw"></i>
@@ -60,119 +72,114 @@
                                 Logout
                             </a>
 						</li>
-						<li ng-if="isLogin">
-							<a href="#" ng-click="loginDialog()">
-                                <i class="fa fa-sign-in fa-fw"></i>
-                                Login
-                            </a>
-                        </li>
 					</ul>
-                </li>
-            </ul>
+				</li>
+				</li>
+			</ul>
 			<form class="navbar-form navbar-left">
-            	<input type="text" class="form-control" placeholder="Search..." ng-model="key_word" ng-keypress="search_by_keyboard($event,key_word)">
-            	<button class="btn btn-default" type="button" ng-click="getSearchResult(key_word)">
+				<input type="text" class="form-control" placeholder="Search..." ng-model="key_word" ng-keypress="search_by_keyboard($event,key_word)">
+				<button class="btn btn-default" type="button" ng-click="getSearchResult(key_word)">
                     <i class="fa fa-search"></i>
                 </button>
-            </form>
-     	</nav>
-        <div class="container-fluid">
-        	<div class="row">
-        		<div class="col-md-2 mySidebar">
-                    <ul class="myNavSidebar" ng-sortable="pullConfig">
-                    	<li ng-repeat="gene in search_info" ng-click="getGeneInfo(gene.name)">
-                            <div class="searchItemName handle search_item">
-		                        <img  class='handle search_item' ng-src="{{gene.img}}" alt="gene_img" err-src="icons/Cell_large.png"/>
-                                <div class="searchItemName handle search_item">{{gene.name}}</div>
-                            </div>
+			</form>
+		</nav>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-2 mySidebar">
+					<ul class="myNavSidebar" ng-sortable="pullConfig">
+						<li ng-repeat="gene in search_info" ng-click="getGeneInfo(gene.name)">
+							<div class="searchItemName handle search_item">
+								<img class='handle search_item' ng-src="{{gene.img}}" alt="gene_img" err-src="icons/Cell_large.png" />
+								<div class="searchItemName handle search_item">{{gene.name}}</div>
+							</div>
 						</li>
-                    </ul>
-        		</div>
-        		<div class="col-md-8 row">
-                	<ul id="dashboard" class="row mainDash" ng-sortable="putConfig">
-                		<li class="lll" context-menu="menuOptions" ng-repeat="gene in chain_info" ng-click="getGeneInfo(gene.name)" ng-class="{'pull_right':gene.float_right,
+					</ul>
+				</div>
+				<div class="col-md-8 row">
+					<ul id="dashboard" class="row mainDash" ng-sortable="putConfig">
+						<li class="lll" context-menu="menuOptions" ng-repeat="gene in chain_info" ng-click="getGeneInfo(gene.name)" ng-class="{'pull_right':gene.float_right,
 																										'pull_left':gene.float_left,
 																										'line':gene.line,
 																										'lt':gene.lt,
 																										'rt':gene.rt,
 																										'lb':gene.lb,
 																										'rb':gene.rb}">
-		                    <img class='handle search_item' ng-src="{{gene.img}}" alt="gene_img">
+							<img class='handle search_item' ng-src="{{gene.img}}" alt="gene_img">
 							<span class='handle search_item'>{{gene.name}}</span>
 						</li>
-                    </ul>
+					</ul>
 
-                    <div class="bottombar">
-                    	<div id="recommend">
-                            <ul class="recommendMain">
-                                <div ng-sortable="recommendConfig">
-                                    <li ng-repeat="gene in recommend_info" class='recommend_item handle search_item' style="margin-right:0px;"ng-click="getGeneInfo(gene.name)">
-                                        <img ng-src="{{gene.img}}" alt="gene_img">
-                                        <span>{{gene.name}}</span>
-                                    </li>
-                                </div>
-                            </ul>
-                    	</div>
-                    </div>
-                </div>
-                
-                <div class="col-md-2">
-        			<div class="panel panel-default">
-	                    <div class="panel-heading">
-	                        <h3 class="panel-title">Information</h3>
-	                    </div>
-	                    <div class="panel-body selectGeneInfo">
-	                        <h3>Part Name</h3>
-	                        <h4>Type: {{part_type}}</h4>
-	                        <h4>Part Nick Name: {{part_nick_name}}</h4>
-	                        <h4>Part Short Desc: {{part_short_desc}}</h4>
-	                        <h4>Description: {{description}}</h4>
-	                        <h4>Score: {{score}}</h4>
-	                        <h4>Papers:</h4>
+					<div class="bottombar">
+						<div id="recommend">
+							<ul class="recommendMain">
+								<div ng-sortable="recommendConfig">
+									<li ng-repeat="gene in recommend_info" class='recommend_item handle search_item' style="margin-right:0px;" ng-click="getGeneInfo(gene.name)">
+										<img ng-src="{{gene.img}}" alt="gene_img">
+										<span>{{gene.name}}</span>
+									</li>
+								</div>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-2">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Information</h3>
+						</div>
+						<div class="panel-body selectGeneInfo">
+							<h3>Part Name</h3>
+							<h4>Type: {{part_type}}</h4>
+							<h4>Part Nick Name: {{part_nick_name}}</h4>
+							<h4>Part Short Desc: {{part_short_desc}}</h4>
+							<h4>Description: {{description}}</h4>
+							<h4>Score: {{score}}</h4>
+							<h4>Papers:</h4>
 							<ul ng-repeat="p in papers">
 								<li><a ng-href="{{p.url}}">{{p.name}}</a></li>
 							</ul>
-	                    </div>
-                    </div>
-                    <div id="clipboard" ng-mouseover="closeTrashBin()" ng-style="trashBin" ng-mouseleave="openTrashBin()" ng-sortable="deleteConfig">
-                          <div ng-repeat="gene in delete_gene" class='recommend_item'></div>
-                    </div> 
-        		</div>
-        		</div>
-        		
-        	</div>
-        </div>
-    </div>
-    <!-- log in modal -->
+						</div>
+					</div>
+					<div id="clipboard" ng-mouseover="closeTrashBin()" ng-style="trashBin" ng-mouseleave="openTrashBin()" ng-sortable="deleteConfig">
+						<div ng-repeat="gene in delete_gene" class='recommend_item'></div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	</div>
+	<!-- log in modal -->
 	<div id="login" class="modal-demo">
-			<button type="button" class="close" onclick="Custombox.close();">
+		<button type="button" class="close" onclick="Custombox.close();">
 				<span>×</span>
 				<span class="sr-only">Close</span>
 			</button>
-			<h4 class="title">Login</h4>
-			<div class="text">
-				<form class="form-horizontal" role="form" ng-keypress="login_by_keyboard($event,username,password)">
-					<div class="form-group col-md-12">
-						<label for="username">Username</label>
-						<input id="username" type="text" class="form-control login-input" placeholder="User Name" ng-model="username" />
-					</div>
-					<div class="form-group col-md-12">
-						<label for="password">Password</label>
-						<input id="password" type="password" class="form-control login-input" placeholder="Password" ng-model="password" />
-					</div>
-				</form>
-				<a href="../register/register.html">
+		<h4 class="title">Login</h4>
+		<div class="text">
+			<form class="form-horizontal" role="form" ng-keypress="login_by_keyboard($event,username,password)">
+				<div class="form-group col-md-12">
+					<label for="username">Username</label>
+					<input id="username" type="text" class="form-control login-input" placeholder="User Name" ng-model="username" />
+				</div>
+				<div class="form-group col-md-12">
+					<label for="password">Password</label>
+					<input id="password" type="password" class="form-control login-input" placeholder="Password" ng-model="password" />
+				</div>
+			</form>
+			<a href="../register/register.html">
 					Create account
 				</a>
-			</div>
-			<div class="modal-footer">
-				<span ng-if="error" class="error-msg">{{errorMsg}}</span>
-				<button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
-				<button type="button" class="btn btn-primary" ng-click="log_in(username,password)">Confirm</button>
-			</div>
 		</div>
+		<div class="modal-footer">
+			<span ng-if="error" class="error-msg">{{errorMsg}}</span>
+			<button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+			<button type="button" class="btn btn-primary" ng-click="log_in(username,password)">Confirm</button>
+		</div>
+	</div>
 	<!--log out modal-->
-    <div id="logout" class="modal-demo">
+	<div id="logout" class="modal-demo">
 		<button type="button" class="close" onclick="Custombox.close();">
 			<span>×</span>
 			<span class="sr-only">Close</span>
@@ -187,7 +194,7 @@
 		</div>
 	</div>
 	<!--change password modal-->
-    <div id="cgPwd" class="modal-demo">
+	<div id="cgPwd" class="modal-demo">
 		<button type="button" class="close" onclick="Custombox.close();">
 			<span>×</span>
 			<span class="sr-only">Close</span>
@@ -198,19 +205,19 @@
 				<div class="form-group">
 					<label for="old password" class="col-sm-2 control-label">Old Password</label>
 					<div class="col-sm-10">
-						<input type="password" class="form-control" placeholder="old password" ng-model="old_password"/>
+						<input type="password" class="form-control" placeholder="old password" ng-model="old_password" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="new password" class="col-sm-2 control-label">New Password</label>
 					<div class="col-sm-10">
-						<input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password"/>
+						<input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password" />
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="confirm password" class="col-sm-2 control-label">Confirm Password</label>
 					<div class="col-sm-10">
-						<input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password"/>
+						<input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password" />
 					</div>
 				</div>
 			</form>
@@ -220,19 +227,20 @@
 			<button type="button" class="btn btn-primary" ng-click="change_password(old_password,new_password,re_password)">Confirm</button>
 		</div>
 	</div>
-	
+
 	<script src="../public/custombox/dist/legacy.min.js"></script>
-    <script src="../public/custombox/dist/custombox.min.js"></script>
-    <script src="../public/angular/angular.min.js"></script>
-    <script src="../public/angular-animate/angular-animate.min.js"></script>
-    <script src="../public/angular-material/angular-material.min.js"></script>
-    <script src="../public/angular-aria/angular-aria.min.js"></script>
-    <script src="../public/jquery/dist/jquery.min.js"></script>
-    <script src="../public/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../public/angular-sortable/Sortable.js"></script>
-  	<script src="../public/angular-sortable/ng-sortable.js"></script>
-  	<script src="./js/layout.js"></script>
-    <script src="./js/design_page.js"></script>
-    <script src="./js/contextMenu.js"></script>
+	<script src="../public/custombox/dist/custombox.min.js"></script>
+	<script src="../public/angular/angular.min.js"></script>
+	<script src="../public/angular-animate/angular-animate.min.js"></script>
+	<script src="../public/angular-material/angular-material.min.js"></script>
+	<script src="../public/angular-aria/angular-aria.min.js"></script>
+	<script src="../public/jquery/dist/jquery.min.js"></script>
+	<script src="../public/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="../public/angular-sortable/Sortable.js"></script>
+	<script src="../public/angular-sortable/ng-sortable.js"></script>
+	<script src="./js/layout.js"></script>
+	<script src="./js/design_page.js"></script>
+	<script src="./js/contextMenu.js"></script>
 </body>
+
 </html>

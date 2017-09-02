@@ -1,8 +1,7 @@
 var system = angular.module('systemApp', ['ngMaterial', 'ngAnimate']);
 
 system.controller('systemController', function ($scope, $http, $location, $mdToast) {
-
-	$scope.menuClick = function () {
+	$scope.init = function() {
 		var loginSession = sessionStorage.getItem('login');
 		if (loginSession) {
 			console.log(loginSession);
@@ -14,7 +13,6 @@ system.controller('systemController', function ($scope, $http, $location, $mdToa
 			$scope.isLogin = true;
 		}
 	}
-	
 	$scope.errorMsg = "";
 	$scope.error = false;
 	$scope.compound_info = [];//侧边栏数据
@@ -22,7 +20,10 @@ system.controller('systemController', function ($scope, $http, $location, $mdToa
 	$scope.message_show = false;//默认侧边栏信息显示
 	$scope.gene_message_show = true;//基因信息不显示
 
-
+	$scope.jumpToSearch = function () {
+		window.location.href = "../search_track/search_index.html";
+	}
+	
 	$scope.jumpToSystem = function () {
 		window.location.href = "../system_page/system_page.html";
 	}
@@ -138,15 +139,15 @@ system.controller('systemController', function ($scope, $http, $location, $mdToa
 			}),
 			headers: { 'Content-Type': 'application/json' }
 		};
-		$http(opt).success(function (data) {
-			if (data.successful) {
-				Custombox.close();
-				window.location.href = "../login_register/login_register.html";
-			} else {
-				Custombox.close();
+		$http(opt).success(function(data){
+			Custombox.close();
+   			if (data.successful) {
+				sessionStorage.removeItem('login');
+   				window.location.href = "../login_register/login_register.html";
+   			} else{
 				showToast($mdToast, "Something Strange Happened!!!");
-			}
-		});
+   			}
+   		});
 	}
 
 	$scope.getCompoundResult = function (key_word) {
@@ -267,6 +268,7 @@ system.controller('systemController', function ($scope, $http, $location, $mdToa
 		});
 
 	}
+	$scope.init();
 });
 
 var last = {

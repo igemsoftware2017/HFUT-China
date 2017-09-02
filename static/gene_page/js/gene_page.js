@@ -3,20 +3,6 @@ var gene = angular.module('geneApp', ['ngMaterial', 'ngAnimate']);
 gene.controller('geneController', function ($scope, $http, $location, $mdToast) {
 
 	$scope.gene_info = [];
-
-	$scope.menuClick = function () {
-		var loginSession = sessionStorage.getItem('login');
-		if (loginSession) {
-			console.log(loginSession);
-			console.log('不为空');
-			$scope.isLogin = false;
-		}
-		else {
-			console.log('空');
-			$scope.isLogin = true;
-		}
-	}
-
 	$scope.errorMsg = "";
 	$scope.error = false;
 	
@@ -116,15 +102,19 @@ gene.controller('geneController', function ($scope, $http, $location, $mdToast) 
 			}),
 			headers: { 'Content-Type': 'application/json' }
 		};
-		$http(opt).success(function (data) {
-			if (data.successful) {
-				Custombox.close();
-				window.location.href = "../login_register/login_register.html";
-			} else {
-				Custombox.close();
+		$http(opt).success(function(data){
+			Custombox.close();
+   			if (data.successful) {
+				sessionStorage.removeItem('login');
+   				window.location.href = "../login_register/login_register.html";
+   			} else{
 				showToast($mdToast, "Something Strange Happened!!!");
-			}
-		});
+   			}
+   		});
+	}
+
+	$scope.jumpToSearch = function () {
+		window.location.href = "../search_track/search_index.html";
 	}
 
 	$scope.jumpToSystem = function () {
@@ -207,6 +197,16 @@ gene.controller('geneController', function ($scope, $http, $location, $mdToast) 
 
 	//初始化
 	$scope.init = function () {
+		var loginSession = sessionStorage.getItem('login');
+		if (loginSession) {
+			console.log(loginSession);
+			console.log('不为空');
+			$scope.isLogin = false;
+		}
+		else {
+			console.log('空');
+			$scope.isLogin = true;
+		}
 		$scope.getRandomGene();
 	}
 

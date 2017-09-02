@@ -20,6 +20,7 @@ class Gene(models.Model):
 
     class Meta:
         '''internal class'''
+        managed = False
         db_table = 'bio_gene'
 
 class Paper_Gene(models.Model):
@@ -36,6 +37,7 @@ class Paper_Gene(models.Model):
         return self.paper_id
 
     class Meta:
+        managed = False
         db_table = 'bio_paper_gene'
 
 class One_KeySentence(models.Model):
@@ -50,6 +52,7 @@ class One_KeySentence(models.Model):
 
     class Meta:
         '''internal class'''
+        managed = False
         db_table = 'bio_one_keysentence'
 
 class Three_KeySentence(models.Model):
@@ -63,6 +66,7 @@ class Three_KeySentence(models.Model):
 
     class Meta:
         '''internal class'''
+        managed = False
         db_table = 'bio_three_keysentence'
 
 class Gene_Disease(models.Model):
@@ -77,4 +81,5 @@ class Gene_Disease(models.Model):
 
     class Meta:
         '''internal class'''
+        managed = False
         db_table = 'bio_gene_disease'

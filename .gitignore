@@ -101,3 +101,6 @@ gunicorn.conf.py
 
 #log
 log/*
+
+#apple
+.DS_Store

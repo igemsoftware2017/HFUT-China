@@ -21,13 +21,14 @@ from django.views.generic import RedirectView
 from django.conf.urls import *
 
 urlpatterns = [
-	url(r'^$', RedirectView.as_view(url='/static/login_register/login_register.html')),
+	url(r'^$', RedirectView.as_view(url='/static/search_track/search_index.html')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^home/', include('projectManage.urls')),
     url(r'^design/', include('design.urls')),
     url(r'^system/', include('system.urls')),
     url(r'^geneRelationship/', include('geneRelationship.urls')),
+    url(r'^biosearch/', include('biosearch.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

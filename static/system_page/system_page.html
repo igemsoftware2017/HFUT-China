@@ -14,7 +14,7 @@
     <link href="./css/sb-admin-2.css" rel="stylesheet">
     <link href="./css/system.css" rel="stylesheet">
     <link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="../public/css/nav.css">
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="img/logo_black_small.png">
 </head>
@@ -30,10 +30,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">BioDesigner Coral</a>
+                <a class="navbar-brand" href="../search_track/search_index.html">BioDesigner Dophin</a>
             </div>
             <!-- /.navbar-header -->
             <ul class="nav navbar-top-links navbar-right">
+            	<li>
+					<button class="btn btn-danger" ng-click="jumpToSearch()">Search</button>
+				</li>
                 <li>
                     <button class="btn btn-danger" ng-click="jumpToProject()">Project</button>
                 </li>
@@ -43,27 +46,24 @@
                 <li>
                     <button class="btn btn-success" ng-click="jumpToSystem()">System</button>
                 </li>
-                <li ng-click="menuClick()" class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
+                <li class="log-in" ng-if="isLogin" ng-click="loginDialog()">
+                    Log in
+                </li>
+                <li ng-if="isLogin" ng-click="loginDialog()">
+                    <a class="sign-up" href="../register/register.html">Sign up</a>
+                </li>
+                <li ng-if="!isLogin" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i></a>
                     <ul class="dropdown-menu dropdown-user">
                         <li ng-if="!isLogin">
                             <a href="#" ng-click="changePasswordDialog()">
-                                <i class="fa fa-gear fa-fw"></i>
-                                ChangePassword
+                                <i class="fa fa-gear fa-fw"></i>ChangePassword
                             </a>
                         </li>
                         <li ng-if="!isLogin" class="divider"></li>
                         <li ng-if="!isLogin">
                             <a href="#" ng-click="logoutDialog()">
-                                <i class="fa fa-sign-out fa-fw"></i>
-                                Logout
-                            </a>
-                        </li>
-                        <li ng-if="isLogin">
-                            <a href="#" ng-click="loginDialog()">
-                                <i class="fa fa-sign-in fa-fw"></i>
-                                Login
+                                <i class="fa fa-sign-out fa-fw"></i>Logout
                             </a>
                         </li>
                     </ul>
@@ -149,32 +149,32 @@
         </div>
         <!-- log in modal -->
         <div id="login" class="modal-demo">
-			<button type="button" class="close" onclick="Custombox.close();">
+            <button type="button" class="close" onclick="Custombox.close();">
 				<span>×</span>
 				<span class="sr-only">Close</span>
 			</button>
-			<h4 class="title">Login</h4>
-			<div class="text">
-				<form class="form-horizontal" role="form" ng-keypress="login_by_keyboard($event,username,password)">
-					<div class="form-group col-md-12">
-						<label for="username">Username</label>
-						<input id="username" type="text" class="form-control login-input" placeholder="User Name" ng-model="username" />
-					</div>
-					<div class="form-group col-md-12">
-						<label for="password">Password</label>
-						<input id="password" type="password" class="form-control login-input" placeholder="Password" ng-model="password" />
-					</div>
-				</form>
-				<a href="../register/register.html">
+            <h4 class="title">Login</h4>
+            <div class="text">
+                <form class="form-horizontal" role="form" ng-keypress="login_by_keyboard($event,username,password)">
+                    <div class="form-group col-md-12">
+                        <label for="username">Username</label>
+                        <input id="username" type="text" class="form-control login-input" placeholder="User Name" ng-model="username" />
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="password">Password</label>
+                        <input id="password" type="password" class="form-control login-input" placeholder="Password" ng-model="password" />
+                    </div>
+                </form>
+                <a href="../register/register.html">
 					Create account
 				</a>
-			</div>
-			<div class="modal-footer">
-				<span ng-if="error" class="error-msg">{{errorMsg}}</span>
-				<button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
-				<button type="button" class="btn btn-primary" ng-click="log_in(username,password)">Confirm</button>
-			</div>
-		</div>
+            </div>
+            <div class="modal-footer">
+                <span ng-if="error" class="error-msg">{{errorMsg}}</span>
+                <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+                <button type="button" class="btn btn-primary" ng-click="log_in(username,password)">Confirm</button>
+            </div>
+        </div>
         <!--log out modal-->
         <div id="logout" class="modal-demo">
             <button type="button" class="close" onclick="Custombox.close();">

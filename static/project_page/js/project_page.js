@@ -1,18 +1,6 @@
 var bio_pro = angular.module('projectApp', ['ngMaterial', 'ngAnimate']);
 
 bio_pro.controller('projectController', function ($scope, $http, $location, $mdToast) {
-	$scope.menuClick = function () {
-		var loginSession = sessionStorage.getItem('login');
-		if (loginSession) {
-			console.log(loginSession);
-			console.log('不为空');
-			$scope.isLogin = false;
-		}
-		else {
-			console.log('空');
-			$scope.isLogin = true;
-		}
-	}
 	$scope.errorMsg = "";
 	$scope.error = false;
 	$scope.project_info = [];//项目列表
@@ -45,6 +33,14 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 
 	//发送http请求从后台数据库导入项目列表到变量project_info中
 	$scope.init = function () {
+		var loginSession = sessionStorage.getItem('login');
+		if (loginSession) {
+			console.log(loginSession);
+			$scope.isLogin = false;
+		}
+		else {
+			$scope.isLogin = true;
+		}
 		var login_token = JSON.parse(sessionStorage.getItem('login'));
 		var opt = {
 			url: '/home/getUserProject',
@@ -143,6 +139,11 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 	}
 	//新建项目模态框
 	$scope.showNewProjectDialog = function () {
+		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		if (!login_token) {
+			showToast($mdToast, "Please login!");
+			return;
+		}
 		Custombox.open({
 			target: '#newPro',
 			effect: 'fadein',
@@ -187,6 +188,11 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 	}
 	//新建分支模态框
 	$scope.showNewDeviceDialog = function (project_id) {
+		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		if (!login_token) {
+			showToast($mdToast, "Please login!");
+			return;
+		}
 		sessionStorage.setItem("project_id", project_id);
 		Custombox.open({
 			target: '#newDev',
@@ -258,7 +264,6 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 
 	$scope.login_by_keyboard = function ($event, username, password) {
 		if ($event.keyCode == 13) {//回车
-			console.log(111111111111111);
 			$scope.log_in(username, password);
 		}
 	};
@@ -318,19 +323,28 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 			}),
 			headers: { 'Content-Type': 'application/json' }
 		};
-		$http(opt).success(function (data) {
-			if (data.successful) {
-				Custombox.close();
-				window.location.href = "../login_register/login_register.html";
-			} else {
-				Custombox.close();
+		$http(opt).success(function(data){
+			Custombox.close();
+   			if (data.successful) {
+				sessionStorage.removeItem('login');
+   				window.location.href = "../login_register/login_register.html";
+   			} else{
 				showToast($mdToast, "Something Strange Happened!!!");
-			}
-		});
+   			}
+   		});
+	}
+
+	$scope.jumpToSearch = function () {
+		window.location.href = "../search_track/search_index.html";
 	}
 
 	$scope.jumpToDesign = function () {
-		window.location.href = "../design/design.html";
+		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		if (login_token) {
+			window.location.href = "../design/design.html";
+		} else {
+			showToast($mdToast, "Please login!");
+		}
 	}
 
 	$scope.jumpToSystem = function () {

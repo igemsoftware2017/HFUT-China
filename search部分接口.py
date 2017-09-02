@@ -2,10 +2,7 @@
     url:/search/firstPage
 	方法：post
 	参数：{
-        track:[{
-            level1:一级分类,
-            level2:[...]二级分类
-        },...],
+        track:[分类,...],
         keyword:搜索关键字
     }
 	返回参数：JSON
@@ -48,5 +45,36 @@
         successful: false/true,
         data: {
             suggestions:[...]建议列表
+        }
+    }
+
+详细信息
+    url:/biosearch/getDetail
+	方法：post
+	参数：{
+        id: 队伍id
+    }
+	返回参数：JSON
+	{
+        successful: false/true,
+        data: {
+            name:队伍名字,
+            year:年份,
+            description:简介,
+            background:背景,
+            attribution:,
+            design:,
+            human_practice:,
+            result:,
+            keywords:,
+            track:,
+            part_favorite:,
+            part_normal:,
+            type:队伍组别,
+            award:队伍获奖,
+            related:[{
+                project_name:项目名称,
+                link:项目连接
+            },...]
         }
     }

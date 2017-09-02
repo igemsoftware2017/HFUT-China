@@ -2,19 +2,6 @@ var bio_pro = angular.module('relationshipDetailApp', ['ngMaterial', 'ngAnimate'
 
 bio_pro.controller('relationshipDetailController', function ($scope, $http, $location, $mdToast) {
 
-	$scope.menuClick = function () {
-		var loginSession = sessionStorage.getItem('login');
-		if (loginSession) {
-			console.log(loginSession);
-			console.log('不为空');
-			$scope.isLogin = false;
-		}
-		else {
-			console.log('空');
-			$scope.isLogin = true;
-		}
-	}
-
 	$scope.errorMsg = "";
 	$scope.error = false;
 	$scope.relate_detail_info = [];
@@ -118,17 +105,21 @@ bio_pro.controller('relationshipDetailController', function ($scope, $http, $loc
 			}),
 			headers: { 'Content-Type': 'application/json' }
 		};
-		$http(opt).success(function (data) {
-			if (data.successful) {
-				Custombox.close();
-				window.location.href = "../login_register/login_register.html";
-			} else {
-				Custombox.close();
+		$http(opt).success(function(data){
+			Custombox.close();
+   			if (data.successful) {
+				sessionStorage.removeItem('login');
+   				window.location.href = "../login_register/login_register.html";
+   			} else{
 				showToast($mdToast, "Something Strange Happened!!!");
-			}
-		});
+   			}
+   		});
 	}
 
+	$scope.jumpToSearch = function () {
+		window.location.href = "../search_track/search_index.html";
+	}
+	
 	$scope.jumpToSystem = function () {
 		window.location.href = "../system_page/system_page.html";
 	}
@@ -142,6 +133,16 @@ bio_pro.controller('relationshipDetailController', function ($scope, $http, $loc
 	}
 
 	$scope.init = function () {
+		var loginSession = sessionStorage.getItem('login');
+		if (loginSession) {
+			console.log(loginSession);
+			console.log('不为空');
+			$scope.isLogin = false;
+		}
+		else {
+			console.log('空');
+			$scope.isLogin = true;
+		}
 		var source_name = sessionStorage.getItem("source_name");
 		var target_name = sessionStorage.getItem("target_name");
 		var login_token = JSON.parse(sessionStorage.getItem('login'));
