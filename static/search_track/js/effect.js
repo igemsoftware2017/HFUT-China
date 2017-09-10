@@ -12,10 +12,10 @@ function conChoice() {//选择中内容的当前样式
 
     $(".select-list span").click(function () {
 
-        if($(this).hasClass("cur")){
-            $(this).removeClass("cur");
+        if($(this).hasClass("curtip")){
+            $(this).removeClass("curtip");
         }else {
-            $(this).addClass("cur");
+            $(this).addClass("curtip");
         }
 
     })
@@ -31,7 +31,7 @@ function conConfirm() {
     /*将选中的标签添加到面板上*/
 
     //确认点击后触发
-    $("#btn").click(function () {
+    $("#btntip").click(function () {
 
         conAdded.remove();//删除已添加的
 
@@ -50,7 +50,7 @@ function conConfirm() {
             
             var acticveSelect = null;//选中内容
 
-            acticveSelect = $(".select-list").find(".cur");
+            acticveSelect = $(".select-list").find(".curtip");
             
             $.each(acticveSelect,function (i) {//遍历选中的内容,将元素添加进select_iClass_data数组和select_conText_data数组
                 //赋值数组

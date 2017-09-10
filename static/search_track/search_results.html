@@ -95,6 +95,30 @@
 			background:url(img/topt.png) no-repeat 0 -10px;
 			background-color:#5cb85;
 		}
+		em{font-style:normal;}
+
+		.main{width:100%;height:44px;margin-top:0px;font-size:14px;overflow: hidden;margin-bottom:-14px;}
+		.main h2{text-align:center;line-height:60px;color:#555;}
+		
+		.label-box{float:left;margin-top:0px;width:90%;min-height:30px;padding:3px;border:1px solid #99CCFF;overflow:hidden;border-radius:3px;display:inline-block !important; display:inline;height:auto; }
+		.label-box span{display:inline-block;background:#99CCFF;padding:6px 14px;color:#fff;border-radius:3px;margin:0 3px;}
+		
+		.select-box{margin-top:10px;overflow:hidden;display:inline-block !important; }
+		.select-list{float:left;padding:6px;margin-right:10px;border:1px solid ##FFCC99;border-radius:3px;display:inline;height:auto;min-height:20px;}
+		.select-list span{display:inline-block;padding:6px 14px;font-size:14px;border:1px solid #FFCC99;background:#fff;color:#aaa;text-align:center;border-radius:3px;margin:0 3px;cursor:pointer;}
+		.select-list .curtip{background:#FFCC99;color:#fff;}
+		.btntip{
+			border:1px solid #FFCC99;
+			background-color:#FFCC99;
+			border-radius:6px;
+			padding-left:12px;
+			padding-right:12px;
+			padding-top:6px;
+			padding-bottom:6px;
+			color:#fff;
+			font-size:16px;
+			margin-top:10px;
+		}
     </style>
 </head>
 
@@ -185,7 +209,153 @@
     <center>
         <br>
         <div class="list">
-        <br>
+        <script src="/demos/googlegg.js"></script>
+  		<script>
+				function show1(){
+					document.getElementById("anotherDiv").style.display="block";
+	                document.getElementById("thisDiv").style.display="none";
+				    document.getElementById("main").style.height="auto";
+				}
+				function show2(){
+					document.getElementById("thisDiv").style.display="block";
+	                document.getElementById("anotherDiv").style.display="none";
+					document.getElementById("main").style.height="44px";
+				}
+		</script>
+		
+			<div class="main" id="main"> 
+			    <div class="label-box"></div>
+				    <div onclick="show1()" id="thisDiv" style="margin-top:6px;">Add Tips</div>
+					<div onclick="show2()" id="anotherDiv"  style="display:none;margin-top:6px;">Pick Up</div>
+			  
+			 <!--  <div onclick="show1()" id="thisDiv" style="border:1px solid red;width:100px;height:100px">More</div>
+					<div onclick="show2()" id="anotherDiv"  style="border:1px solid blue;width:100px;height:100px;display:none">Pic kUp</div> -->
+
+			    <div class="select-box" id="thisDiv" style="display:none">
+			    
+			        <div class="select-list con1">
+			            <span><em class="con1-1">proteins</em></span>
+			            <span><em class="con1-2">tag</em></span>
+			            <span><em class="con1-3">c-terminal</em></span>
+			        </div>
+			        <div class="select-list con2">
+			            <span><em class="con2-1">fusion</em></span>
+			            <span><em class="con2-2">spytag</em></span>
+			            <span><em class="con2-3">colicin</em></span>
+			        </div>
+			        <div class="select-list con3">
+			            <span><em class="con3-1">subunit</em></span>
+			            <span><em class="con3-2">aptamer</em></span>
+			            <span><em class="con3-3">signal</em></span>
+			        </div>     
+			        <hr>   
+			        <button type="button" id="btntip" class="btntip">OK</button> 
+			    </div>
+			</div>
+			<script src="js/jquery1-1.10.2.min.js"></script>
+			
+			<script>
+			$(function(){
+				   
+			    conConfirm();//确认事件
+			    
+			    conChoice();//选择内容
+			});
+
+
+			//选择内容
+
+			function conChoice() {//选择中内容的当前样式
+
+			    $(".select-list span").click(function () {
+
+			        if($(this).hasClass("curtip")){
+			            $(this).removeClass("curtip");
+			        }else {
+			            $(this).addClass("curtip");
+			        }
+
+			    })
+			};
+
+
+			//确认事件
+
+			function conConfirm() {
+			        
+			    var conAdded = $(".label-box span");//已添加的内容
+			    
+			    /*将选中的标签添加到面板上*/
+
+			    //确认点击后触发
+			    $("#btntip").click(function () {
+
+			        conAdded.remove();//删除已添加的
+
+			        //重新计算快捷按钮选中数量
+			        function init_html() {
+			            
+			            var select_iClass_data = [];//选中的内容的em标签的class
+			            
+			            var select_conText_data = [];//选中的内容的em标签的文字
+			           
+			            var selected_data = []; /*清空数组，防止遍历后重复添加*/
+			            var has_data =[];             //面板上已有的元素文字
+			            var has_iclass_data =[];        //面板上已有的元素类
+			            
+			            var hasCon_html = "";//面板上的内容
+			            
+			            var acticveSelect = null;//选中内容
+
+			            acticveSelect = $(".select-list").find(".curtip");
+			            
+			            $.each(acticveSelect,function (i) {//遍历选中的内容,将元素添加进select_iClass_data数组和select_conText_data数组
+			                //赋值数组
+			                select_iClass_data.push(acticveSelect.eq(i).find("em").attr("class"));
+			                select_conText_data.push(acticveSelect.eq(i).find("em").text());
+			            });
+			            //遍历面板上已有的元素
+			            $.each($(".label-box span"),function (i) {
+			                has_data.push($(".label-box span").find("em").text());
+			            });
+
+			            //去掉重复选择的数据
+			            function test(a,b) {
+			                var c = [];
+			                var tmp = a.concat(b);
+			                var o = {};
+			                for (var i = 0; i < tmp.length; i ++) (tmp[i] in o) ? o[tmp[i]] ++ : o[tmp[i]] = 1;
+			                for (var x in o) if (o[x] == 1) c.push(x);
+			                return c;
+			            }
+
+			            //将遍历数组循环存入到选中的内容数组中
+			            for(var i=0; i<test(has_iclass_data,select_iClass_data).length; i++){
+
+			                var select_i_class = test(has_iclass_data,select_iClass_data)[i];
+			                var select_i_con = test(has_data,select_conText_data)[i];
+			                var select_attr ={"iClass":select_i_class, "conText":select_i_con};
+			                selected_data.push(select_attr);
+			            };
+
+			            for(var j =0; j<selected_data.length; j++){
+
+			                var hasObj = selected_data[j];
+			                hasCon_html += "<span>";
+			                hasCon_html += "<em>"+hasObj.conText+"</em>";
+			                hasCon_html += "</span>";
+			            };
+			            return hasCon_html;
+			        }
+			        
+			        $(".label-box span").remove();
+			        $(".label-box").append(init_html());
+
+			    });
+			}
+
+			</script>
+			<br><br><br>
 				<a>
                     <div class="list-bio-div">
                         <div class="recommendation color-key">

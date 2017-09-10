@@ -453,7 +453,7 @@ body{
 }
 .left-menu{
 	width: 100%;
-	border-radius: 2px;
+	border-radius: 0px;
     list-style: none;
     position: relative;
     margin: 0;
@@ -469,7 +469,7 @@ body{
 	display: block; 
 	line-height: 36px;
 	text-align:center;
-	border-radius:10px;
+	border-radius:0px;
 }
 /* .left-a{
 	color: #fdfdfd;
@@ -514,8 +514,9 @@ body{
     background-color:##fdfdfd; 
 	border: #ccc solid 1px;
 	padding:13px;
-	border-radius: 20px;
+	border-radius: 10px;
 	word-wrap: break-word;
+	box-shadow:0 0 6px #eee;
 }
 .content_container{
 	text-align:left;
