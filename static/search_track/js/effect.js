@@ -12,10 +12,10 @@ function conChoice() {//选择中内容的当前样式
 
     $(".select-list span").click(function () {
 
-        if($(this).hasClass("curtip")){
-            $(this).removeClass("curtip");
+        if($(this).hasClass("cur")){
+            $(this).removeClass("cur");
         }else {
-            $(this).addClass("curtip");
+            $(this).addClass("cur");
         }
 
     })
@@ -50,19 +50,22 @@ function conConfirm() {
             
             var acticveSelect = null;//选中内容
 
-            acticveSelect = $(".select-list").find(".curtip");
-            
+            acticveSelect = $(".select-list").find(".cur");
+
+            console.log(acticveSelect);
+            console.log(select_iClass_data);
             $.each(acticveSelect,function (i) {//遍历选中的内容,将元素添加进select_iClass_data数组和select_conText_data数组
                 //赋值数组
                 select_iClass_data.push(acticveSelect.eq(i).find("em").attr("class"));
                 select_conText_data.push(acticveSelect.eq(i).find("em").text());
             });
+            console.log(select_iClass_data);
             //遍历面板上已有的元素
             $.each($(".label-box span"),function (i) {
                 has_data.push($(".label-box span").find("em").text());
             });
 
-            //去掉重复选择的数据
+            /*//去掉重复选择的数据
             function test(a,b) {
                 var c = [];
                 var tmp = a.concat(b);
@@ -70,13 +73,21 @@ function conConfirm() {
                 for (var i = 0; i < tmp.length; i ++) (tmp[i] in o) ? o[tmp[i]] ++ : o[tmp[i]] = 1;
                 for (var x in o) if (o[x] == 1) c.push(x);
                 return c;
-            }
+            }*/
 
             //将遍历数组循环存入到选中的内容数组中
-            for(var i=0; i<test(has_iclass_data,select_iClass_data).length; i++){
+            /*for(var i=0; i<test(has_iclass_data,select_iClass_data).length; i++){
 
                 var select_i_class = test(has_iclass_data,select_iClass_data)[i];
                 var select_i_con = test(has_data,select_conText_data)[i];
+                var select_attr ={"iClass":select_i_class, "conText":select_i_con};
+                selected_data.push(select_attr);
+            };*/
+
+            for(var i=0; i<select_iClass_data.length; i++){
+
+                var select_i_class = select_iClass_data[i];
+                var select_i_con = select_conText_data[i];
                 var select_attr ={"iClass":select_i_class, "conText":select_i_con};
                 selected_data.push(select_attr);
             };
