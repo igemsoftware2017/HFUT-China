@@ -188,7 +188,7 @@ em{font-style:normal;}
 }
 .left{
 	z-index:999;
-	left:2%;
+	left:20px;
 	position: fixed;
 	top: 16%;
 	width: 140px;
@@ -220,11 +220,11 @@ a:link,a:visited{text-decoration: none;}
     background:#ccc; 
 }
 .line_left{
-	margin-left:15%;
+	margin-left:0%;
 	float:left;
     width:0.4px; 
     height:100%; 
-    background:#ccc; 
+    background:#fff; 
 }
 .list-right{
 	margin-top:30px;

@@ -281,9 +281,9 @@
                 <div class="select-box" id="thisDiv" style="display:none">
 
                     <div class="select-list con1">
-                        <span ng-class="{con3:true, cur:chosen[tag]}" ng-repeat="tag in tags" ng-click="conChoice(tag)"><em class="con3-1">{{tag}}</em></span>
+                         <span style="margin-top:10px;" ng-class="{con3:true, cur:chosen[tag]}" ng-repeat="tag in tags" ng-click="conChoice(tag)"><em class="con3-1">{{tag}}</em></span> 
                     </div>
-                    <button type="button" id="btntip" class="btntip" style="float:right;margin-right:10px;width:100px;">OK</button>
+                    <button type="button" id="btntip" class="btntip" style="width:130px;">Add Tips</button>
                 </div>
             </div>
 
@@ -338,7 +338,7 @@
                     
                     <div ng-repeat="word in words">
                         <div class='s-content'>
-                            <a href="" class=" color">{{word}}</a>
+                            <a href="" class=" color" ng-click="getList(word)">{{word}}</a>
                         </div>
                     </div>
 
@@ -346,6 +346,26 @@
                 <br><br><br><br><br><br>
                 <div class="zxf_pagediv" style="margin-top:26px;float:left;"></div>
                 <div clas="foot-div" style="margin-top:20px;height:6px;"><br><br><br><br><br><br><br><br><br></div>
+
+<div class="">
+    <pagination boundary-links="true" total-items="totalItems"
+                ng-model="currentPage" class="pagination-sm embed-responsive-item"
+                previous-text="上一页"
+                next-text="下一页"
+                first-text="首页"
+                last-text="尾页"
+                max-size="maxSize"
+                rotate="false" num-pages="numPages">
+ 
+ 
+    </pagination>
+</div>
+                
+
+
+
+                
+
         </div>
         </center><br><br><br>
         </div>
