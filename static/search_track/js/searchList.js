@@ -1,5 +1,5 @@
 
-var searchList = angular.module('searchListApp',['ngMaterial','ngAnimate']);
+var searchList = angular.module('searchListApp',['ngMaterial','ngAnimate','ui.bootstrap']);
 var vari;
 searchList.config(['$locationProvider', function($locationProvider) {
   $locationProvider.html5Mode({
@@ -8,6 +8,20 @@ searchList.config(['$locationProvider', function($locationProvider) {
   });
 }]);
 searchList.controller('searchListController',function($scope, $http, $location, $mdToast, $sce){
+	$scope.totalItems = 64;
+    $scope.currentPage = 1;
+
+    $scope.setPage = function (pageNo) {
+        $scope.currentPage = pageNo;
+    };
+
+    $scope.pageChanged = function() {
+        $log.log('Page changed to: ' + $scope.currentPage);
+    };
+
+    $scope.maxSize = 5;
+    $scope.bigTotalItems = 175;
+    $scope.bigCurrentPage = 1;
 	var trackNum = 9;
 	$scope.tags = ['Foundational Advance','Biochemistry','Hardware','Microbiology','Manufacturing','Medicine','Diagnostics','Environment','Genetic engineering'];
 	$scope.chosen = {};
@@ -256,7 +270,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
         //         "description": [" <b>protein</b> is interesting firstly because it is about half the size of other fluorescent <b>proteins</b> that are being used today, making it suitable as a"]
         //     },
         //     "score": 2.6258528,
-        //     "hits": 0
+        //     "hits": 0++
         // }, {
         //     "id": "AV3_VLmar5lUclF2BU5Y",
         //     "title": "2016-Denver_Biolabs",
