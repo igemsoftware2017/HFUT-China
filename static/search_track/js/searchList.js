@@ -310,6 +310,40 @@ searchList.controller('searchListController',function($scope, $http, $location, 
         //     "hits": 0
         // }];
 	}
+
+	$scope.getGeneInfo = function(part_id) {
+		var opt = {
+			url: '/biosearch/bioSearchFirst',
+			method: 'POST',
+			data: {
+				_id: part_id,
+				keyword: $scope.key_word
+			},
+			headers: { 'Content-Type': 'application/json'}
+		};
+		$http(opt).success(function(data){
+			if(data.successful){
+				console.log(data.data);
+				$scope.teams = data.data.content.map(function(team){
+					team.highlight.forEach(function(hightlight){
+						team.abstract = team.abstract + "..." + hightlight;
+					});
+					team.abstract = $sce.trustAsHtml(team.abstract+" ...");
+					return team;
+				});
+				// $scope.words = data.data.suggestions;
+				// $scope.search_info = [];
+				// data.data.parts.forEach(part => {
+				// 	$scope.search_info.push({
+				// 		img: '../img/' + part.part_type + '.png',
+				// 		name: part.part_name,
+				// 		part_id: part._id
+				// 	});
+				// });
+				
+			}
+		});
+	}
 	
 	//初始化
 	$scope.init = function(){
