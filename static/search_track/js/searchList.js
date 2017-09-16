@@ -201,12 +201,6 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 	}
 
 	$scope.getList = function(){
-		$scope.track = [];
-		Object.keys($scope.chosen).forEach(track=>{
-			if ($scope.chosen[track]) {
-				$scope.track.push(track);
-			}
-		});
 		var opt = {
 			url: '/biosearch/firstPage',
 			method: 'POST',
@@ -345,6 +339,33 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 		});
 	}
 	
+	$scope.jumpToSearch = function(key_word){
+		$scope.track = [];
+		Object.keys($scope.chosen).forEach(track=>{
+			if ($scope.chosen[track]) {
+				$scope.track.push(track);
+			}
+		});
+		if ($scope.track == 0) {
+			$scope.track = $scope.tags;
+		}
+		var trackStr = '';
+		if ($scope.track.length>0) {
+			$scope.track.forEach(track => {
+				trackStr = trackStr+"&track="+track;
+			});
+		} else {
+			$scope.tags.forEach(track => {
+				trackStr = trackStr+"&track="+track;
+			})
+		}
+		
+		url = `../search_track/search_results.html?key_word=${key_word}`;
+		url = url + trackStr;
+		console.log(url);
+		window.location.href = url;
+	}
+
 	//初始化
 	$scope.init = function(){
 		var loginSession = sessionStorage.getItem('login');
@@ -356,10 +377,9 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 		}
         $scope.key_word = $location.search().key_word;
 		$scope.track = $location.search().track;
-		$scope.tags = ['Foundational Advance','Biochemistry','Hardware','Microbiology','Manufacturing','Medicine','Diagnostics','Environment','Genetic engineering'];
 		$scope.track.forEach(track => {
 			$scope.chosen[track] = true;
-		})
+		});
         $scope.getList();
 	}
 	

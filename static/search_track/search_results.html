@@ -243,7 +243,7 @@
                     <input type="text" id="gover_search_key" style="height:34px;width:290px" placeholder="Please input keywords ..." class="form-control sb_input"
                         ng-model="key_word" ng-keypress="gene_info_by_board($event,key_word,track)">
 
-                    <button id="btn" class="btn btn-default" type="button" ng-click="getList(key_word,track)">
+                    <button id="btn" class="btn btn-default" type="button" ng-click="jumpToSearch(key_word)">
                     <i class="fa fa-search"></i>
                 </button>
                     <div class="suggest-wrap">
@@ -338,7 +338,7 @@
                     
                     <div ng-repeat="word in words">
                         <div class='s-content'>
-                            <a href="" class=" color" ng-click="getList(word)">{{word}}</a>
+                            <a href="" class=" color" ng-click="jumpToSearch(word)">{{word}}</a>
                         </div>
                     </div>
 

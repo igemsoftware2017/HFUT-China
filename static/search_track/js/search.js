@@ -148,20 +148,6 @@ gene.controller('searchController',function($scope, $http, $location, $mdToast){
 		url = `../search_track/search_results.html?key_word=${$scope.key_word}`;
 		url = url + trackStr;
 		window.location.href = url;
-		// var opt = {
-		// 	url: '/biosearch/firstPage',
-		// 	method: 'POST',
-		// 	data: {
-		// 		track: track,//假设10个
-		// 		keyword: key_word,
-		// 	},
-		// 	headers: { 'Content-Type': 'application/json'}
-		// };
-		// $http(opt).success(function(data){
-		// 	if(data.successful){
-		// 		console.log(data.data)
-		// 	}
-		// });
 	}
 	//初始化
 	$scope.init = function(){
