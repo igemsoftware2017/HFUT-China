@@ -220,7 +220,7 @@ a:link,a:visited{text-decoration: none;}
     background:#ccc; 
 }
 .line_left{
-	margin-left:0%;
+	margin-left:15%;
 	float:left;
     width:0.4px; 
     height:100%; 
