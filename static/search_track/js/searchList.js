@@ -356,6 +356,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 		}
         $scope.key_word = $location.search().key_word;
 		$scope.track = $location.search().track;
+		$scope.tags = ['Foundational Advance','Biochemistry','Hardware','Microbiology','Manufacturing','Medicine','Diagnostics','Environment','Genetic engineering'];
 		$scope.track.forEach(track => {
 			$scope.chosen[track] = true;
 		})
