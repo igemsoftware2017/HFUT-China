@@ -84,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'biodesignver',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'qaz123',
         'HOST': '',
         'PORT': '3306',
     }
