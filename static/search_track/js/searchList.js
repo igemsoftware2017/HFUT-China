@@ -1,3 +1,4 @@
+
 var searchList = angular.module('searchListApp',['ngMaterial','ngAnimate']);
 var vari;
 searchList.config(['$locationProvider', function($locationProvider) {
@@ -141,6 +142,59 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 		}
 	}
 
+	$scope.jumpToSearchResults = function(key_word){
+		var trackStr = ''
+		for (var i = 0; i<trackNum; i++) {
+			if ($scope.chosen[i]) {
+				if (i < 5) {
+					trackStr = trackStr+"&track="+$scope.tags1[i];
+				} else {
+					trackStr = trackStr+"&track="+$scope.tags2[i-5];
+				}
+			}
+		}
+		url = `../search_track/search_results.html?key_word=${$scope.key_word}`;
+		url = url + trackStr;
+		window.location.href = url;
+	 	var opt = {
+		 	url: '/biosearch/biobrick',
+		 	method: 'POST',
+		 	data: {
+		 		track: trackStr,//母鸡。。。
+		 		keyword: key_word,
+		 	},
+		 	headers: { 'Content-Type': 'application/json'}
+		 };
+		$http(opt).success(function (data) {
+			if (data.successful) {
+				$scope.error = false;
+				//success
+				console.log("successful == true");
+				$scope.pageNum = data.data.pageNum;
+				$scope.track_info = [];
+				var track_result = data.data;
+				for (var i = 0;i < track_result.length;i++) {
+					$scope.track_info.push({
+						title: track_result[i].title,
+						key:track_result[i].key,
+						abstract: track_result[i].absract,
+					});
+				}
+
+			} else {
+				console.log('false');
+				//false
+				$scope.error = true;
+				if (data.error.id == '1') {
+					$scope.errorMsg = data.error.msg;
+				} else {
+					$scope.errorMsg = "error!";
+				}
+			}
+		});
+	}
+
+	
 	$scope.getDetail = function(id) {
 		url = `./search_query.html?id=${id}`;
 		console.log(url);

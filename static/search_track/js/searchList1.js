@@ -23,6 +23,46 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 		$scope.chosen[tag] = !$scope.chosen[tag];
 	}
 	
+	$scope.init = function () {
+		// console.log($location.search().id);
+		var opt = {
+			url: '/biosearch/biobrick',
+			method: 'POST',
+			data: {
+				track: [track1,track2,track3,track4,track5,track6,track7,track8,track9],
+				keyword: key_word,
+			},
+			headers: { 'Content-Type': 'application/json' }
+		};
+		$http(opt).success(function (data) {
+			if (data.successful) {
+				$scope.error = false;
+				//success
+				console.log("successful == true");
+				$scope.pageNum = data.data.pageNum;
+				$scope.track_info = [];
+				var track_result = data.data;
+				for (var i = 0;i < track_result.length;i++) {
+					$scope.track_info.push({
+						title: track_result[i].title,
+						key:track_result[i].key,
+						abstract: track_result[i].absract,
+					});
+				}
+
+			} else {
+				console.log('false');
+				//false
+				$scope.error = true;
+				if (data.error.id == '1') {
+					$scope.errorMsg = data.error.msg;
+				} else {
+					$scope.errorMsg = "error!";
+				}
+			}
+		});
+	}
+	
 	//修改密码模态框
 	$scope.changePasswordDialog = function(){
 		Custombox.open({
