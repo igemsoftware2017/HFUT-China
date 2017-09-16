@@ -9,18 +9,17 @@ searchList.config(['$locationProvider', function($locationProvider) {
 }]);
 searchList.controller('searchListController',function($scope, $http, $location, $mdToast, $sce){
 	var trackNum = 9;
-	$scope.tags1 = ['Foundational Advance','Biochemistry','Hardware','Microbiology','Manufacturing'];
-	$scope.tags2 = ['Medicine','Diagnostics','Environment','Genetic engineering'];
-	$scope.chosen = [];
-	for (var i = 0; i < trackNum; i++) {
-		$scope.chosen.push(false);
-	}
+	$scope.tags = ['Foundational Advance','Biochemistry','Hardware','Microbiology','Manufacturing','Medicine','Diagnostics','Environment','Genetic engineering'];
+	$scope.chosen = {};
+	$scope.tags.forEach(tag => {
+		$scope.chosen[tag] = false;
+	});
     $scope.key_word = "";
 	$scope.track = [];
 	$scope.teams = [];
+	$scope.search_info = [];
 
 	$scope.conChoice = function(tag) {
-		console.log(tag);
 		$scope.chosen[tag] = !$scope.chosen[tag];
 	}
 	//登录模态框
@@ -202,6 +201,12 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 	}
 
 	$scope.getList = function(){
+		$scope.track = [];
+		Object.keys($scope.chosen).forEach(track=>{
+			if ($scope.chosen[track]) {
+				$scope.track.push(track);
+			}
+		});
 		var opt = {
 			url: '/biosearch/firstPage',
 			method: 'POST',
@@ -222,6 +227,15 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 					return team;
 				});
 				$scope.words = data.data.suggestions;
+				$scope.search_info = [];
+				data.data.parts.forEach(part => {
+					$scope.search_info.push({
+						img: '../img/' + part.part_type + '.png',
+						name: part.part_name,
+						part_id: part._id
+					});
+				});
+				
 			}
 		});
 		// $scope.teams = [{
@@ -307,7 +321,10 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 			$scope.isLogin = false;
 		}
         $scope.key_word = $location.search().key_word;
-        $scope.track = $location.search().track;
+		$scope.track = $location.search().track;
+		$scope.track.forEach(track => {
+			$scope.chosen[track] = true;
+		})
         $scope.getList();
 	}
 	

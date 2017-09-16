@@ -163,7 +163,7 @@ def biosort(searched):
 def getPart(keyword):
     query = {
         "from" : 0,
-        "size" : 10,
+        "size" : 5,
         "query" : {
             "multi_match" : {
                 "fields" : ["part_name", "part_type", "short_desc"],

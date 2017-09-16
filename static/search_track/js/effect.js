@@ -52,14 +52,11 @@ function conConfirm() {
 
             acticveSelect = $(".select-list").find(".cur");
 
-            console.log(acticveSelect);
-            console.log(select_iClass_data);
             $.each(acticveSelect,function (i) {//遍历选中的内容,将元素添加进select_iClass_data数组和select_conText_data数组
                 //赋值数组
                 select_iClass_data.push(acticveSelect.eq(i).find("em").attr("class"));
                 select_conText_data.push(acticveSelect.eq(i).find("em").text());
             });
-            console.log(select_iClass_data);
             //遍历面板上已有的元素
             $.each($(".label-box span"),function (i) {
                 has_data.push($(".label-box span").find("em").text());
