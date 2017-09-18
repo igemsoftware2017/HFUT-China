@@ -8,32 +8,26 @@ from .models import Wiki
 from .suggestion import *
 
 numOfEachPage = 5
+cacheNum = 4
 
-def firstPage(request):
-    data = json.loads(request.body)
-    keyword = data['keyword']
-    track = data.get('track')
-    answers = []
-    result = {}
+def randomPage(request):
+    result = dict()
     try:
-        parts = getPart(keyword)
-
-        answers = getanswer(keyword,track)
-        teamList = answers['teamList']
-        teamIds = list()
-        for team in teamList:
-            teamIds.append(team["_id"])
-        request.session['answers'] = teamIds
+        data = json.loads(request.body)
+        keyword = data.get('keyword')
+        track = data.get('track')
+        page = data.get('page')
+        teamList = getanswer(keyword, track, page)
+        request.session['answers'] = teamList
         r = Retrieve()
         suggestions = r.retrieve(keyword)
+        groups = getGroup(track)
         result = {
             'successful': True,
             'data': {
-                'pageSum':math.ceil(teamList.__len__()/numOfEachPage),
-                'content':teamList[0:numOfEachPage],
-                'groups': answers['groups'],
+                'groups': groups,
                 'suggestions': suggestions,
-                'parts':parts
+                'content': teamList[0:numOfEachPage]
             }
         }
     except Exception as e:
@@ -50,27 +44,54 @@ def firstPage(request):
 
 
 def turnPage(request):
-    data = None
     answers = []
     try:
         data = json.loads(request.body)
-        page = data['page']
-        keyword = data['keyword']
+        page = data.get('page')
         answers = request.session.get('answers')
         answers = answers[(page-1)*numOfEachPage:page*numOfEachPage]
-        teams = getTeamWiki(answers, keyword)
-        print(teams)
+        print(answers)
         result = {
             'successful': True,
             'data': {
-                'content': teams["teamList"]
+                'content': answers
             }
         }
     except Exception as e:
-        print(str(e))
+        print(e)
+        result = {
+            'successful': False,
+            'error': {
+                'id': '1',
+                'msg': e.value
+            }
+        }
     finally:
         return HttpResponse(json.dumps(result), content_type='application/json')
-# Create your views here.
+
+def getCache(request):
+    result = dict()
+    try:
+        data = json.loads(request.body)
+        page = data.get('page')
+        keyword = data('keyword')
+        track = data.get('track')
+        teamList = getanswer(keyword, track, page)
+        request.session['answers'] = teamList
+        result = {
+            'successful': True
+        }
+    except Exception as e:
+        print(e)
+        result = {
+            'successful': False,
+            'error': {
+                'id': '1',
+                'msg': e.value
+            }
+        }
+    finally:
+        return HttpResponse(json.dumps(result), content_type='application/json')
 
 def getDetail(request):
     data = None

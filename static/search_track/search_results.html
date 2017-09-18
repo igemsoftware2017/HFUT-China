@@ -3,15 +3,12 @@
 <!-- <html ng-app="ui.bootstrap.demo"> -->
 
 <head>
-
-    <script src="js/index.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BioDesigner|Dophin</title>
-
     <link href="../public/custombox/dist/custombox.min.css" rel="stylesheet">
+    <link href="../public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="../public/angular-material/angular-material.min.css" rel="stylesheet">
@@ -298,25 +295,7 @@
             </div>
 
             <br><br><br>
-            <a>
-                <div class="list-bio-div">
-                    <div class="recommendation color-key">
-                        <b>Bio Brick</b>
-                    </div>
-                    <hr style="margin-top:6px;width:100%;background-color:#fff;height:0px;">
-                    <div class="list-bio">
-                        <li ng-repeat="gene in search_info" ng-click="getGeneInfo(gene.part_id)">
-                            <a href="#">
-                                <div class="brick" style="float:left">
-                                    <img class="bio-img" ng-src="{{gene.img}}" alt="gene_img">
-                                    <div style="margin-top:5%;text-align:left;">&nbsp;{{gene.name}}</div>
-                                </div>
-                            </a>
-                        </li>
 
-                    </div>
-                </div>
-            </a>
             <div ng-repeat="team in teams" ng-click="getDetail(team._id)">
                 <a>
                     <div class="list-div">
@@ -339,25 +318,22 @@
                 </a>
                 <hr>
             </div>
-            <center>
-                <div class="suggestion-bottom" style="float:left;">
-                    <div class="s-header">
-                        Suggestions
-                    </div>
-                    <hr style="height:3px;border:none;border-top:0px double white;">
-
-                    <div ng-repeat="word in words">
-                        <div class='s-content'>
-                            <a href="" class=" color" ng-click="jumpToSearch(word)">{{word}}</a>
-                        </div>
-                    </div>
-
+            <div class="suggestion-bottom">
+                <div class="s-header" style="margin-bottom:20px">
+                    Suggestions
                 </div>
-                <br><br><br><br><br><br><br>
-                <ul uib-pagination total-items="bigTotalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true"
-                    rotate="false" ng-change="pageChanged(currentPage)"></ul>
+                <div style="clear:both;">
+                    <div class='s-content' ng-repeat="word in words">
+                        <a href="" class=" color" ng-click="jumpToSearch(word)">{{word}}</a>
+                    </div>
+                </div>
+
+            </div>
+            <div style="text-align:left">
+                <ul uib-pagination total-items="bigTotalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" rotate="false"
+                    ng-change="pageChanged(currentPage)"></ul>
+            </div>
         </div>
-        </center><br><br><br>
         </div>
     </center>
     <div class="left">

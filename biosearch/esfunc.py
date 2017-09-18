@@ -39,10 +39,10 @@ def getdetailbyid(_id):
     # es.update_by_query(index='bio_search_index', doc_type='bio_search',body=_increment)
     return _searched['hits']['hits'][0]
 
-def getanswer(_keyword,_track1):
-
+def getanswer(_keyword, _track1, page):
     _query = {
-        "size": 5000,
+        "from": (page-1)*4,
+        "size": 20,
         "query": {
             "bool":{
                 "must":[{
@@ -130,6 +130,7 @@ def filter(searchsort):
             '_id':i['_id'],
             'title':i['_source']['year']+'-'+i['_source']['team_name'],
             'keywords':i['_source']['keywords'],
+            # 'parts': i['_source']['parts'],
             # 'award': i['_source']['award'],
             # 'type': i['_source']['type'],
             'abstract':abstract,
@@ -139,19 +140,19 @@ def filter(searchsort):
         # for field in group.keys():
         #     if (groupDict.get(field) < group.get(field)):
         #         groupDict[field] = group.get[field]
-        groups = list()
-        groups = [['123',0.5]]
+        # groups = list()
+        # groups = [['123',0.5]]
         # for (key, value) in groupDict.items():
         #     groups.append([key, value])
         # print (tmp)
         teamList.append(tmp)
     # groups.sort(key = lambda x:x[1], reverse=True)
     # groups = groups[:8]
-    result = {
-        'teamList': teamList,
-        'groups': groups
-    }
-    return result
+    # result = {
+    #     'teamList': teamList,
+    #     'groups': groups
+    # }
+    return teamList
 
 def biosort(searched):
     search = searched['hits']['hits']
@@ -354,3 +355,6 @@ def getClassification(classification, keyword):
     _searched = es.search(index='team_wiki', doc_type='wiki',body=query)
     teams = filter(_searched["hits"]["hits"])
     return teams
+
+def getGroup(track):
+    return [['123',0.5]]

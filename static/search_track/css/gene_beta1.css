@@ -354,7 +354,6 @@ li{list-style:none;}/* ��Ĭ�ϵĸ�ȥ����Ȼ�������ɫ
 .keywords span{	float:left;margin-left:3px;	display:inline-block;padding:1px 10px;font-size:12px;background:#6b9de2;color:white;text-align:center;border-radius:3px;cursor:pointer;}
 
 .suggestion-bottom{
-	height:40px;
 	width:69%;
 	background-color:##fab735;
 }
