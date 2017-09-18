@@ -12,16 +12,40 @@ searchList.controller('searchListController',function($scope, $http, $location, 
     $scope.currentPage = 1;
 
     $scope.setPage = function (pageNo) {
-        $scope.currentPage = pageNo;
+		$scope.currentPage = pageNo;
+		console.log("set pageno", pageNo);
     };
 
-    $scope.pageChanged = function() {
-        $log.log('Page changed to: ' + $scope.currentPage);
+    $scope.pageChanged = function(page) {
+		console.log("page change", page);
+		var opt = {
+			url: '/biosearch/turnPage',
+			method: 'POST',
+			data: {
+				page: page,
+				keyword: $scope.key_word
+			},
+			headers: { 'Content-Type': 'application/json'}
+		};
+		$http(opt).success(function(data){
+			if(data.successful){
+				console.log(data.data);
+				data.data.content.forEach(function(team){
+					team.highlight.forEach(function(hightlight){
+						team.abstract = team.abstract + "..." + hightlight;
+					});
+					team.abstract = $sce.trustAsHtml(team.abstract+" ...");
+					$scope.teams.push(team)
+				});
+			}
+		});
+		
     };
 
     $scope.maxSize = 5;
     $scope.bigTotalItems = 175;
-    $scope.bigCurrentPage = 1;
+	$scope.bigCurrentPage = 1;
+	
 	var trackNum = 9;
 	$scope.tags = ['Foundational Advance','Biochemistry','Hardware','Microbiology','Manufacturing','Medicine','Diagnostics','Environment','Genetic engineering'];
 	$scope.chosen = {};

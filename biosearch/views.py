@@ -7,7 +7,7 @@ from .esfunc import *
 from .models import Wiki
 from .suggestion import *
 
-numOfEachPage = 20
+numOfEachPage = 5
 
 def firstPage(request):
     data = json.loads(request.body)
@@ -60,10 +60,16 @@ def turnPage(request):
         answers = answers[(page-1)*numOfEachPage:page*numOfEachPage]
         teams = getTeamWiki(answers, keyword)
         print(teams)
+        result = {
+            'successful': True,
+            'data': {
+                'content': teams["teamList"]
+            }
+        }
     except Exception as e:
         print(str(e))
     finally:
-        return HttpResponse(json.dumps(teams), content_type='application/json')
+        return HttpResponse(json.dumps(result), content_type='application/json')
 # Create your views here.
 
 def getDetail(request):

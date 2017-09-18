@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="searchListApp">
 <!-- <html ng-app="ui.bootstrap.demo"> -->
+
 <head>
 
     <script src="js/index.js"></script>
@@ -290,7 +291,7 @@
                 <div class="select-box" id="thisDiv" style="display:none">
 
                     <div class="select-list con1">
-                         <span style="margin-top:10px;" ng-class="{con3:true, cur:chosen[tag]}" ng-repeat="tag in tags" ng-click="conChoice(tag)"><em class="con3-1">{{tag}}</em></span> 
+                        <span style="margin-top:10px;" ng-class="{con3:true, cur:chosen[tag]}" ng-repeat="tag in tags" ng-click="conChoice(tag)"><em class="con3-1">{{tag}}</em></span>
                     </div>
                     <button type="button" id="btntip" class="btntip" style="width:130px;">Add Tips</button>
                 </div>
@@ -344,7 +345,7 @@
                         Suggestions
                     </div>
                     <hr style="height:3px;border:none;border-top:0px double white;">
-                    
+
                     <div ng-repeat="word in words">
                         <div class='s-content'>
                             <a href="" class=" color" ng-click="jumpToSearch(word)">{{word}}</a>
@@ -352,8 +353,9 @@
                     </div>
 
                 </div>
-                
-<ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" rotate="false"></ul>
+                <br><br><br><br><br><br><br>
+                <ul uib-pagination total-items="bigTotalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true"
+                    rotate="false" ng-change="pageChanged(currentPage)"></ul>
         </div>
         </center><br><br><br>
         </div>
@@ -459,7 +461,7 @@
     <script src="./js/draw.js"></script>
     <script src="js/jquery-1.10.2.min.js"></script>
     <script src="js/effect.js"></script>
-    
+
     <script>
         /**
          * JavaScript脚本实现回到页面顶部示例
@@ -504,7 +506,7 @@
     </script>
     <script src="js/jquery.min.js"></script>
     <script src="js/page.js"></script>
-    
+
     </script>
     <script src="../public/custombox/dist/legacy.min.js"></script>
     <script src="../public/custombox/dist/custombox.min.js"></script>
@@ -521,10 +523,10 @@
     <script src="./js/design_page.js"></script>
     <script src="./js/contextMenu.js"></script>
     <script src="./js/searchList.js"></script>
-    <script type="text/javascript">     
-        $(document).ready(function() { 
-            $("#btntip").click();  
-        }); 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btntip").click();
+        });
     </script>
 </body>
 
