@@ -36,7 +36,7 @@
 
         .gover_search {
             position: absolute;
-            right: 50%;
+            left: 14%;
             margin-right: -181px;
             z-index: 99;
             height: 30px;
@@ -245,7 +245,7 @@
             </ul>
             <div class="gover_search">
                 <form class="navbar-form search-centers" name="form" id="ui_element">
-                    <img src="img/ser_l.png" width="34" height="34" id="logo" class="logo">
+                    <!-- <img src="img/ser_l.png" width="34" height="34" id="logo" class="logo"> -->
                     <!-- <input type="text" class="form-control" placeholder="Search..." ng-model="key_word" ng-keypress="search_by_keyboard($event,key_word)"> -->
                     <input type="text" id="gover_search_key" style="height:34px;width:290px" placeholder="Please input keywords ..." class="form-control sb_input"
                         ng-model="key_word" ng-keypress="gene_info_by_board($event,key_word,track)">
@@ -264,8 +264,9 @@
 
     </div>
     <div class="line_left"></div>
-    <center>
+    
         <br>
+        <div class="cen_b">
         <div class="list">
             <script>
                 function show1() {
@@ -335,13 +336,20 @@
             </div>
         </div>
         </div>
-    </center>
-    <div class="left">
+    
+    <div class="right">
         <div class="list-l">
             <ul class="yiji">
                 <div style="color:#fff;text-align:center;font-size:20px;bottom:2px;background:#aaa;border-radius:3px;">Classifications</div>
                 <li><a href="#">fistDiv</a></li>
-                <li><a href="#" class="inactive">one</a>
+                <li><a href="#">fistDiv</a></li>
+                <li><a href="#">fistDiv</a></li>
+                <li><a href="#">fistDiv</a></li>
+                <li><a href="#">fistDiv</a></li>
+                <li><a href="#">fistDiv</a></li>
+                <li><a href="#">fistDiv</a></li>
+                <li><a href="#">fistDiv</a></li>
+                <!-- <li><a href="#" class="inactive">one</a>
                     <ul style="display: none">
                         <li><a href="#" class="inactive active">1</a>
                             <ul>
@@ -370,10 +378,12 @@
                         </li>
                         <li class="last"><a href="#">2</a></li>
                     </ul>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>
+    </div>
+
     <div class='end-foot'><a href="#" onclick="gotoTop();return false;" class="totop"></a></div>
     <!--log out modal-->
     <div id="logout" class="modal-demo">

@@ -595,28 +595,28 @@ table.altrowstable td {
 	border-radius: 6px;
 }
 .which1{
-	border:solid 1px #ccc;
+	border:solid 1px #6b9de2;
 	border-radius:6px;
-	background-color:##f6f6f6;
+	background-color:#6b9de2;
 	display:inline-block !important; 
 	display:inline; 
 	width:auto;
 	padding-left:3px;
 	padding-right:3px;
 	font-size:14px;
-	color:#666;
+	color:#fff;
 	font-weight:bold;
 }
 .which2{
 	border:solid 1px #fab735;
 	border-radius:6px;
-	background-color:##f6f6f6;
+	background-color:#fab735;
 	display:inline-block !important; 
 	display:inline; 
 	width:auto;
 	padding-left:3px;
 	padding-right:3px;
 	font-size:14px;
-	color:#fab735;
+	color:#fff;
 	font-weight:bold;
 }
