@@ -12,7 +12,7 @@
     <link href="../public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="../public/angular-material/angular-material.min.css" rel="stylesheet">
-    <link href="./css/gene_beta1.css" rel="stylesheet">
+    <link href="./css/gene_beta.css" rel="stylesheet">
     <link href="./css/sb-admin-2.css" rel="stylesheet">
     <link rel="stylesheet" href="css/info.css" type="text/css" media="screen" />
 
@@ -264,9 +264,9 @@
 
     </div>
     <div class="line_left"></div>
-    
-        <br>
-        <div class="cen_b">
+
+    <br>
+    <div class="cen_b">
         <div class="list">
             <script>
                 function show1() {
@@ -307,7 +307,11 @@
                         </div>
                         <div class="content color">
                             <!-- <div class="keywords key"><span><em class="key">keywords:{{team.keywords}}</em></span> -->
-                            <div class="keywords_beta color-key"><span><em class="key"><font size=3px color="white" style="background-color:#6b9de2;border-radius:3px;padding:2px;margin:3px;font-weight:bold">keywords: </font><font size=2px; style="font-weight:bold" color="#333">{{team.keywords}}</font></em></span>
+                            <div class="keywords_beta color-key">
+                                <span><em class="key">
+                                    <font size=3px color="white" style="background-color:#6b9de2;border-radius:3px;padding:2px;margin:3px;font-weight:bold">keywords: </font
+                                        ><font size=2px; style="font-weight:bold" color="#333">{{team.keywords}}</font>
+                                </em></span>
                             </div>
                             <div class="results color-key">
                                 <b><font size=3px; color="#ffffff"  style="background-color:#f9a731;border-radius:3px;">&nbsp;&nbsp;awards: </font>&nbsp;<img src="img/results.png" height="23px"><font size=3px;><font>&nbsp;21c dscw&nbsp;</font></b>
@@ -330,13 +334,13 @@
                 </div>
 
             </div>
-            <div style="text-align:left">
+            <div class="page">
                 <ul uib-pagination total-items="bigTotalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" rotate="false"
                     ng-change="pageChanged(currentPage)"></ul>
             </div>
         </div>
-        </div>
-    
+    </div>
+
     <div class="right">
         <div class="list-l">
             <ul class="yiji">
@@ -384,7 +388,7 @@
     </div>
     </div>
 
-    <div class='end-foot'><a href="#" onclick="gotoTop();return false;" class="totop"></a></div>
+    <div class="end-foot"><a href="#" onclick="gotoTop();return false;" class="totop"></a></div>
     <!--log out modal-->
     <div id="logout" class="modal-demo">
         <button type="button" class="close" onclick="Custombox.close();">
