@@ -263,7 +263,7 @@
         </nav>
 
     </div>
-    <div class="line_left"></div>
+    <div class="list-left"></div>
 
     <br>
     <div class="cen_b">
@@ -272,13 +272,17 @@
                 function show1() {
                     document.getElementById("anotherDiv").style.display = "block";
                     document.getElementById("thisDiv").style.display = "none";
+                    document.getElementById("select").style.display = "block";
+                    document.getElementById("btntip").style.display = "block";
                     document.getElementById("main").style.height = "auto";
                 }
 
                 function show2() {
                     document.getElementById("thisDiv").style.display = "block";
                     document.getElementById("anotherDiv").style.display = "none";
-                    document.getElementById("main").style.height = "44px";
+                    document.getElementById("select").style.display = "none";
+                    document.getElementById("btntip").style.display = "none";
+                    document.getElementById("main").style.height = "auto";//90px
                 }
             </script>
 
@@ -288,10 +292,10 @@
                 <div onclick="show2()" id="anotherDiv" style="display:none;margin-top:6px;">Pick Up</div>
                 <div class="select-box" id="thisDiv" style="display:none">
 
-                    <div class="select-list con1">
+                    <div class="select-list con1"  id="select">
                         <span style="margin-top:10px;" ng-class="{con3:true, cur:chosen[tag]}" ng-repeat="tag in tags" ng-click="conChoice(tag)"><em class="con3-1">{{tag}}</em></span>
                     </div>
-                    <button type="button" id="btntip" class="btntip" style="width:130px;">Add Tips</button>
+                    <center><button type="button" id="btntip" class="btntip" style="width:130px;">Add Tips</button></center>
                 </div>
             </div>
 
@@ -342,6 +346,36 @@
     </div>
 
     <div class="right">
+    <div class="1st" style="margin-top: 10px">
+    <div class="rightheader">kuangkuang1</div>
+    <div class="rightcon">
+    <font class="rightsmalldiv">213</font>
+    <font class="rightsmalldiv">213</font>
+    <font class="rightsmalldiv">213</font>
+    <font class="rightsmalldiv">213</font>
+    </div>
+    </div>
+    <div class="2nd" style="margin-top: 10px">
+    <div class="rightheader">kuangkuang2</div>
+    <div class="rightcon">
+    <font class="rightsmalldiv_">213</font>
+    <font class="rightsmalldiv_">213</font>
+    <font class="rightsmalldiv_">213</font>
+    <font class="rightsmalldiv_">213</font>
+    </div>
+    </div>
+    <div class="3rd" style="margin-top: 10px">
+    <div class="rightheader">kuangkuang3</div>
+    <div class="rightcon">
+    <font class="rightsmalldiv__">213</font>
+    <font class="rightsmalldiv__">213</font>
+    <font class="rightsmalldiv__">213</font>
+    <font class="rightsmalldiv__">213</font>
+    </div>
+    </div>
+
+    </div>
+    <!-- <div class="right">
         <div class="list-l">
             <ul class="yiji">
                 <div style="color:#fff;text-align:center;font-size:20px;bottom:2px;background:#aaa;border-radius:3px;">Classifications</div>
@@ -353,7 +387,7 @@
                 <li><a href="#">fistDiv</a></li>
                 <li><a href="#">fistDiv</a></li>
                 <li><a href="#">fistDiv</a></li>
-                <!-- <li><a href="#" class="inactive">one</a>
+                <li><a href="#" class="inactive">one</a>
                     <ul style="display: none">
                         <li><a href="#" class="inactive active">1</a>
                             <ul>
@@ -382,10 +416,10 @@
                         </li>
                         <li class="last"><a href="#">2</a></li>
                     </ul>
-                </li> -->
+                </li>
             </ul>
         </div>
-    </div>
+    </div> -->
     </div>
 
     <div class="end-foot"><a href="#" onclick="gotoTop();return false;" class="totop"></a></div>

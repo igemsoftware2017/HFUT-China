@@ -100,7 +100,7 @@ em{font-style:normal;}
  width: 600px;
 }
 .list-left{
-	width:0%;
+	width:9%;
 	height:100%;
 	border:solid 1px ##ccc;    
 	float:left;
@@ -109,7 +109,7 @@ em{font-style:normal;}
 	width: 100%;
 }
 .list{
-	margin-left:160px;
+	margin-left:0px;
 	float:left;
 	margin-top:0px;
 	background:#fff;
@@ -140,6 +140,51 @@ em{font-style:normal;}
 	background:##e9efef;
 	display:inline-block !important; 
 	display:inline; 
+}
+.rightsmalldiv{
+	
+	padding: 2px;
+	margin:6px;
+	border-radius:3px;
+	color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+.rightsmalldiv_{
+	
+	padding: 2px;
+	margin:6px;
+	border-radius:3px;
+	color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+.rightsmalldiv__{
+	
+	padding: 2px;
+	margin:6px;
+	border-radius:3px;
+	color: #fff;
+    background-color: #f35762;
+    border-color: #4cae4c;
+}
+.rightcon{
+	display: block;
+	border:solid 1px #ddd;
+	padding: 6px;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+.rightheader{
+	margin-top: 0px;
+	padding: 10px 15px;
+	border:solid 1px #ddd;
+    border-bottom: 0px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+	color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
 }
 .keywords_beta{
 	margin-top:10px;
@@ -187,11 +232,12 @@ em{font-style:normal;}
 }
 
 .right{
+
 	z-index:999;
-	right:10px;
+	right:6%;
 	position: fixed;
 	top: 10%;
-	width: 340px;
+	width: 260px;
 }
 
 ul,li{list-style: none;	font-family:"Calibri";}
@@ -364,7 +410,7 @@ li{list-style:none;}/* ��Ĭ�ϵĸ�ȥ����Ȼ�������ɫ
 }
 
 .s-content{
-	width:33%;
+	width:25%;
 	font-size:16px;
 	float:left;
 	text-align:left;
