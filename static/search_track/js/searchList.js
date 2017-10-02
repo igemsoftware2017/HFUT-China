@@ -15,7 +15,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 	$scope.maxSize = 5;
     $scope.bigTotalItems = 40;
 	
-	$scope.tags = ['Foundational Advance','Biochemistry','Hardware','Microbiology','Manufacturing','Medicine','Diagnostics','Environment','Genetic engineering'];
+	$scope.tags = ['Therapeutics','Software','New Application','Measurement','Manufacturing','Information Processing','High School','Health & Medicine','Hardware','Foundational Advance','Food & Nutrition','Environment','Energy','Diagnostics','Community Labs','Art & Design'];
 	$scope.chosen = {};
 	$scope.tags.forEach(tag => {
 		$scope.chosen[tag] = false;
