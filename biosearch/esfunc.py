@@ -2,6 +2,9 @@
 from elasticsearch import Elasticsearch
 import chardet
 import json
+from .models import LdaKeyword
+from projectManage.models import Parts
+
 es = Elasticsearch()
 fields = ["attribution","background","description","design","human_practice","modeling","notebook","protocol","result","safety","keywords"]
 
@@ -80,7 +83,7 @@ def getanswer(_keyword, _track1, page):
             "fragment_size" : 80,
             "fields": {
                 "attribution":{},
-                "background":{},
+                "background":{},    
                 "description":{},
                 "design":{},
                 "human_practice":{},
@@ -164,28 +167,31 @@ def biosort(searched):
 def getPart(keyword):
     query = {
         "from" : 0,
-        "size" : 5,
+        "size" : 1,
         "query" : {
             "multi_match" : {
-                "fields" : ["part_name", "part_type", "short_desc"],
-                "query" : keyword,
-                "fuzziness" : "AUTO",
+                "fields" : ["part_name"],
+                "query" : keyword
             }
         }
     }
     _searched = es.search(index="biodesigners", doc_type="parts", body=query)
-    partRawList = _searched["hits"]["hits"]
-    parts = list()
-    for partRaw in partRawList:
+    teams = list()
+    if len(_searched["hits"]["hits"])>0:
+        partRaw = _searched["hits"]["hits"][0]
         part = {
             "_id": partRaw["_id"],
             "part_name": partRaw["_source"]["part_name"],
             "part_type" : partRaw["_source"]['part_type']
         }
-        parts.append(part)
-    return parts
+        teamsStr = partRaw["_source"]['teams']
+        teamIdList = teamsStr.split(',')
+        teams = getTeamWiki(teamIdList, Null)
+    else:
+        teams = []
+    return teams
 
-def getTeamWiki(teamIds, _keyword):
+def getTeamWiki(teamIds, _keyword): 
     query = dict()
     if _keyword:
         query = {
@@ -252,7 +258,6 @@ def getTeamWiki(teamIds, _keyword):
 
     _searched = es.search(index='team_wiki', doc_type='wiki',body=query)
     teams = filter(_searched["hits"]["hits"])
-    print(teams)
     return teams
 
 def getPartDetail(_id):
@@ -356,5 +361,16 @@ def getClassification(classification, keyword):
     teams = filter(_searched["hits"]["hits"])
     return teams
 
-def getGroup(track):
-    return [['123',0.5]]
+def getLdaResult(tracks):
+    ldaResult = list()
+    for track in tracks:
+        themes = LdaKeyword.objects.filter(track=track)
+        for theme in themes:
+            ldaResult.append({
+                "theme_name": theme.theme_name,
+                "keyword": theme.keyword
+            })
+    return ldaResult
+
+def getPartTeam(part_name, track, page):
+    part = Parts.objects.filter(part_name=part_name)

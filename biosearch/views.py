@@ -1,4 +1,3 @@
-
 from django.shortcuts import render
 import json
 import math
@@ -15,13 +14,23 @@ def randomPage(request):
     try:
         data = json.loads(request.body)
         keyword = data.get('keyword')
+        part = getPart(keyword)
         track = data.get('track')
+        track.append('NotSpecified')
         page = data.get('page')
-        teamList = getanswer(keyword, track, page)
+        suggestions = list()
+        groups = list()
+        if page == 1 :
+            r = Retrieve()
+            suggestions = r.retrieve(keyword)
+            groups = getLdaResult(track)
+        teamList = list()
+        if len(part) == 0:
+            teamList = getanswer(keyword, track, page)
+        else:
+            part_name = part[0]["part_name"]
+            teamList = getPartTeam(part_name, track, page)
         request.session['answers'] = teamList
-        r = Retrieve()
-        suggestions = r.retrieve(keyword)
-        groups = getGroup(track)
         result = {
             'successful': True,
             'data': {
@@ -50,7 +59,6 @@ def turnPage(request):
         page = data.get('page')
         answers = request.session.get('answers')
         answers = answers[(page-1)*numOfEachPage:page*numOfEachPage]
-        print(answers)
         result = {
             'successful': True,
             'data': {
@@ -74,8 +82,9 @@ def getCache(request):
     try:
         data = json.loads(request.body)
         page = data.get('page')
-        keyword = data('keyword')
+        keyword = data.get('keyword')
         track = data.get('track')
+        track.append('NotSpecified')
         teamList = getanswer(keyword, track, page)
         request.session['answers'] = teamList
         result = {
@@ -110,33 +119,13 @@ def getDetail(request):
     finally:
         return HttpResponse(json.dumps(result), content_type='application/json')
 
-def bioSearchFirst(request):
-    data = json.loads(request.body)
-    _id = data["_id"]
-    keyword = data["keyword"]
-    part = getPartDetail(_id)
-    r = Retrieve()
-    suggestions = r.retrieve(keyword)
-    teamIdsStr = part["teams"]
-    teamIds = teamIdsStr.split(',')
-    teams = getTeamWiki(teamIds, None)
-    result = {
-        'successful': True,
-        'data': {
-            'pageSum':math.ceil(teams.__len__()/numOfEachPage),
-            'content':teams[0:numOfEachPage],
-            'suggestions': suggestions,
-            'part':part
-        }
-    }
-    return HttpResponse(json.dumps(result), content_type='application/json')
 
 def classify(request):
     data = json.loads(request.body)
     keyword = data.get("keyword")
     classification = data["classification"]
     teamsIds = request.session.get('answers')
-    teams = getClassification(classification, keyword)
+    # teams = getClassification(classification, keyword)
     result = {
         'successful': True,
         'data': {
@@ -145,3 +134,10 @@ def classify(request):
         }
     }
     return HttpResponse(json.dumps(result), content_type='application/json')
+
+def searchPart(request):
+    data = json.loads(request.body)
+    print(data)
+    keyword = data["keyword"]
+    part = getPart(keyword)
+    return HttpResponse(json.dumps(part), content_type='application/json')

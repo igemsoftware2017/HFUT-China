@@ -38,6 +38,7 @@ class Parts(models.Model):
 	sequence_length  = models.IntegerField(null=True)
 	part_url         = models.CharField(max_length=255, null=True)
 	score            = models.FloatField(null=True)
+	teams 			 = models.TextField(null = True)
 
 	def __str__(self):
 		return self.part_name

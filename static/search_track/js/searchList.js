@@ -10,12 +10,15 @@ searchList.config(['$locationProvider', function($locationProvider) {
 }]);
 searchList.controller('searchListController',function($scope, $http, $location, $mdToast, $sce, $anchorScroll){
 	$scope.currentPage = 1;
-	$scope.sessionMin = 0;
-	$scope.sessionMax = 0;
-	$scope.maxSize = 5;
-    $scope.bigTotalItems = 40;
+	$scope.sessionMin = 1;
+	$scope.sessionMax = cacheNum;
+	$scope.maxSize = 8;
+	$scope.perPage = 5;
+    $scope.bigTotalItems = 10000;
 	
-	$scope.tags = ['Foundational Advance','Biochemistry','Hardware','Microbiology','Manufacturing','Medicine','Diagnostics','Environment','Genetic engineering'];
+	$scope.tags = ['Therapeutics','Software','New Application','Measurement','Manufacturing',
+	'Information Processing','High School','Health & Medicine','Hardware','Foundational Advance','Food & Nutrition',
+	'Environment','Energy','Diagnostics','Community Labs','Art & Design'];
 	$scope.chosen = {};
 	$scope.tags.forEach(tag => {
 		$scope.chosen[tag] = false;
@@ -34,8 +37,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 				url: '/biosearch/turnPage',
 				method: 'POST',
 				data: {
-					page: page,
-					keyword: $scope.key_word
+					page: page-$scope.sessionMin+1,
 				},
 				headers: { 'Content-Type': 'application/json'}
 			};
@@ -69,11 +71,32 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 						if(data.successful){
 							$scope.sessionMin = $scope.sessionMax + 1;
 							$scope.sessionMax = $scope.sessionMax + cacheNum;
+							console.log("min:", $scope.sessionMin, " max:", $scope.sessionMax);
 						}
 					});
-				} else {
+					
+				} else if (page == $scope.sessionMin) {
+					var opt = {
+						url: '/biosearch/getCache',
+						method: 'POST',
+						data: {
+							page: page,
+							keyword: $scope.key_word,
+							track: $scope.track
+						},
+						headers: { 'Content-Type': 'application/json'}
+					};
+					$http(opt).success(function(data){
+						if(data.successful){
+							$scope.sessionMax = $scope.sessionMin - 1;
+							$scope.sessionMin = $scope.sessionMin - cacheNums;
+							console.log("min:", $scope.sessionMin, " max:", $scope.sessionMax);
+						}
+					});
+				} else if (page > $scope.sessionMax || page < $scope.sessionMin) {
 					$scope.sessionMin = page;
 					$scope.sessionMax = page + cacheNum - 1;
+					console.log("min:", $scope.sessionMin, " max:", $scope.sessionMax);
 				}
 				$scope.teams = data.data.content.map(function(team){
 					team.highlight.forEach(function(hightlight){
@@ -398,6 +421,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 				$scope.track.push(track);
 			}
 		});
+
 		if ($scope.track == 0) {
 			$scope.track = $scope.tags;
 		}
@@ -429,11 +453,23 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 		}
         $scope.key_word = $location.search().key_word;
 		$scope.track = $location.search().track;
-		if ($scope.track && $scope.track.length) {
+		if (!$scope.track) {
+			$scope.track = $scope.tags;
 			$scope.track.forEach(track => {
 				$scope.chosen[track] = true;
 			});
 		}
+		if ($scope.track instanceof Array) {
+			if ($scope.track && $scope.track.length) {
+				$scope.track.forEach(track => {
+					$scope.chosen[track] = true;
+				});
+			}
+		} else {
+			$scope.chosen[$scope.track] = true;
+			$scope.track = [$scope.track];
+		}
+		
 		$scope.getList();
 		$scope.maxPage = cacheNum;
 	}
