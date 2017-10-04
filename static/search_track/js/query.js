@@ -33,11 +33,11 @@ query.controller('queryController', function ($scope, $http,$location) {
 	if($scope.award==""){$scope.award="Not the winning";}
 	$scope.description = 'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss1234567891234567891234ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss1234567891234567891234ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss1234567891234567891234ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss1234567891234567891234ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss123456789123456789123456789123456789123456789123456789123456789123456789123456789sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss';
 	if($scope.description==""){$scope.description="Sorry, this information is empty.";}
-	$scope.background = 'kkkkkkkkkkkkkkkkkk';
+	$scope.background = 'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912kkkkkkkkkkkkkkkkkk';
 	if($scope.background==""){$scope.background="Sorry, this information is empty.";}
 	$scope.attribution = '';
 	if($scope.attribution==""){$scope.attribution="Sorry, this information is empty.";}
-	$scope.design = '';
+	$scope.design = 'sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912sssss';
 	if($scope.design==""){$scope.design="Sorry, this information is empty.";}
 	$scope.human_practice = '';
 	if($scope.human_practice==""){$scope.human_practice="Sorry, this information is empty.";}
@@ -107,6 +107,61 @@ query.controller('queryController', function ($scope, $http,$location) {
 
 	$scope.packUp = function () {
 		$scope.isMore = true;
+	}
+	$scope.isMore1 = true;
+
+	$scope.more1 = function () {
+		$scope.isMore1 = false;
+	}
+
+	$scope.packUp1 = function () {
+		$scope.isMore1 = true;
+	}
+
+$scope.isMore2 = true;
+
+	$scope.more2 = function () {
+		$scope.isMore2 = false;
+	}
+
+	$scope.packUp2 = function () {
+		$scope.isMore2 = true;
+	}
+	$scope.isMore3 = true;
+
+	$scope.more3 = function () {
+		$scope.isMore3 = false;
+	}
+
+	$scope.packUp3 = function () {
+		$scope.isMore3 = true;
+	}
+	$scope.isMore4 = true;
+
+	$scope.more4 = function () {
+		$scope.isMore4 = false;
+	}
+
+	$scope.packUp4 = function () {
+		$scope.isMore4 = true;
+	}
+	$scope.isMore5 = true;
+
+	$scope.more5 = function () {
+		$scope.isMore5 = false;
+	}
+
+	$scope.packUp5 = function () {
+		$scope.isMore5 = true;
+	}
+	$scope.isMore6 = true;
+
+	$scope.more6 = function () {
+		$scope.isMore6 = false;
+	}
+
+	$scope.packUp6 = function () {
+		$scope.isMore6 = true;
 	}
 
 	$scope.menuClick = function () {

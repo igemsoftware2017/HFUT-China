@@ -227,45 +227,99 @@
                     <div class="content_info" id="Background">
                         <font size=5px>Background</font>
                         <hr  style="margin-top:3px;margin-bottom:9px;width:100%;background-color:#ccc;height:0.4px;" >
-                        <div id="background">
+                        <div ng-class="{'content_container':isMore1}" id="background">
                             <p ng-model="background">{{background}}</p>
                         </div>
                     </div>
+                    <center><div>
+                        <button ng-if="isMore1" ng-click="more1()" class="bothbtn btn btn-default more-btn">
+                            <i class="fa fa-chevron-down"></i>more
+                        </button>
+                        <button ng-if="!isMore1" ng-click="packUp1()" class="bothbtn btn btn-default more-btn">
+                            <i class="fa fa-chevron-up"></i>pack up
+                        </button>
+                    </div>
+					</center> 
                     <div class="content_info" id="Attribution">
                         <font size=5px>Attribution</font>
                         <hr  style="margin-top:3px;margin-bottom:9px;width:100%;background-color:#ccc;height:0.4px;" >
-                        <div id="attribution">
+                        <div ng-class="{'content_container':isMore2}" id="attribution">
                             <p ng-model="attribution">{{attribution}}</p>
                         </div>
                     </div>
+                    <center><div>
+                        <button ng-if="isMore2" ng-click="more2()" class="bothbtn btn btn-default more-btn">
+                            <i class="fa fa-chevron-down"></i>more
+                        </button>
+                        <button ng-if="!isMore2" ng-click="packUp2()" class="bothbtn btn btn-default more-btn">
+                            <i class="fa fa-chevron-up"></i>pack up
+                        </button>
+                    </div>
+					</center> 
                     <div class="content_info" id="Design">
                         <font size=5px>Design</font>
                             <hr  style="margin-top:3px;margin-bottom:9px;width:100%;background-color:#ccc;height:0.4px;" >
-                            <div id="design">
+                            <div ng-class="{'content_container':isMore3}" id="design">
                                 <p ng-model="design">{{design}}</p>
                             </div>
                         </div>
+                        <center><div>
+                        <button ng-if="isMore3" ng-click="more3()" class="bothbtn btn btn-default more-btn">
+                            <i class="fa fa-chevron-down"></i>more
+                        </button>
+                        <button ng-if="!isMore3" ng-click="packUp3()" class="bothbtn btn btn-default more-btn">
+                            <i class="fa fa-chevron-up"></i>pack up
+                        </button>
+                    </div>
+					</center> 
                     <div class="content_info" id="HumanPractice">
                         <font size=5px>Human Practice</font>
                         <hr  style="margin-top:3px;margin-bottom:9px;width:100%;background-color:#ccc;height:0.4px;" >
-                        <div id="human_practice">
+                        <div ng-class="{'content_container':isMore4}" id="human_practice">
                             <p ng-model="human_practice">{{human_practice}}</p>
                         </div>
                     </div>
+                    <center><div>
+                        <button ng-if="isMore4" ng-click="more4()" class="bothbtn btn btn-default more-btn">
+                            <i class="fa fa-chevron-down"></i>more
+                        </button>
+                        <button ng-if="!isMore4" ng-click="packUp4()" class="bothbtn btn btn-default more-btn">
+                            <i class="fa fa-chevron-up"></i>pack up
+                        </button>
+                    </div>
+					</center> 
                     <div class="content_info" id="Result">
                         <font size=5px>Result</font>
                         <hr  style="margin-top:3px;margin-bottom:9px;width:100%;background-color:#ccc;height:0.4px;" >
-                        <div id="result">
+                        <div ng-class="{'content_container':isMore5}" id="result">
                             <p ng-model="result">{{result}}</p>
                         </div>
                     </div>
+                    <center><div>
+                        <button ng-if="isMore5" ng-click="more5()" class="bothbtn btn btn-default more-btn">
+                            <i class="fa fa-chevron-down"></i>more
+                        </button>
+                        <button ng-if="!isMore5" ng-click="packUp5()" class="bothbtn btn btn-default more-btn">
+                            <i class="fa fa-chevron-up"></i>pack up
+                        </button>
+                    </div>
+					</center> 
                     <!-- <div class="content_info" id="Related">
                         <font size=5px>Related</font>
                         <hr  style="margin-top:3px;margin-bottom:9px;width:100%;background-color:#ccc;height:0.4px;" >
-                        <div ng-repeat="re in related">
+                        <div ng-class="{'content_container':isMore6}" ng-repeat="re in related">
                             <a ng-href="{{re.link}}" ng-model="re.project_name">{{re.project_name}}</a>
                         </div>
-                    </div> -->
+                    </div>
+                    <center><div>
+                        <button ng-if="isMore6" ng-click="more6()" class="bothbtn btn btn-default more-btn">
+                            <i class="fa fa-chevron-down"></i>more
+                        </button>
+                        <button ng-if="!isMore6" ng-click="packUp6()" class="bothbtn btn btn-default more-btn">
+                            <i class="fa fa-chevron-up"></i>pack up
+                        </button>
+                    </div>
+					</center>  -->
                      <div class="con-end"></div> 
                 </div>
             </div>
