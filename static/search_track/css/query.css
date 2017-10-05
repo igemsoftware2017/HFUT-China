@@ -441,7 +441,7 @@ body{
 */
 .left{
 	position: fixed;
-	left: 100px;
+	left: 50px;
 	top: 200px;
  	width:150px;
  	background-color:#fdfdfd; 
