@@ -288,8 +288,8 @@
 
             <div class="main" id="main">
                 <div class="label-box"></div>
-                <div onclick="show1()" id="thisDiv" style="margin-top:6px;">Add Tips</div>
-                <div onclick="show2()" id="anotherDiv" style="display:none;margin-top:6px;">Pick Up</div>
+                <div onclick="show1()" id="thisDiv" style="margin-top:10px;"><font style="padding:10px;border:solid 1px #999;border-radius:3px;"> Add Tips</font></div>
+                <div onclick="show2()" id="anotherDiv" style="display:none;margin-top:10px;"><font style="padding:10px;border:solid 1px #999;border-radius:3px;">Pick Up</font></div>
                 <div class="select-box" id="thisDiv" style="display:none">
 
                     <div class="select-list con1"  id="select">
@@ -320,6 +320,17 @@
                             <div class="results color-key">
                                 <b><font size=3px; color="#ffffff"  style="background-color:#f9a731;border-radius:3px;">&nbsp;&nbsp;awards: </font>&nbsp;<img src="img/results.png" height="23px"><font size=3px;><font>&nbsp;21c dscw&nbsp;</font></b>
                             </div>
+                            <div class="list-bio" style="margin-top:10px;margin-bottom:10px;">
+                            <li ng-repeat="gene in search_info" ng-click="getGeneInfo(gene.name)">
+                            <a href="#">
+                                <div class="brick" style="float:left">
+                                    <img class="bio-img" ng-src="{{gene.img}}" alt="gene_img">
+                                    <div style="margin-top:5%;text-align:left;">&nbsp;{{gene.name}}</div>
+                                </div>
+                            </a>
+                            </li>
+
+                    </div>
                             <hr style="height:1px;border:none;border-top:0px double white;">
                             <div data-ng-bind-html="team.abstract"></div>
                         </div>
@@ -345,6 +356,7 @@
         </div>
     </div>
 
+<!-- 我的软键盘没带，缩进坏掉了。。。 -->
     <div class="right">
     <div class="1st" style="margin-top: 10px">
     <div class="rightheader">kuangkuang1</div>
