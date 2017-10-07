@@ -120,6 +120,7 @@
         .label-box {
             float: left;
             margin-top: 0px;
+            margin-bottom: 0px;
             width: 90%;
             min-height: 40px;
             padding: 3px;
@@ -137,7 +138,7 @@
             padding: 6px 14px;
             color: #fff;
             border-radius: 3px;
-            margin: 10px 6px 10px 6px;
+            margin: 0 3px;
         }
 
         .select-box {
@@ -147,6 +148,7 @@
         }
 
         .select-list {
+
             float: left;
             padding: 6px;
             margin-right: 10px;
@@ -158,6 +160,7 @@
         }
 
         .select-list span {
+            width:16%;
             display: inline-block;
             padding: 6px 14px;
             font-size: 14px;
@@ -171,11 +174,13 @@
         }
 
         .select-list .cur {
+
             background: #5cb85c;
             color: #fff;
         }
 
         .btntip {
+
             border: 1px solid #5cb85c;
             background-color: #5cb85c;
             border-radius: 6px;
@@ -295,7 +300,7 @@
                     <div class="select-list con1"  id="select">
                         <span style="margin-top:10px;" ng-class="{con3:true, cur:chosen[tag]}" ng-repeat="tag in tags" ng-click="conChoice(tag)"><em class="con3-1">{{tag}}</em></span>
                     </div>
-                    <center><button type="button" id="btntip" class="btntip" style="width:130px;">Add Tips</button></center>
+                    <center><br><button type="button" id="btntip" class="btntip" style="width:130px;">Add Tips</button></center>
                 </div>
             </div>
 
@@ -433,8 +438,8 @@
         </div>
     </div> -->
     </div>
-
-    <div class="end-foot"><a href="#" onclick="gotoTop();return false;" class="totop"></a></div>
+    <a href="#" onclick="gotoTop();return false;" class="totop"></a>
+    <!-- <div class="end-foot"><a href="#" onclick="gotoTop();return false;" class="totop"></a></div> -->
     <!--log out modal-->
     <div id="logout" class="modal-demo">
         <button type="button" class="close" onclick="Custombox.close();">

@@ -3,9 +3,8 @@ var vari;
 
 gene.controller('searchController',function($scope, $http, $location, $mdToast){
 	var trackNum = 9;
-	$scope.tags1 = ['Therapeutics','Software','New Application','Measurement','Manufacturing'];
-	$scope.tags2 = ['Information Processing','High School','Health & Medicine','Hardware','Foundational Advance','Food & Nutrition'];
-	$scope.tags3 = ['Environment','Energy','Diagnostics','Community Labs','Art & Design'];
+	$scope.tags1 = ['Community Labs','Entrepreneurship','Environment','Food & Energy','Foundational Research','Health & Medicine'];
+	$scope.tags2 = ['High School','Information Processing','Manufacturing','New Application','NotSpecified','Policy & Practices'];
 	$scope.chosen = [];
 	for (var i = 0; i < trackNum; i++) {
 		$scope.chosen.push(false);
@@ -141,10 +140,8 @@ gene.controller('searchController',function($scope, $http, $location, $mdToast){
 			if ($scope.chosen[i]) {
 				if (i < 5) {
 					trackStr = trackStr+"&track="+$scope.tags1[i];
-				} else if(i<11){
-					trackStr = trackStr+"&track="+$scope.tags2[i-5];
 				}else{
-					trackStr = trackStr+"&track="+$scope.tags3[i-11];
+					trackStr = trackStr+"&track="+$scope.tags3[i-6];
 				}
 			}
 		}

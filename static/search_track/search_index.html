@@ -119,11 +119,6 @@ body{
         </div>
          </center>   
             
-               <div class="search_suggest" id="gov_search_suggest">  
-                <ul>  
-                </ul>
-               
-            </div>
         </form>
         </div>
         </center>
@@ -133,11 +128,9 @@ body{
             <span ng-class="{con3:true, cur:chosen[$index]}" ng-repeat="tag in tags1" ng-click="conChoice($index)"><em>{{tag}}</em></span>
         </div>  
         <div class="select-list con3">
-            <span ng-class="{con3:true, cur:chosen[5+$index]}" ng-repeat="tag in tags2" ng-click="conChoice(5+$index)"><em>{{tag}}</em></span>
+            <span ng-class="{con3:true, cur:chosen[6+$index]}" ng-repeat="tag in tags2" ng-click="conChoice(6+$index)"><em>{{tag}}</em></span>
         </div> 
-        <div class="select-list con3">
-            <span ng-class="{con3:true, cur:chosen[11+$index]}" ng-repeat="tag in tags3" ng-click="conChoice(11+$index)"><em>{{tag}}</em></span>
-        </div> 
+        
     </div>
     </center>
 
