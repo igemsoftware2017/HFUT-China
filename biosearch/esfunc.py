@@ -126,9 +126,10 @@ def filter(searchsort):
             abstract = i['_source']['attribution']
         abstract = abstract[:500]
         highlight = list()
-        if len(i['highlight'])>0:
-            for field in i['highlight'].keys():
-                highlight.append(i['highlight'][field][0])
+        if i.get('highlight'):
+            if len(i['highlight'])>0:
+                for field in i['highlight'].keys():
+                    highlight.append(i['highlight'][field][0])
         tmp = {
             '_id':i['_id'],
             'title':i['_source']['year']+'-'+i['_source']['team_name'],
@@ -178,21 +179,20 @@ def getPart(keyword):
     _searched = es.search(index="biodesigners", doc_type="parts", body=query)
     teams = list()
     if len(_searched["hits"]["hits"])>0:
-        print("11111111111111")
         partRaw = _searched["hits"]["hits"][0]
         part = {
             "_id": partRaw["_id"],
             "part_name": partRaw["_source"]["part_name"],
             "part_type" : partRaw["_source"]['part_type']
         }
-        teamsStr = partRaw["_source"]['teams']
+        teamsStr = partRaw["_source"]['teamId']
         teamIdList = teamsStr.split(',')
-        teams = getTeamWiki(teamIdList, None)
+        teams = getTeamWiki(teamIdList, None, keyword)
     else:
         teams = []
     return teams
 
-def getTeamWiki(teamIds, _keyword): 
+def getTeamWiki(teamIds, _keyword, part): 
     query = dict()
     if _keyword:
         query = {
@@ -240,7 +240,9 @@ def getTeamWiki(teamIds, _keyword):
                     "protocol":{},
                     "result":{},
                     "safety":{},
-                    "keywords":{}
+                    "keywords":{},
+                    "part_favorite":{},
+                    "part_normal":{}
                 }
             }
         }

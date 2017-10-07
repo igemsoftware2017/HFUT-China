@@ -20,26 +20,23 @@ def randomPage(request):
         page = data.get('page')
         suggestions = list()
         groups = list()
-        if page == 1 :
-            r = Retrieve()
-            suggestions = r.retrieve(keyword)
-            groups = getLdaResult(track)
-        teamList = list()
-        if len(teams) == 0:
-            teamList = getanswer(keyword, track, page)
-        else:
-            teamList = teams
-        request.session['answers'] = teamList
+        # if page == 1 :
+        #     r = Retrieve()
+        #     suggestions = r.retrieve(keyword)
+        #     groups = getLdaResult(track)
+        teamList = getanswer(keyword, track, page)
+        teams.extend(teamList)
+        request.session['answers'] = teams
         result = {
             'successful': True,
             'data': {
                 'groups': groups,
                 'suggestions': suggestions,
-                'content': teamList[0:numOfEachPage]
+                'content': teams[0:numOfEachPage]
             }
         }
     except Exception as e:
-        print(e)
+        print('Error:', e)
         result = {
             'successful': False,
             'error': {
