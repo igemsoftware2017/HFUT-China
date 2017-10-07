@@ -14,7 +14,7 @@ def randomPage(request):
     try:
         data = json.loads(request.body)
         keyword = data.get('keyword')
-        part = getPart(keyword)
+        teams = getPart(keyword)
         track = data.get('track')
         track.append('NotSpecified')
         page = data.get('page')
@@ -25,11 +25,10 @@ def randomPage(request):
             suggestions = r.retrieve(keyword)
             groups = getLdaResult(track)
         teamList = list()
-        if len(part) == 0:
+        if len(teams) == 0:
             teamList = getanswer(keyword, track, page)
         else:
-            part_name = part[0]["part_name"]
-            teamList = getPartTeam(part_name, track, page)
+            teamList = teams
         request.session['answers'] = teamList
         result = {
             'successful': True,

@@ -178,6 +178,7 @@ def getPart(keyword):
     _searched = es.search(index="biodesigners", doc_type="parts", body=query)
     teams = list()
     if len(_searched["hits"]["hits"])>0:
+        print("11111111111111")
         partRaw = _searched["hits"]["hits"][0]
         part = {
             "_id": partRaw["_id"],
@@ -186,7 +187,7 @@ def getPart(keyword):
         }
         teamsStr = partRaw["_source"]['teams']
         teamIdList = teamsStr.split(',')
-        teams = getTeamWiki(teamIdList, Null)
+        teams = getTeamWiki(teamIdList, None)
     else:
         teams = []
     return teams
@@ -371,6 +372,3 @@ def getLdaResult(tracks):
                 "keyword": theme.keyword
             })
     return ldaResult
-
-def getPartTeam(part_name, track, page):
-    part = Parts.objects.filter(part_name=part_name)
