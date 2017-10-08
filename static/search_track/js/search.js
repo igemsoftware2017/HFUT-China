@@ -2,9 +2,11 @@ var gene = angular.module('searchApp',['ngMaterial','ngAnimate']);
 var vari;
 
 gene.controller('searchController',function($scope, $http, $location, $mdToast){
-	var trackNum = 9;
+	var trackNum = 12;
 	$scope.tags1 = ['Community Labs','Entrepreneurship','Environment','Food & Energy','Foundational Research','Health & Medicine'];
-	$scope.tags2 = ['High School','Information Processing','Manufacturing','New Application','NotSpecified','Policy & Practices'];
+	$scope.tags2 = ['High School','Information Processing','Manufacturing','New Application','Policy & Practices'];
+	$scope.urltags1 = ['Community Labs','Entrepreneurship','Environment','Food %26 Energy','Foundational Research','Health %26 Medicine'];
+	$scope.urltags2 = ['High School','Information Processing','Manufacturing','New Application','Policy %26 Practices'];
 	$scope.chosen = [];
 	for (var i = 0; i < trackNum; i++) {
 		$scope.chosen.push(false);
@@ -138,10 +140,10 @@ gene.controller('searchController',function($scope, $http, $location, $mdToast){
 		var trackStr = ''
 		for (var i = 0; i<trackNum; i++) {
 			if ($scope.chosen[i]) {
-				if (i < 5) {
-					trackStr = trackStr+"&track="+$scope.tags1[i];
-				}else{
-					trackStr = trackStr+"&track="+$scope.tags3[i-6];
+				if (i < 6) {
+					trackStr = trackStr+"&track="+$scope.urltags1[i];
+				} else{
+					trackStr = trackStr+"&track="+$scope.urltags2[i-6];
 				}
 			}
 		}

@@ -30,22 +30,8 @@ query.controller('queryController', function ($scope, $http,$location) {
 	$scope.type = 'type';
 	$scope.keywords = 'keywords keywords keywords keywords keywordsss keywords keywords keywords keywords keywords v keywords keywords keywordsss keywords keywords keywords keywords keywords v ';
 	$scope.award = 'award';
-	if($scope.award==""){$scope.award="Not the winning";}
-	$scope.description = 'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss1234567891234567891234ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss1234567891234567891234ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss1234567891234567891234ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss1234567891234567891234ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss123456789123456789123456789123456789123456789123456789123456789123456789123456789sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss';
-	if($scope.description==""){$scope.description="Sorry, this information is empty.";}
-	$scope.background = 'ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912kkkkkkkkkkkkkkkkkk';
-	if($scope.background==""){$scope.background="Sorry, this information is empty.";}
-	$scope.attribution = '';
-	if($scope.attribution==""){$scope.attribution="Sorry, this information is empty.";}
-	$scope.design = 'sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssss12345678912ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss12345678912sssss';
-	if($scope.design==""){$scope.design="Sorry, this information is empty.";}
-	$scope.human_practice = '';
-	if($scope.human_practice==""){$scope.human_practice="Sorry, this information is empty.";}
-	$scope.result = '';
-	if($scope.result==""){$scope.result="Sorry, this information is empty.";}
-	$scope.related = [];
-	if($scope.related==""){$scope.related="Sorry, this information is empty.";}
-	
+	$scope.fields = ['description', 'background', 'attribution', 'design', 'human_practice', 'result'];
+	$scope.fieldData = [];
 	//初始化
 	$scope.init = function () {
 		var loginSession = sessionStorage.getItem('login');
@@ -70,21 +56,38 @@ query.controller('queryController', function ($scope, $http,$location) {
 			if (data.successful) {
 				$scope.error = false;
 				//success
-				console.log("successful == true");
 				$scope.name = data.data.team_name;
 				$scope.year = data.data.year;
 				$scope.track = data.data.track;
 				// $scope.type = data.data.type;
 				$scope.keywords = data.data.keywords;
 				// $scope.award = data.data.award;
-				$scope.description = data.data.description;
-				if ($scope.description=="") {$scope.description="123"}
-				$scope.background = data.data.background;
-				$scope.attribution = data.data.attribution;
-				$scope.design = data.data.design;
-				$scope.human_practice = data.data.human_practice;
-				$scope.result = data.data.result;
+				$scope.fields.forEach(field => {
+					var fieldData = {
+						name: field,
+						data: data.data[field],
+						shortData: data.data[field],
+						showData: data.data[field],
+						tooMany: false,
+						isMore: true
+					};
+					fieldData.name = field[0].toUpperCase()+field.substring(1, field.length)
+					fieldData.data="Generally speaking, our system is a project search engine.				The system is based on a project library that stores information (including the profile, the purpose, the process, the results etc.) of all the teams’ projects in the past years and updates daily to keep up with the times. The system provides a variety of ways for searching information. And by the special processing of the information, we also optimize the searching performance and ensure the effectiveness of search results.In the initial processing of storage, the data is sorted by algorithm through keywords. Content that is relevant to the keywords will be placed ahead. And the searching results will be sorted by algorithm as well.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.";
+					fieldData.shortData="Generally speaking, our system is a project search engine.				The system is based on a project library that stores information (including the profile, the purpose, the process, the results etc.) of all the teams’ projects in the past years and updates daily to keep up with the times. The system provides a variety of ways for searching information. And by the special processing of the information, we also optimize the searching performance and ensure the effectiveness of search results.In the initial processing of storage, the data is sorted by algorithm through keywords. Content that is relevant to the keywords will be placed ahead. And the searching results will be sorted by algorithm as well.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.";
+					
+					if (fieldData.data == "") {
+						fieldData.data = "Sorry, this information is empty.";
+					} else {
+						if (fieldData.data.length > 2000) {
+							fieldData.tooMany = true;
+							fieldData.shortData = fieldData.data.substring(0, 1000) + "...";
+							fieldData.showData = fieldData.shortData;
+						}
+					}
+					$scope.fieldData.push(fieldData);
+				});
 				// $scope.related = data.data.related;
+				if($scope.award==""){$scope.award="Not the winning";}
 
 			} else {
 				console.log('false');
@@ -98,70 +101,16 @@ query.controller('queryController', function ($scope, $http,$location) {
 			}
 		});
 	}
-	$scope.isMore = true;
-
 	$scope.isActive = false;
-	$scope.more = function () {
-		$scope.isMore = false;
+
+	//控制展开
+	$scope.more = function(index) {
+		$scope.fieldData[index].isMore = !$scope.fieldData[index].isMore;
+		$scope.fieldData[index].showData = $scope.fieldData[index].data;
 	}
-
-	$scope.packUp = function () {
-		$scope.isMore = true;
-	}
-	$scope.isMore1 = true;
-
-	$scope.more1 = function () {
-		$scope.isMore1 = false;
-	}
-
-	$scope.packUp1 = function () {
-		$scope.isMore1 = true;
-	}
-
-$scope.isMore2 = true;
-
-	$scope.more2 = function () {
-		$scope.isMore2 = false;
-	}
-
-	$scope.packUp2 = function () {
-		$scope.isMore2 = true;
-	}
-	$scope.isMore3 = true;
-
-	$scope.more3 = function () {
-		$scope.isMore3 = false;
-	}
-
-	$scope.packUp3 = function () {
-		$scope.isMore3 = true;
-	}
-	$scope.isMore4 = true;
-
-	$scope.more4 = function () {
-		$scope.isMore4 = false;
-	}
-
-	$scope.packUp4 = function () {
-		$scope.isMore4 = true;
-	}
-	$scope.isMore5 = true;
-
-	$scope.more5 = function () {
-		$scope.isMore5 = false;
-	}
-
-	$scope.packUp5 = function () {
-		$scope.isMore5 = true;
-	}
-	$scope.isMore6 = true;
-
-	$scope.more6 = function () {
-		$scope.isMore6 = false;
-	}
-
-	$scope.packUp6 = function () {
-		$scope.isMore6 = true;
+	$scope.packUp = function(index) {
+		$scope.fieldData[index].isMore = !$scope.fieldData[index].isMore;
+		$scope.fieldData[index].showData = $scope.fieldData[index].shortData;
 	}
 
 	$scope.menuClick = function () {

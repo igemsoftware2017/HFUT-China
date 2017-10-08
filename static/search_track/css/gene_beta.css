@@ -233,8 +233,8 @@ em{font-style:normal;}
 
 .right{
 
-	z-index:999;
-	right:6%;
+	/* z-index:999; */
+	right:3%;
 	position: fixed;
 	top: 10%;
 	width: 260px;

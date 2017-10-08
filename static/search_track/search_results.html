@@ -148,10 +148,8 @@
         }
 
         .select-list {
-
             float: left;
-            padding: 6px;
-            margin-right: 10px;
+            margin-bottom: 20px;
             border: 1px solid ##5cb85c;
             border-radius: 3px;
             display: inline;
@@ -160,10 +158,9 @@
         }
 
         .select-list span {
-            width:16%;
             display: inline-block;
-            padding: 6px 14px;
-            font-size: 14px;
+            padding: 6px 8px;
+            font-size: 12px;
             border: 1px solid #5cb85c;
             background: #fff;
             color: #aaa;
@@ -290,19 +287,20 @@
                     document.getElementById("main").style.height = "auto";//90px
                 }
             </script>
-
-            <div class="main" id="main">
+            <div class="select-list con1"  id="select">
+                <span style="margin-top:10px;" ng-class="{con3:true, cur:chosen[tag]}" ng-repeat="tag in tags" ng-click="conChoice(tag)"><em class="con3-1">{{tag}}</em></span>
+            </div>
+            <!-- <div class="main" id="main">
+                
                 <div class="label-box"></div>
                 <div onclick="show1()" id="thisDiv" style="margin-top:10px;"><font style="padding:10px;border:solid 1px #999;border-radius:3px;"> Add Tips</font></div>
                 <div onclick="show2()" id="anotherDiv" style="display:none;margin-top:10px;"><font style="padding:10px;border:solid 1px #999;border-radius:3px;">Pick Up</font></div>
                 <div class="select-box" id="thisDiv" style="display:none">
 
-                    <div class="select-list con1"  id="select">
-                        <span style="margin-top:10px;" ng-class="{con3:true, cur:chosen[tag]}" ng-repeat="tag in tags" ng-click="conChoice(tag)"><em class="con3-1">{{tag}}</em></span>
-                    </div>
+                    
                     <center><br><button type="button" id="btntip" class="btntip" style="width:130px;">Add Tips</button></center>
                 </div>
-            </div>
+            </div> -->
 
             <br><br><br>
 

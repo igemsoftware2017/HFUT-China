@@ -16,7 +16,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 	$scope.perPage = 5;
     $scope.bigTotalItems = 10000;
 	
-	$scope.tags = ['Community Labs','Entrepreneurship','Environment','Food & Energy','Foundational Research','Health & Medicine','High School','Information Processing','Manufacturing','New Application','NotSpecified','Policy & Practices'];
+	$scope.tags = ['Community Labs','Entrepreneurship','Environment','Food & Energy','Foundational Research','Health & Medicine','High School','Information Processing','Manufacturing','New Application','Policy & Practices'];
 	$scope.chosen = {};
 	$scope.tags.forEach(tag => {
 		$scope.chosen[tag] = false;
@@ -112,7 +112,23 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 
 	$scope.conChoice = function(tag) {
 		$scope.chosen[tag] = !$scope.chosen[tag];
+		if ($scope.chosen[tag]) {
+			$scope.track.push(tag);
+		} else {
+			var position = $scope.track.indexOf(tag);
+			$scope.track.splice(position, 1);
+		}
+		$scope.getList();
 	}
+
+	// $scope.$watch('chosen',function(){
+	// 	Object.keys($scope.chosen).forEach(track=>{
+	// 		if ($scope.chosen[track]) {
+	// 			$scope.track.push(track);
+	// 		}
+	// 	});
+	// 	$scope.getList();
+	// });
 	//登录模态框
 	$scope.loginDialog = function () {
 		Custombox.open({
@@ -467,7 +483,6 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 			$scope.chosen[$scope.track] = true;
 			$scope.track = [$scope.track];
 		}
-		
 		$scope.getList();
 		$scope.maxPage = cacheNum;
 	}

@@ -142,20 +142,6 @@ span.sb_down {
 	margin-left:60px;
 	margin-top:-5px;
 }
-/* input.sb_search {
-	background:#f2f2f2 url(../images/search.png) no-repeat center center;
-	height:43px;
-	width:50px;
-	float:left;
-	border:none;
-	margin:3px 0px;
-	border:1px solid #fff;
-	-moz-box-shadow:1px 1px 3px #555;
-	-webkit-box-shadow:1px 1px 3px #555;
-	-box-shadow:1px 1px 3px #555;
-	outline:none;
-	cursor:pointer;
-} */
 input.sb_search:hover {
 	background-color:#fff;
 }
