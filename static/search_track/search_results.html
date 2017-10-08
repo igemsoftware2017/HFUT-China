@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="searchListApp">
+<!-- <html ng-app="ui.bootstrap.demo"> -->
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BioDesigner|Dophin</title>
-
     <link href="../public/custombox/dist/custombox.min.css" rel="stylesheet">
+    <link href="../public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="../public/angular-material/angular-material.min.css" rel="stylesheet">
-    <link href="./css/gene_beta1.css" rel="stylesheet">
+    <link href="./css/gene_beta.css" rel="stylesheet">
     <link href="./css/sb-admin-2.css" rel="stylesheet">
     <link rel="stylesheet" href="css/info.css" type="text/css" media="screen" />
+
+
+    <link rel="stylesheet" type="text/css" href="css/tip.css" />
 
     <!-- Favicon and touch icons -->
     <link rel="shortcut icon" href="img/logo_black_small.png">
@@ -32,7 +36,7 @@
 
         .gover_search {
             position: absolute;
-            right: 50%;
+            left: 14%;
             margin-right: -181px;
             z-index: 99;
             height: 30px;
@@ -93,6 +97,98 @@
             background: url(img/topt.png) no-repeat 0 -10px;
             background-color: #5cb85;
         }
+
+        em {
+            font-style: normal;
+        }
+
+        .main {
+            width: 100%;
+            height: 44px;
+            margin-top: 0px;
+            font-size: 14px;
+            overflow: hidden;
+            margin-bottom: -14px;
+        }
+
+        .main h2 {
+            text-align: center;
+            line-height: 60px;
+            color: #555;
+        }
+
+        .label-box {
+            float: left;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            width: 90%;
+            min-height: 40px;
+            padding: 3px;
+            border: 1px solid #99CCFF;
+            overflow: hidden;
+            border-radius: 3px;
+            display: inline-block !important;
+            display: inline;
+            height: auto;
+        }
+
+        .label-box span {
+            display: inline-block;
+            background: #99CCFF;
+            padding: 6px 14px;
+            color: #fff;
+            border-radius: 3px;
+            margin: 0 3px;
+        }
+
+        .select-box {
+            margin-top: 10px;
+            overflow: hidden;
+            display: inline-block !important;
+        }
+
+        .select-list {
+            float: left;
+            margin-bottom: 20px;
+            border: 1px solid ##5cb85c;
+            border-radius: 3px;
+            display: inline;
+            height: auto;
+            min-height: 20px;
+        }
+
+        .select-list span {
+            display: inline-block;
+            padding: 6px 8px;
+            font-size: 12px;
+            border: 1px solid #5cb85c;
+            background: #fff;
+            color: #aaa;
+            text-align: center;
+            border-radius: 3px;
+            margin: 0 3px;
+            cursor: pointer;
+        }
+
+        .select-list .cur {
+
+            background: #5cb85c;
+            color: #fff;
+        }
+
+        .btntip {
+
+            border: 1px solid #5cb85c;
+            background-color: #5cb85c;
+            border-radius: 6px;
+            padding-left: 12px;
+            padding-right: 12px;
+            padding-top: 6px;
+            padding-bottom: 6px;
+            color: #fff;
+            font-size: 16px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -107,12 +203,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="../search_track/search_index.html">BioDesigner Dophin</a>
+                <a class="navbar-brand" href="#">BioDesigner Dophin</a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    <button class="btn btn-success" ng-click="jumpToSearchIndex()">Search</button>
+                    <button class="btn btn-success" ng-click="jumpToSearch()">Search</button>
                 </li>
                 <li>
                     <button class="btn btn-danger" ng-click="jumpToProject()">Project</button>
@@ -130,22 +226,6 @@
                     <a class="sign-up" href="../register/register.html">Sign up</a>
                 </li>
                 <li ng-if="isLogin" class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i></a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li>
-                            <a href="#" ng-click="changePasswordDialog()">
-                                <i class="fa fa-gear fa-fw"></i>ChangePassword
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#" ng-click="logoutDialog()">
-                                <i class="fa fa-sign-out fa-fw"></i>Logout
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
@@ -163,16 +243,16 @@
                             </a>
                         </li>
                     </ul>
-                </li> -->
+                </li>
             </ul>
             <div class="gover_search">
                 <form class="navbar-form search-centers" name="form" id="ui_element">
-                    <img src="img/ser_l.png" width="34" height="34" id="logo" class="logo">
+                    <!-- <img src="img/ser_l.png" width="34" height="34" id="logo" class="logo"> -->
                     <!-- <input type="text" class="form-control" placeholder="Search..." ng-model="key_word" ng-keypress="search_by_keyboard($event,key_word)"> -->
                     <input type="text" id="gover_search_key" style="height:34px;width:290px" placeholder="Please input keywords ..." class="form-control sb_input"
                         ng-model="key_word" ng-keypress="gene_info_by_board($event,key_word,track)">
 
-                    <button id="btn" class="btn btn-default" type="button" ng-click="getSearchResult(key_word,track)">
+                    <button id="btn" class="btn btn-default" type="button" ng-click="jumpToSearch(key_word)">
                     <i class="fa fa-search"></i>
                 </button>
                     <div class="suggest-wrap">
@@ -184,42 +264,76 @@
             </div>
         </nav>
 
-        <center>
-            <div class="select-list con3">
-                <!-- <font color="#666">classification : </font> -->
-                <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-                <span><em class="con" ng-model="track1">track1</em></span>
-                <span><em class="con" ng-model="track2">track2</em></span>
-                <span><em class="con" ng-model="track3">track3</em></span>
-                <span><em class="con" ng-model="track4">track4</em></span>
-                <span><em class="con" ng-model="track5">track5</em></span>
-                <span><em class="con" ng-model="track6">track6</em></span>
-                <span><em class="con" ng-model="track7">track7</em></span>
-                <span><em class="con" ng-model="track8">track8</em></span>
-                <span><em class="con" ng-model="track9">track9</em></span>
-                <span><em class="con" ng-model="track10">track10</em></span>
-            </div>
-        </center>
     </div>
-    <div class="line_left"></div>
-    <center>
-        <br>
+    <div class="list-left"></div>
+
+    <br>
+    <div class="cen_b">
         <div class="list">
-            <div ng-repeat="team in teams" ng-click="getDetail(team.id)">
+            <script>
+                function show1() {
+                    document.getElementById("anotherDiv").style.display = "block";
+                    document.getElementById("thisDiv").style.display = "none";
+                    document.getElementById("select").style.display = "block";
+                    document.getElementById("btntip").style.display = "block";
+                    document.getElementById("main").style.height = "auto";
+                }
+
+                function show2() {
+                    document.getElementById("thisDiv").style.display = "block";
+                    document.getElementById("anotherDiv").style.display = "none";
+                    document.getElementById("select").style.display = "none";
+                    document.getElementById("btntip").style.display = "none";
+                    document.getElementById("main").style.height = "auto";//90px
+                }
+            </script>
+            <div class="select-list con1"  id="select">
+                <span style="margin-top:10px;" ng-class="{con3:true, cur:chosen[tag]}" ng-repeat="tag in tags" ng-click="conChoice(tag)"><em class="con3-1">{{tag}}</em></span>
+            </div>
+            <!-- <div class="main" id="main">
+                
+                <div class="label-box"></div>
+                <div onclick="show1()" id="thisDiv" style="margin-top:10px;"><font style="padding:10px;border:solid 1px #999;border-radius:3px;"> Add Tips</font></div>
+                <div onclick="show2()" id="anotherDiv" style="display:none;margin-top:10px;"><font style="padding:10px;border:solid 1px #999;border-radius:3px;">Pick Up</font></div>
+                <div class="select-box" id="thisDiv" style="display:none">
+
+                    
+                    <center><br><button type="button" id="btntip" class="btntip" style="width:130px;">Add Tips</button></center>
+                </div>
+            </div> -->
+
+            <br><br><br>
+
+            <div ng-repeat="team in teams" ng-click="getDetail(team._id)">
                 <a>
                     <div class="list-div">
-                        <div class="result-title color" style="font-weight:bold"><span><div class="point1"></div></span>{{team.title}}
+                        <div class="result-title color" style="font-weight:bold">{{team.title}}
                             <div class="which">
                                 type : high-school
                             </div>
                         </div>
                         <div class="content color">
                             <!-- <div class="keywords key"><span><em class="key">keywords:{{team.keywords}}</em></span> -->
-                            <div class="keywords_beta color-key"><span><em class="key"><font size=3px color="white" style="background-color:#6b9de2;border-radius:3px;padding:2px;margin:3px;font-weight:bold">keywords: </font><font size=2px; style="font-weight:bold" color="#333">{{team.keywords}}</font></em></span>
+                            <div class="keywords_beta color-key">
+                                <span><em class="key">
+                                    <font size=3px color="white" style="background-color:#6b9de2;border-radius:3px;padding:2px;margin:3px;font-weight:bold">keywords: </font
+                                        ><font size=2px; style="font-weight:bold" color="#333">{{team.keywords}}</font>
+                                </em></span>
                             </div>
                             <div class="results color-key">
                                 <b><font size=3px; color="#ffffff"  style="background-color:#f9a731;border-radius:3px;">&nbsp;&nbsp;awards: </font>&nbsp;<img src="img/results.png" height="23px"><font size=3px;><font>&nbsp;21c dscw&nbsp;</font></b>
                             </div>
+                            <div class="list-bio" style="margin-top:10px;margin-bottom:10px;">
+                            <li ng-repeat="gene in search_info" ng-click="getGeneInfo(gene.name)">
+                            <a href="#">
+                                <div class="brick" style="float:left">
+                                    <img class="bio-img" ng-src="{{gene.img}}" alt="gene_img">
+                                    <div style="margin-top:5%;text-align:left;">&nbsp;{{gene.name}}</div>
+                                </div>
+                            </a>
+                            </li>
+
+                    </div>
                             <hr style="height:1px;border:none;border-top:0px double white;">
                             <div data-ng-bind-html="team.abstract"></div>
                         </div>
@@ -227,35 +341,66 @@
                 </a>
                 <hr>
             </div>
-            <center>
-                <div class="suggestion-bottom" style="float:left;">
-                    <div class="s-header">
-                        Suggestions
-                    </div>
-                    <hr style="height:3px;border:none;border-top:0px double white;">
-                    <!-- <div ng-repeat="word in words">
-			<div class='s-content'>
-			<a href="" class=" color">{{word.key}}</a>
-			</div>
-		</div> -->
-                    <div ng-repeat="word in words">
-                        <div class='s-content'>
-                            <a href="" class=" color">{{word}}</a>
-                        </div>
-                    </div>
-
+            <div class="suggestion-bottom">
+                <div class="s-header" style="margin-bottom:20px">
+                    Suggestions
                 </div>
-                <br><br><br><br><br><br>
-                <div class="zxf_pagediv" style="margin-top:26px;float:left;"></div>
-                <div clas="foot-div" style="margin-top:20px;height:6px;"><br><br><br><br><br><br><br><br><br></div>
+                <div style="clear:both">
+                    <div class='s-content' ng-repeat="word in words">
+                        <a href="" class=" color" ng-click="jum pToSearch(word)">{{word}}</a>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="page">
+                <ul uib-pagination total-items="bigTotalItems" ng-model="currentPage" items-per-page="perPage" max-size="maxSize" class="pagination-sm" rotate="true" force-ellipses="true"
+                    ng-change="pageChanged(currentPage)"></ul>
+            </div>
         </div>
-        </center><br><br><br>
-        </div>
-    </center>
-    <div class="left">
+    </div>
+
+<!-- 我的软键盘没带，缩进坏掉了。。。 -->
+    <div class="right">
+    <div class="1st" style="margin-top: 10px">
+    <div class="rightheader">kuangkuang1</div>
+    <div class="rightcon">
+    <font class="rightsmalldiv">213</font>
+    <font class="rightsmalldiv">213</font>
+    <font class="rightsmalldiv">213</font>
+    <font class="rightsmalldiv">213</font>
+    </div>
+    </div>
+    <div class="2nd" style="margin-top: 10px">
+    <div class="rightheader">kuangkuang2</div>
+    <div class="rightcon">
+    <font class="rightsmalldiv_">213</font>
+    <font class="rightsmalldiv_">213</font>
+    <font class="rightsmalldiv_">213</font>
+    <font class="rightsmalldiv_">213</font>
+    </div>
+    </div>
+    <div class="3rd" style="margin-top: 10px">
+    <div class="rightheader">kuangkuang3</div>
+    <div class="rightcon">
+    <font class="rightsmalldiv__">213</font>
+    <font class="rightsmalldiv__">213</font>
+    <font class="rightsmalldiv__">213</font>
+    <font class="rightsmalldiv__">213</font>
+    </div>
+    </div>
+
+    </div>
+    <!-- <div class="right">
         <div class="list-l">
             <ul class="yiji">
                 <div style="color:#fff;text-align:center;font-size:20px;bottom:2px;background:#aaa;border-radius:3px;">Classifications</div>
+                <li><a href="#">fistDiv</a></li>
+                <li><a href="#">fistDiv</a></li>
+                <li><a href="#">fistDiv</a></li>
+                <li><a href="#">fistDiv</a></li>
+                <li><a href="#">fistDiv</a></li>
+                <li><a href="#">fistDiv</a></li>
+                <li><a href="#">fistDiv</a></li>
                 <li><a href="#">fistDiv</a></li>
                 <li><a href="#" class="inactive">one</a>
                     <ul style="display: none">
@@ -289,36 +434,10 @@
                 </li>
             </ul>
         </div>
+    </div> -->
     </div>
-    <div class='end-foot'><a href="#" onclick="gotoTop();return false;" class="totop"></a></div>
-    <!-- log in modal -->
-    <div id="login" class="modal-demo">
-        <button type="button" class="close" onclick="Custombox.close();">
-                <span>×</span>
-                <span class="sr-only">Close</span>
-            </button>
-        <h4 class="title">Login</h4>
-        <div class="text">
-            <form class="form-horizontal" role="form" ng-keypress="login_by_keyboard($event,username,password)">
-                <div class="form-group col-md-12">
-                    <label for="username">Username</label>
-                    <input id="username" type="text" class="form-control login-input" placeholder="User Name" ng-model="username" />
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="password">Password</label>
-                    <input id="password" type="password" class="form-control login-input" placeholder="Password" ng-model="password" />
-                </div>
-            </form>
-            <a href="../register/register.html">
-                    Create account
-                </a>
-        </div>
-        <div class="modal-footer">
-            <span ng-if="error" class="error-msg">{{errorMsg}}</span>
-            <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
-            <button type="button" class="btn btn-primary" ng-click="log_in(username,password)">Confirm</button>
-        </div>
-    </div>
+    <a href="#" onclick="gotoTop();return false;" class="totop"></a>
+    <!-- <div class="end-foot"><a href="#" onclick="gotoTop();return false;" class="totop"></a></div> -->
     <!--log out modal-->
     <div id="logout" class="modal-demo">
         <button type="button" class="close" onclick="Custombox.close();">
@@ -375,163 +494,13 @@
     <script type="text/javascript" src="./js/jquery-3.2.1.slim.js"></script>
     <script src="../public/custombox/dist/legacy.min.js"></script>
     <script src="../public/custombox/dist/custombox.min.js"></script>
-    <script src="../public/angular/angular.min.js"></script>
-    <script src="../public/angular-animate/angular-animate.min.js"></script>
-    <script src="../public/angular-aria/angular-aria.min.js"></script>
-    <script src="../public/angular-material/angular-material.min.js"></script>
     <script src="../public/jquery/dist/jquery.min.js"></script>
     <script src="../public/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../public/d3/d3.min.js"></script>
     <script src="./js/draw.js"></script>
     <script src="js/jquery-1.10.2.min.js"></script>
     <script src="js/effect.js"></script>
-    <script type="text/javascript">
-        //实现搜索输入框的输入提示js类  
-        function oSearchSuggest(searchFuc) {
-            var input = $('#gover_search_key');
-            var suggestWrap = $('#gov_search_suggest');
-            var key = "";
-            var init = function () {
-                input.bind('keyup', sendKeyWord);
-                input.bind('blur', function () {
-                    setTimeout(hideSuggest, 100);
-                })
-            }
-            var hideSuggest = function () {
-                suggestWrap.hide();
-            }
 
-            //发送请求，根据关键字到后台查询  
-            var sendKeyWord = function (event) {
-
-                //键盘选择下拉项  
-                if (suggestWrap.css('display') == 'block' && event.keyCode == 38 || event.keyCode == 40) {
-                    var current = suggestWrap.find('li.hover');
-                    if (event.keyCode == 38) {
-                        if (current.length > 0) {
-                            var prevLi = current.removeClass('hover').prev();
-                            if (prevLi.length > 0) {
-                                prevLi.addClass('hover');
-                                input.val(prevLi.html());
-                            }
-                        } else {
-                            var last = suggestWrap.find('li:last');
-                            last.addClass('hover');
-                            input.val(last.html());
-                        }
-
-                    } else if (event.keyCode == 40) {
-                        if (current.length > 0) {
-                            var nextLi = current.removeClass('hover').next();
-                            if (nextLi.length > 0) {
-                                nextLi.addClass('hover');
-                                input.val(nextLi.html());
-                            }
-                        } else {
-                            var first = suggestWrap.find('li:first');
-                            first.addClass('hover');
-                            input.val(first.html());
-                        }
-                    }
-
-                    //输入字符  
-                } else {
-                    var valText = $.trim(input.val());
-                    if (valText == '' || valText == key) {
-                        return;
-                    }
-                    searchFuc(valText);
-                    key = valText;
-                }
-
-            }
-            //请求返回后，执行数据展示  
-            this.dataDisplay = function (data) {
-                if (data.length <= 0) {
-                    suggestWrap.hide();
-                    return;
-                }
-
-                //往搜索框下拉建议显示栏中添加条目并显示  
-                var li;
-                var tmpFrag = document.createDocumentFragment();
-                suggestWrap.find('ul').html('');
-                for (var i = 0; i < data.length; i++) {
-                    li = document.createElement('LI');
-                    li.innerHTML = data[i];
-                    tmpFrag.appendChild(li);
-                }
-                suggestWrap.find('ul').append(tmpFrag);
-                suggestWrap.show();
-
-                //为下拉选项绑定鼠标事件  
-                suggestWrap.find('li').hover(function () {
-                    suggestWrap.find('li').removeClass('hover');
-                    $(this).addClass('hover');
-
-                }, function () {
-                    $(this).removeClass('hover');
-                }).bind('click', function () {
-                    input.val(this.innerHTML);
-                    suggestWrap.hide();
-                });
-            }
-            init();
-        };
-
-        //实例化输入提示的JS,参数为进行查询操作时要调用的函数名  
-        var searchSuggest = new oSearchSuggest(sendKeyWordToBack);
-
-        //这是一个模似函数，实现向后台发送ajax查询请求，并返回一个查询结果数据，传递给前台的JS,再由前台JS来展示数据。本函数由程序员进行修改实现查询的请求  
-        //参数为一个字符串，是搜索输入框中当前的内容  
-        function sendKeyWordToBack(keyword) {
-            /*  var obj = {  
-                     "keyword" : keyword  
-                  };  
-                  $.ajax({  
-                            type: "POST",  
-                            url: "${ctx}/front/suqiu2/search/prompt-keyword.action",  
-                            async:false,  
-                            data: obj,  
-                            dataType: "json",  
-                            success: function(data){  
-                              //var json = eval("("+data+")");  
-                              var key=data.split(",");  
-                              var aData = [];  
-                              for(var i=0;i<key.length;i++){  
-                                     //以下为根据输入返回搜索结果的模拟效果代码,实际数据由后台返回  
-                                 if(key[i]!=""){  
-                                       aData.push(key[i]);  
-                                 }  
-                              }  
-                             //将返回的数据传递给实现搜索输入框的输入提示js类  
-                              searchSuggest.dataDisplay(aData);  
-                            }  
-              });      */
-
-            //以下为根据输入返回搜索结果的模拟效果代码,实际数据由后台返回  
-            var aData = [];
-            if (keyword == "aaa") {
-                aData.push(keyword + '返回数据-返回数据-返回数据1');
-                aData.push(keyword + '返回数据-返回数据-返回数据2');
-                aData.push(keyword + '返回数据-返回数据-返回数据1');
-                aData.push(keyword + '返回数据-返回数据-返回数据2');
-                aData.push(keyword + '返回数据-返回数据-返回数据1');
-                aData.push(keyword + '返回数据-返回数据-返回数据2');
-                aData.push(keyword + '返回数据-返回数据-返回数据1');
-                aData.push(keyword + '返回数据-返回数据-返回数据2');
-            }
-            /*  aData.push(keyword+'返回数据1');  
-             aData.push(keyword+'返回数据2');  
-             aData.push(keyword+'不是有的人天生吃素的');  
-             aData.push(keyword+'不是有的人天生吃素的');  
-             aData.push(keyword+'2012是真的');  
-             aData.push(keyword+'2012是假的');   */
-            //将返回的数据传递给实现搜索输入框的输入提示js类  
-            searchSuggest.dataDisplay(aData);
-
-        }
-    </script>
     <script>
         /**
          * JavaScript脚本实现回到页面顶部示例
@@ -576,45 +545,26 @@
     </script>
     <script src="js/jquery.min.js"></script>
     <script src="js/page.js"></script>
-    <script type="text/javascript">
-        $(".zxf_pagediv").createPage({
-            pageNum: 2,
-            current: 1,
-            backfun: function (e) {
-                //console.log(e);//回调
-            }
-        });
+
     </script>
-    <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+    <script src="../public/custombox/dist/legacy.min.js"></script>
+    <script src="../public/custombox/dist/custombox.min.js"></script>
+    <script src="../public/angular/angular.min.js"></script>
+    <script src="../public/angular-animate/angular-animate.min.js"></script>
+    <script src="../public/angular-material/angular-material.min.js"></script>
+    <script src="../public/angular-aria/angular-aria.min.js"></script>
+    <script src="../public/jquery/dist/jquery.min.js"></script>
+    <script src="../public/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../public/angular-sortable/Sortable.js"></script>
+    <script src="../public/angular-sortable/ng-sortable.js"></script>
+    <script src="./js/angular-ui-bootstrap.js"></script>
+    <script src="./js/layout.js"></script>
+    <script src="./js/design_page.js"></script>
+    <script src="./js/contextMenu.js"></script>
     <script src="./js/searchList.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.inactive').click(function () {
-                if ($(this).siblings('ul').css('display') == 'none') {
-                    $(this).parent('li').siblings('li').removeClass('inactives');
-                    $(this).addClass('inactives');
-                    $(this).siblings('ul').slideDown(100).children('li');
-                    if ($(this).parents('li').siblings('li').children('ul').css('display') == 'block') {
-                        $(this).parents('li').siblings('li').children('ul').parent('li').children('a').removeClass(
-                            'inactives');
-                        $(this).parents('li').siblings('li').children('ul').slideUp(100);
-
-                    }
-                } else {
-                    //控制自身变成+号
-                    $(this).removeClass('inactives');
-                    //控制自身菜单下子菜单隐藏
-                    $(this).siblings('ul').slideUp(100);
-                    //控制自身子菜单变成+号
-                    $(this).siblings('ul').children('li').children('ul').parent('li').children('a').addClass(
-                        'inactives');
-                    //控制自身菜单下子菜单隐藏
-                    $(this).siblings('ul').children('li').children('ul').slideUp(100);
-
-                    //控制同级菜单只保持一个是展开的（-号显示）
-                    $(this).siblings('ul').children('li').children('a').removeClass('inactives');
-                }
-            })
+            $("#btntip").click();
         });
     </script>
 </body>

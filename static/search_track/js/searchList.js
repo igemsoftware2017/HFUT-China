@@ -1,27 +1,134 @@
-var searchList = angular.module('searchListApp',['ngMaterial','ngAnimate']);
-var vari;
+
+var searchList = angular.module('searchListApp',['ngMaterial','ngAnimate','ui.bootstrap']);
+var cacheNum = 4;
+var trackNum = 9;
 searchList.config(['$locationProvider', function($locationProvider) {
   $locationProvider.html5Mode({
     enabled: true,
     requireBase: false
   });
 }]);
-searchList.controller('searchListController',function($scope, $http, $location, $mdToast, $sce){
-	var trackNum = 9;
-	$scope.tags1 = ['Foundational Advance','Biochemistry','Hardware','Microbiology','Manufacturing'];
-	$scope.tags2 = ['Medicine','Diagnostics','Environment','Genetic engineering'];
-	$scope.chosen = [];
-	for (var i = 0; i < trackNum; i++) {
-		$scope.chosen.push(false);
-	}
+searchList.controller('searchListController',function($scope, $http, $location, $mdToast, $sce, $anchorScroll){
+	$scope.currentPage = 1;
+	$scope.sessionMin = 1;
+	$scope.sessionMax = cacheNum;
+	$scope.maxSize = 8;
+	$scope.perPage = 5;
+    $scope.bigTotalItems = 10000;
+	
+	$scope.tags = ['Community Labs','Entrepreneurship','Environment','Food & Energy','Foundational Research','Health & Medicine','High School','Information Processing','Manufacturing','New Application','Policy & Practices'];
+	$scope.chosen = {};
+	$scope.tags.forEach(tag => {
+		$scope.chosen[tag] = false;
+	});
     $scope.key_word = "";
 	$scope.track = [];
 	$scope.teams = [];
+	$scope.goToTop = function() {
+		$location.hash("top");
+		$anchorScroll();
+	}
+
+    $scope.pageChanged = function(page) {
+		if (page <= $scope.sessionMax && page >= $scope.sessionMin) {
+			var opt = {
+				url: '/biosearch/turnPage',
+				method: 'POST',
+				data: {
+					page: page-$scope.sessionMin+1,
+				},
+				headers: { 'Content-Type': 'application/json'}
+			};
+		} else {
+			var opt = {
+				url: '/biosearch/randomPage',
+				method: 'POST',
+				data: {
+					page: page,
+					keyword: $scope.key_word,
+					track: $scope.track
+				},
+				headers: { 'Content-Type': 'application/json'}
+			};
+		}
+		$http(opt).success(function(data){
+			if(data.successful){
+				console.log(data.data);
+				if (page == $scope.sessionMax) {
+					var opt = {
+						url: '/biosearch/getCache',
+						method: 'POST',
+						data: {
+							page: page,
+							keyword: $scope.key_word,
+							track: $scope.track
+						},
+						headers: { 'Content-Type': 'application/json'}
+					};
+					$http(opt).success(function(data){
+						if(data.successful){
+							$scope.sessionMin = $scope.sessionMax + 1;
+							$scope.sessionMax = $scope.sessionMax + cacheNum;
+							console.log("min:", $scope.sessionMin, " max:", $scope.sessionMax);
+						}
+					});
+					
+				} else if (page == $scope.sessionMin) {
+					var opt = {
+						url: '/biosearch/getCache',
+						method: 'POST',
+						data: {
+							page: page,
+							keyword: $scope.key_word,
+							track: $scope.track
+						},
+						headers: { 'Content-Type': 'application/json'}
+					};
+					$http(opt).success(function(data){
+						if(data.successful){
+							$scope.sessionMax = $scope.sessionMin - 1;
+							$scope.sessionMin = $scope.sessionMin - cacheNums;
+							console.log("min:", $scope.sessionMin, " max:", $scope.sessionMax);
+						}
+					});
+				} else if (page > $scope.sessionMax || page < $scope.sessionMin) {
+					$scope.sessionMin = page;
+					$scope.sessionMax = page + cacheNum - 1;
+					console.log("min:", $scope.sessionMin, " max:", $scope.sessionMax);
+				}
+				$scope.teams = data.data.content.map(function(team){
+					team.highlight.forEach(function(hightlight){
+						team.abstract = team.abstract + "..." + hightlight;
+					});
+					team.abstract = $sce.trustAsHtml(team.abstract+" ...");
+					return team;
+				});
+				$scope.goToTop();
+			}
+		});
+    };
+
+    
 
 	$scope.conChoice = function(tag) {
-		console.log(tag);
 		$scope.chosen[tag] = !$scope.chosen[tag];
+		if ($scope.chosen[tag]) {
+			$scope.track.push(tag);
+		} else {
+			var position = $scope.track.indexOf(tag);
+			$scope.track.splice(position, 1);
+		}
+		$scope.getList();
 	}
+
+	// $scope.$watch('chosen',function(){
+	// 	Object.keys($scope.chosen).forEach(track=>{
+	// 		if ($scope.chosen[track]) {
+	// 			$scope.track.push(track);
+	// 		}
+	// 	});
+	// 	$scope.getList();
+	// });
 	//登录模态框
 	$scope.loginDialog = function () {
 		Custombox.open({
@@ -136,11 +243,64 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 	
 	$scope.gene_info_by_board = function($event,key_word){
 		if ($event.keyCode == 13) {
-			$scope.getTrackInfo(key_word);
+			$scope.jumpToSearchResults(key_word);
 			onresize();
 		}
 	}
 
+	$scope.jumpToSearchResults = function(key_word){
+		var trackStr = ''
+		for (var i = 0; i<trackNum; i++) {
+			if ($scope.chosen[i]) {
+				if (i < 5) {
+					trackStr = trackStr+"&track="+$scope.tags1[i];
+				} else {
+					trackStr = trackStr+"&track="+$scope.tags2[i-5];
+				}
+			}
+		}
+		url = `../search_track/search_results.html?key_word=${$scope.key_word}`;
+		url = url + trackStr;
+		window.location.href = url;
+	 	var opt = {
+		 	url: '/biosearch/biobrick',
+		 	method: 'POST',
+		 	data: {
+		 		track: trackStr,//母鸡。。。
+		 		keyword: key_word,
+		 	},
+		 	headers: { 'Content-Type': 'application/json'}
+		 };
+		$http(opt).success(function (data) {
+			if (data.successful) {
+				$scope.error = false;
+				//success
+				console.log("successful == true");
+				$scope.pageNum = data.data.pageNum;
+				$scope.track_info = [];
+				var track_result = data.data;
+				for (var i = 0;i < track_result.length;i++) {
+					$scope.track_info.push({
+						title: track_result[i].title,
+						key:track_result[i].key,
+						abstract: track_result[i].absract,
+					});
+				}
+
+			} else {
+				console.log('false');
+				//false
+				$scope.error = true;
+				if (data.error.id == '1') {
+					$scope.errorMsg = data.error.msg;
+				} else {
+					$scope.errorMsg = "error!";
+				}
+			}
+		});
+	}
+
+	
 	$scope.getDetail = function(id) {
 		url = `./search_query.html?id=${id}`;
 		console.log(url);
@@ -149,11 +309,12 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 
 	$scope.getList = function(){
 		var opt = {
-			url: '/biosearch/firstPage',
+			url: '/biosearch/randomPage',
 			method: 'POST',
 			data: {
 				track: $scope.track,
-				keyword: $scope.key_word
+				keyword: $scope.key_word,
+				page: 1
 			},
 			headers: { 'Content-Type': 'application/json'}
 		};
@@ -194,7 +355,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
         //         "description": [" <b>protein</b> is interesting firstly because it is about half the size of other fluorescent <b>proteins</b> that are being used today, making it suitable as a"]
         //     },
         //     "score": 2.6258528,
-        //     "hits": 0
+        //     "hits": 0++
         // }, {
         //     "id": "AV3_VLmar5lUclF2BU5Y",
         //     "title": "2016-Denver_Biolabs",
@@ -242,7 +403,59 @@ searchList.controller('searchListController',function($scope, $http, $location, 
         //     "hits": 0
         // }];
 	}
+
+	$scope.getGeneInfo = function(part_id) {
+		var opt = {
+			url: '/biosearch/bioSearchFirst',
+			method: 'POST',
+			data: {
+				_id: part_id,
+				keyword: $scope.key_word
+			},
+			headers: { 'Content-Type': 'application/json'}
+		};
+		$http(opt).success(function(data){
+			if(data.successful){
+				console.log(data.data);
+				$scope.teams = data.data.content.map(function(team){
+					team.highlight.forEach(function(hightlight){
+						team.abstract = team.abstract + "..." + hightlight;
+					});
+					team.abstract = $sce.trustAsHtml(team.abstract+" ...");
+					return team;
+				});
+			}
+		});
+	}
 	
+	$scope.jumpToSearch = function(key_word){
+		$scope.track = [];
+		Object.keys($scope.chosen).forEach(track=>{
+			if ($scope.chosen[track]) {
+				$scope.track.push(track);
+			}
+		});
+
+		if ($scope.track == 0) {
+			$scope.track = $scope.tags;
+		}
+		var trackStr = '';
+		if ($scope.track.length>0) {
+			$scope.track.forEach(track => {
+				trackStr = trackStr+"&track="+track;
+			});
+		} else {
+			$scope.tags.forEach(track => {
+				trackStr = trackStr+"&track="+track;
+			})
+		}
+		
+		url = `../search_track/search_results.html?key_word=${key_word}`;
+		url = url + trackStr;
+		console.log(url);
+		window.location.href = url;
+	}
+
 	//初始化
 	$scope.init = function(){
 		var loginSession = sessionStorage.getItem('login');
@@ -253,8 +466,25 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 			$scope.isLogin = false;
 		}
         $scope.key_word = $location.search().key_word;
-        $scope.track = $location.search().track;
-        $scope.getList();
+		$scope.track = $location.search().track;
+		if (!$scope.track) {
+			$scope.track = $scope.tags;
+			$scope.track.forEach(track => {
+				$scope.chosen[track] = true;
+			});
+		}
+		if ($scope.track instanceof Array) {
+			if ($scope.track && $scope.track.length) {
+				$scope.track.forEach(track => {
+					$scope.chosen[track] = true;
+				});
+			}
+		} else {
+			$scope.chosen[$scope.track] = true;
+			$scope.track = [$scope.track];
+		}
+		$scope.getList();
+		$scope.maxPage = cacheNum;
 	}
 	
 	$scope.init();

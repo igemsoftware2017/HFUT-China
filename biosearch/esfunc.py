@@ -2,6 +2,9 @@
 from elasticsearch import Elasticsearch
 import chardet
 import json
+from .models import LdaKeyword
+from projectManage.models import Parts
+
 es = Elasticsearch()
 fields = ["attribution","background","description","design","human_practice","modeling","notebook","protocol","result","safety","keywords"]
 
@@ -39,10 +42,10 @@ def getdetailbyid(_id):
     # es.update_by_query(index='bio_search_index', doc_type='bio_search',body=_increment)
     return _searched['hits']['hits'][0]
 
-def getanswer(_keyword,_track1):
-
+def getanswer(_keyword, _track1, page):
     _query = {
-        "size": 5000,
+        "from": (page-1)*4,
+        "size": 20,
         "query": {
             "bool":{
                 "must":[{
@@ -80,7 +83,7 @@ def getanswer(_keyword,_track1):
             "fragment_size" : 80,
             "fields": {
                 "attribution":{},
-                "background":{},
+                "background":{},    
                 "description":{},
                 "design":{},
                 "human_practice":{},
@@ -123,13 +126,15 @@ def filter(searchsort):
             abstract = i['_source']['attribution']
         abstract = abstract[:500]
         highlight = list()
-        if len(i['highlight'])>0:
-            for field in i['highlight'].keys():
-                highlight.append(i['highlight'][field][0])
+        if i.get('highlight'):
+            if len(i['highlight'])>0:
+                for field in i['highlight'].keys():
+                    highlight.append(i['highlight'][field][0])
         tmp = {
             '_id':i['_id'],
             'title':i['_source']['year']+'-'+i['_source']['team_name'],
             'keywords':i['_source']['keywords'],
+            # 'parts': i['_source']['parts'],
             # 'award': i['_source']['award'],
             # 'type': i['_source']['type'],
             'abstract':abstract,
@@ -139,19 +144,19 @@ def filter(searchsort):
         # for field in group.keys():
         #     if (groupDict.get(field) < group.get(field)):
         #         groupDict[field] = group.get[field]
-        groups = list()
-        groups = [['123',0.5]]
+        # groups = list()
+        # groups = [['123',0.5]]
         # for (key, value) in groupDict.items():
         #     groups.append([key, value])
         # print (tmp)
         teamList.append(tmp)
     # groups.sort(key = lambda x:x[1], reverse=True)
     # groups = groups[:8]
-    result = {
-        'teamList': teamList,
-        'groups': groups
-    }
-    return result
+    # result = {
+    #     'teamList': teamList,
+    #     'groups': groups
+    # }
+    return teamList
 
 def biosort(searched):
     search = searched['hits']['hits']
@@ -163,28 +168,31 @@ def biosort(searched):
 def getPart(keyword):
     query = {
         "from" : 0,
-        "size" : 10,
+        "size" : 1,
         "query" : {
             "multi_match" : {
-                "fields" : ["part_name", "part_type", "short_desc"],
-                "query" : keyword,
-                "fuzziness" : "AUTO",
+                "fields" : ["part_name"],
+                "query" : keyword
             }
         }
     }
     _searched = es.search(index="biodesigners", doc_type="parts", body=query)
-    partRawList = _searched["hits"]["hits"]
-    parts = list()
-    for partRaw in partRawList:
+    teams = list()
+    if len(_searched["hits"]["hits"])>0:
+        partRaw = _searched["hits"]["hits"][0]
         part = {
             "_id": partRaw["_id"],
             "part_name": partRaw["_source"]["part_name"],
             "part_type" : partRaw["_source"]['part_type']
         }
-        parts.append(part)
-    return parts
+        teamsStr = partRaw["_source"]['teamId']
+        teamIdList = teamsStr.split(',')
+        teams = getTeamWiki(teamIdList, None, keyword)
+    else:
+        teams = []
+    return teams
 
-def getTeamWiki(teamIds, _keyword):
+def getTeamWiki(teamIds, _keyword, part): 
     query = dict()
     if _keyword:
         query = {
@@ -232,7 +240,9 @@ def getTeamWiki(teamIds, _keyword):
                     "protocol":{},
                     "result":{},
                     "safety":{},
-                    "keywords":{}
+                    "keywords":{},
+                    "part_favorite":{},
+                    "part_normal":{}
                 }
             }
         }
@@ -251,7 +261,6 @@ def getTeamWiki(teamIds, _keyword):
 
     _searched = es.search(index='team_wiki', doc_type='wiki',body=query)
     teams = filter(_searched["hits"]["hits"])
-    print(teams)
     return teams
 
 def getPartDetail(_id):
@@ -354,3 +363,14 @@ def getClassification(classification, keyword):
     _searched = es.search(index='team_wiki', doc_type='wiki',body=query)
     teams = filter(_searched["hits"]["hits"])
     return teams
+
+def getLdaResult(tracks):
+    ldaResult = list()
+    for track in tracks:
+        themes = LdaKeyword.objects.filter(track=track)
+        for theme in themes:
+            ldaResult.append({
+                "theme_name": theme.theme_name,
+                "keyword": theme.keyword
+            })
+    return ldaResult

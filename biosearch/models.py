@@ -29,3 +29,17 @@ class Wiki(models.Model):
     class Meta:
         managed = False
         db_table = 'team_wiki'
+
+class LdaKeyword(models.Model):
+    '''wiki model'''
+    id = models.IntegerField(primary_key=True)
+    keyword = models.CharField(max_length=300)
+    theme_name = models.CharField(max_length=45)
+    track = models.CharField(max_length=45)
+
+    def __str__(self):
+        return self.theme_name
+
+    class Meta:
+        managed = False
+        db_table = 'lda_keyword'

@@ -78,3 +78,22 @@
             },...]
         }
     }
+
+biobrick搜索
+    url:/biosearch/biobrick
+	方法：post
+	参数：{
+        track:[分类,...],
+        name:biobrick名
+    }
+	返回参数：JSON
+	{
+        successful: false/true,
+        data: {
+            pageSum:页码总数,
+            content:[{
+                title:标题,
+                abstract:摘要
+            },...]
+        }
+    }

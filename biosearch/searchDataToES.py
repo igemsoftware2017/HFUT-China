@@ -5,20 +5,19 @@ from elasticsearch import Elasticsearch
 import pymysql
 
 # 打开数据库连接
-db = pymysql.connect("localhost","root","qaz123","biodesignver")
+db = pymysql.connect("localhost","root","qaz123","igem_wiki")
 
 # 使用cursor()方法获取操作游标
 cursor = db.cursor()
 
 # SQL 查询语句
-sql = "SELECT * FROM team_wiki"
+sql = "SELECT * FROM new_team"
 
 def buildIndexAndMapping(_es):
     _index_mappings = {
         "mappings": {
             "wiki": {
                 "properties": {
-                    "wiki_id" : {"type": "keyword"},
                     "year" : {"type": "keyword"},
                     "team_name" : {"type": "text"},
                     "attribution" : {"type": "text"},
@@ -36,7 +35,7 @@ def buildIndexAndMapping(_es):
                     "part_favorite" : {"type": "text"},
                     "part_normal" : {"type": "text"},
                     "theme": {"type": "keyword"},
-                    "hits":{"type":"long"},
+                    "hits":{"type":"long"}
                 }
             },
         }
@@ -54,7 +53,6 @@ def writeData(_es):
         results = cursor.fetchall()
         for row in results:
             tmp = {
-                "wiki_id": row[17].__str__(),
                 "year": row[0].__str__(),
                 "team_name": row[1].__str__(),
                 "attribution": row[2].__str__(),

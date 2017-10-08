@@ -20,31 +20,33 @@ class Parts(models.Model):
 	sample_status    = models.CharField(max_length=40,null=True)
 	p_status_cache   = models.CharField(max_length=1000,null=True)
 	s_status_cache   = models.CharField(max_length=1000,null=True)
-	in_stock         = models.BooleanField(default=True)
-	results          = models.CharField(max_length=20, null=True)
+	# in_stock         = models.BooleanField(default=True)
+	# results          = models.CharField(max_length=20, null=True)
 	favorite         = models.IntegerField(null=True)
 	specified_u_list = models.TextField(null=True)
 	deep_u_list      = models.TextField(null=True)
 	deep_count       = models.IntegerField(null=True)
 	ps_string        = models.TextField(null=True)
 	scars            = models.CharField(max_length=20,null=True)
-	barcode          = models.CharField(max_length=50,null=True)
+	# barcode          = models.CharField(max_length=50,null=True)
 	notes            = models.TextField(null=True)
 	source           = models.TextField(null=True)
 	nickname         = models.CharField(max_length=50,null=True)
-	premium          = models.IntegerField(null=True)
+	# premium          = models.IntegerField(null=True)
 	categories       = models.CharField(max_length=500,null=True)
 	sequence         = models.TextField(null=True)
 	sequence_length  = models.IntegerField(null=True)
-	part_url         = models.CharField(max_length=255, null=True)
-	score            = models.FloatField(null=True)
+	# part_url         = models.CharField(max_length=255, null=True)
+	# score            = models.FloatField(null=True)
+	team 			 = models.TextField(null = True)
+	teamId			 = models.TextField(null = True)
 
 	def __str__(self):
 		return self.part_name
 
 	class Meta:
 		managed = False
-		db_table = 'bio_parts'
+		db_table = 'parts'
 
 class Part_Parameters(models.Model):
     part = models.ForeignKey('Parts', models.DO_NOTHING)

@@ -39,7 +39,8 @@ def saveInfoToES(es, parts_list):
             "part_name" : part_info.part_name,
             "part_type" : part_info.part_type,
             "short_desc" : part_info.short_desc,
-            "sequence": part_info.sequence
+            "sequence": part_info.sequence,
+            "teamId": part_info.teamId
         }
         res = es.index(index="biodesigners", doc_type="parts", body=part_boby)
         id += 1

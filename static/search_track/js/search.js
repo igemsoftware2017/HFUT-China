@@ -2,9 +2,11 @@ var gene = angular.module('searchApp',['ngMaterial','ngAnimate']);
 var vari;
 
 gene.controller('searchController',function($scope, $http, $location, $mdToast){
-	var trackNum = 9;
-	$scope.tags1 = ['Foundational Advance','Biochemistry','Hardware','Microbiology','Manufacturing'];
-	$scope.tags2 = ['Medicine','Diagnostics','Environment','Genetic engineering'];
+	var trackNum = 12;
+	$scope.tags1 = ['Community Labs','Entrepreneurship','Environment','Food & Energy','Foundational Research','Health & Medicine'];
+	$scope.tags2 = ['High School','Information Processing','Manufacturing','New Application','Policy & Practices'];
+	$scope.urltags1 = ['Community Labs','Entrepreneurship','Environment','Food %26 Energy','Foundational Research','Health %26 Medicine'];
+	$scope.urltags2 = ['High School','Information Processing','Manufacturing','New Application','Policy %26 Practices'];
 	$scope.chosen = [];
 	for (var i = 0; i < trackNum; i++) {
 		$scope.chosen.push(false);
@@ -138,30 +140,16 @@ gene.controller('searchController',function($scope, $http, $location, $mdToast){
 		var trackStr = ''
 		for (var i = 0; i<trackNum; i++) {
 			if ($scope.chosen[i]) {
-				if (i < 5) {
-					trackStr = trackStr+"&track="+$scope.tags1[i];
-				} else {
-					trackStr = trackStr+"&track="+$scope.tags2[i-5];
+				if (i < 6) {
+					trackStr = trackStr+"&track="+$scope.urltags1[i];
+				} else{
+					trackStr = trackStr+"&track="+$scope.urltags2[i-6];
 				}
 			}
 		}
 		url = `../search_track/search_results.html?key_word=${$scope.key_word}`;
 		url = url + trackStr;
 		window.location.href = url;
-		// var opt = {
-		// 	url: '/biosearch/firstPage',
-		// 	method: 'POST',
-		// 	data: {
-		// 		track: track,//假设10个
-		// 		keyword: key_word,
-		// 	},
-		// 	headers: { 'Content-Type': 'application/json'}
-		// };
-		// $http(opt).success(function(data){
-		// 	if(data.successful){
-		// 		console.log(data.data)
-		// 	}
-		// });
 	}
 	//初始化
 	$scope.init = function(){
