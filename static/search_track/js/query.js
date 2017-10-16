@@ -5,53 +5,71 @@ query.config(['$locationProvider', function ($locationProvider) {
 		requireBase: false
 	});
 }]);
-/*  回弹按钮指令
- * */
-query.directive('backButton', function() {
-    return {
-        restrict: 'E',
-        template:   '<div id="back-button">' +
-                        '<img src="./img/backToTop.png"/>' +
-                    '</div>',
-        replace: true,
-        //功能
-        compile: function (elem, attr) {
-            elem.bind('click', function () {
-                $('html,body').animate({scrollTop:0}, 300);
-            });
-        }
-    }
-});
 
-query.controller('queryController', function ($scope, $http,$location) {
+angular.module('queryInfoApp').filter('cut', function () {
+	return function (value, wordwise, max, tail) {
+		if (!value) return '';
+
+		max = parseInt(max, 10);
+		if (!max) return value;
+		if (value.length <= max) return value;
+
+		value = value.substr(0, max);
+		if (wordwise) {
+		var lastspace = value.lastIndexOf(' ');
+		if (lastspace != -1) {
+			value = value.substr(0, lastspace);
+		}
+		}
+
+		return value + (tail || ' …');
+	};
+});
+query.controller('queryController', function ($scope, $http,$location, $sce) {
 	$scope.name = 'name';
 	$scope.year = '2017';
 	$scope.track = 'track';
 	$scope.type = 'type';
 	$scope.keywords = 'keywords keywords keywords keywords keywordsss keywords keywords keywords keywords keywords v keywords keywords keywordsss keywords keywords keywords keywords keywords v ';
-	$scope.award = 'award';
-	$scope.fields = ['description', 'background', 'attribution', 'design', 'human_practice', 'result'];
+	$scope.awards = '';
+	$scope.fields = ['description', 'design', 'background', 'human_practice', 'modeling', 'protocol', 'result', 'part'];
 	$scope.fieldData = [];
-	//初始化
+	$scope.recommends = [];
+	$scope.link = "";
+
+	$scope.turnTo = function(teamName) {
+		var opt = {
+			url: '/biosearch/getOneTeam',
+			method: 'POST',
+			data: {
+				teamName: teamName
+			},
+			headers: { 'Content-Type': 'application/json' }
+		};
+		$http(opt).success(function(data) {
+			if (data.successful) {
+				var _id = data.data.id;
+				url = `./search_query.html?id=${escape(_id)}&keyword=${escape($scope.searchWord)}`;
+				console.log(url);
+				window.location.href = url;
+			} else {
+				console.log("error!");
+			}
+		})
+	}
+
 	$scope.init = function () {
-		var loginSession = sessionStorage.getItem('login');
-		console.log(loginSession);
-		if (loginSession) {
-			$scope.isLogin = true;
-		}
-		else {
-			$scope.isLogin = false;
-		}
-		
-		// console.log($location.search().id);
+		$scope.searchWord = $location.search().keyword;
 		var opt = {
 			url: '/biosearch/getDetail',
 			method: 'POST',
 			data: {
-				_id: $location.search().id
+				_id: $location.search().id,
+				keyword: $location.search().keyword
 			},
 			headers: { 'Content-Type': 'application/json' }
 		};
+
 		$http(opt).success(function (data) {
 			if (data.successful) {
 				$scope.error = false;
@@ -59,58 +77,57 @@ query.controller('queryController', function ($scope, $http,$location) {
 				$scope.name = data.data.team_name;
 				$scope.year = data.data.year;
 				$scope.track = data.data.track;
-				// $scope.type = data.data.type;
+				$scope.type = data.data.type;
+				$scope.link = data.data.link;
 				$scope.keywords = data.data.keywords;
-				// $scope.award = data.data.award;
+				if (data.data.medal != 'None') {
+					$scope.awards = data.data.awards;
+				} else {
+					$scope.awards = 'No Medal'
+				}
+				if (data.data.medal != 'None') {
+					$scope.awards = $scope.awards + data.data.medal;
+				} else {
+					$scope.awards = $scope.awards + '/No Special Prizes';
+				}
+				$scope.recommends = data.data.recommends;
+				$scope.recommends = $scope.recommends.map(recommend=> {
+					recommend.keywords = recommend.keywords.split(',');
+					recommend.keywords = recommend.keywords.slice(0,5);
+					return recommend;
+				});
 				$scope.fields.forEach(field => {
 					var fieldData = {
 						name: field,
 						data: data.data[field],
-						shortData: data.data[field],
-						showData: data.data[field],
 						tooMany: false,
 						isMore: true
 					};
 					fieldData.name = field[0].toUpperCase()+field.substring(1, field.length)
-					fieldData.data="Generally speaking, our system is a project search engine.				The system is based on a project library that stores information (including the profile, the purpose, the process, the results etc.) of all the teams’ projects in the past years and updates daily to keep up with the times. The system provides a variety of ways for searching information. And by the special processing of the information, we also optimize the searching performance and ensure the effectiveness of search results.In the initial processing of storage, the data is sorted by algorithm through keywords. Content that is relevant to the keywords will be placed ahead. And the searching results will be sorted by algorithm as well.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.";
-					fieldData.shortData="Generally speaking, our system is a project search engine.				The system is based on a project library that stores information (including the profile, the purpose, the process, the results etc.) of all the teams’ projects in the past years and updates daily to keep up with the times. The system provides a variety of ways for searching information. And by the special processing of the information, we also optimize the searching performance and ensure the effectiveness of search results.In the initial processing of storage, the data is sorted by algorithm through keywords. Content that is relevant to the keywords will be placed ahead. And the searching results will be sorted by algorithm as well.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.The sorting algorithm itself is a model. When user looks at the searching results, the system will know which kind of information is more useful to the user according to the user's feedback. Through this information collection training and screening model, the system itself will optimize the sorting algorithm.";
-					
-					if (fieldData.data == "") {
+					if (!fieldData.data || fieldData.data == "") {
 						fieldData.data = "Sorry, this information is empty.";
-					} else {
-						if (fieldData.data.length > 2000) {
+					} 
+					else {
+						if (fieldData.data.length > 700) {
 							fieldData.tooMany = true;
-							fieldData.shortData = fieldData.data.substring(0, 1000) + "...";
-							fieldData.showData = fieldData.shortData;
 						}
 					}
 					$scope.fieldData.push(fieldData);
 				});
-				// $scope.related = data.data.related;
-				if($scope.award==""){$scope.award="Not the winning";}
 
 			} else {
 				console.log('false');
-				//false
-				$scope.error = true;
-				if (data.error.id == '1') {
-					$scope.errorMsg = data.error.msg;
-				} else {
-					$scope.errorMsg = "LOGIN FAILED!";
-				}
 			}
+			console.log($scope.fieldData);
 		});
 	}
 	$scope.isActive = false;
-
 	//控制展开
 	$scope.more = function(index) {
 		$scope.fieldData[index].isMore = !$scope.fieldData[index].isMore;
-		$scope.fieldData[index].showData = $scope.fieldData[index].data;
 	}
 	$scope.packUp = function(index) {
 		$scope.fieldData[index].isMore = !$scope.fieldData[index].isMore;
-		$scope.fieldData[index].showData = $scope.fieldData[index].shortData;
 	}
 
 	$scope.menuClick = function () {
@@ -133,6 +150,11 @@ query.controller('queryController', function ($scope, $http,$location) {
 
 	$scope.jumpToProject = function () {
 		window.location.href = "../project_page/project_page.html";
+	}
+
+	$scope.jumpToSearch = function(key_word){
+		url = './search_index.html';
+		window.location.href=url;
 	}
 
 	//登录模态框
@@ -241,8 +263,8 @@ query.controller('queryController', function ($scope, $http,$location) {
    			}
    		});
 	}
-	// $scope.init();
 });
+
 $(function () {
 	$(window).scroll(function () {
 		var scrollTop = $(document).scrollTop();
@@ -263,3 +285,4 @@ $(function () {
 		}
 	});
 });
+

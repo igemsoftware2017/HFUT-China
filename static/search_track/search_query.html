@@ -10,6 +10,7 @@
     <link href="../public/custombox/dist/custombox.min.css" rel="stylesheet">
     <link href="../public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../public/angular-material/angular-material.min.css" rel="stylesheet">
+	<link href="../public/css/animate.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
     <link href="../public/metisMenu/metisMenu.min.css">
     <!-- sb-admin -->
@@ -72,7 +73,7 @@
             <!-- /.navbar-header -->
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    <button class="btn btn-success" ng-click="jumpToSearchIndex()">Search</button>
+                    <button class="btn btn-success" ng-click="jumpToSearch()">Search</button>
                 </li>
                 <li>
                     <button class="btn btn-danger" ng-click="jumpToProject()">Project</button>
@@ -112,7 +113,7 @@
         </nav>
         <div class="left">
             <ul class="left-menu">
-                <li class="left-li" ng-repeat = "field in fieldData" id="a{{field.name}}">
+                <li class="left-li" ng-repeat="field in fieldData" id="a{{field.name}}">
                     <a class="left-a color" href="#{{field.name}}">{{field.name}}</a>
                 </li>
             </ul>
@@ -128,6 +129,7 @@
                     <div class="title-team">
                         <h1>
                             <b>{{year}}-{{name}}</b>
+                            <a style="font-size:20px; display:inline;" href="{{link}}" target="_black">Wiki is Here!</a>
                         </h1>
                         <div class="type">type:{{type}}</div>
                     </div>
@@ -142,50 +144,44 @@
                     <div class="which2">
                         awards
                     </div>&nbsp;
-                    <font color="#fab735">{{award}}</font>
+                    <font color="#fab735">{{awards}}</font>
                 </div>
                 <hr style="margin-top:0px;width:100%;background-color:#fff;height:1px;">
-                
-                
+
                 <div class="content_info" ng-repeat="field in fieldData" id="{{field.name}}">
                     <font size=5px>{{field.name}}</font>
                     <hr style="margin-top:3px;margin-bottom:9px;width:100%;background-color:#ccc;height:0.4px;">
-                    <p>{{field.showData}}</p>
+                    <p ng-if="field.isMore">{{field.data | cut:true:700:'...'}}</p>
+                    <p ng-if="!field.isMore">{{field.data}}</p>
                     <center ng-if="field.tooMany">
-                            <div>
-                                <button ng-if="field.isMore" ng-click="more($index)" class="bothbtn btn btn-default more-btn">
-                                    <i class="fa fa-chevron-down"></i>more
-                                </button>
-                                <button ng-if="!field.isMore" ng-click="packUp($index)" class="bothbtn btn btn-default more-btn">
-                                    <i class="fa fa-chevron-up"></i>pack up
-                                </button>
-                            </div>
-                        </center>
+                        <div>
+                            <button ng-if="field.isMore" ng-click="more($index)" class="bothbtn btn btn-default more-btn">
+                                <i class="fa fa-chevron-down"></i>more
+                            </button>
+                            <button ng-if="!field.isMore" ng-click="packUp($index)" class="bothbtn btn btn-default more-btn">
+                                <i class="fa fa-chevron-up"></i>pack up
+                            </button>
+                        </div>
+                    </center>
                 </div>
                 <div class="con-end"></div>
             </div>
         </div>
     </div>
     <div class="right">
-        <font style="font-size:24px;">
-            <b>Related</b>
-        </font>
-        <div class="1st" style="margin-top: 10px">
-            <div class="rightheader">year-name</div>
-            <div class="rightcon">
-                <font class="rightsmalldiv">key key key</font>
-            </div>
-        </div>
-        <div class="2nd" style="margin-top: 10px">
-            <div class="rightheader">year-name</div>
-            <div class="rightcon">
-                <font class="rightsmalldiv_">key key key</font>
-            </div>
-        </div>
-        <div class="3rd" style="margin-top: 10px">
-            <div class="rightheader">year-name</div>
-            <div class="rightcon">
-                <font class="rightsmalldiv__">key key key</font>
+        <div class="panel-group" id="related" role="tablist" aria-multiselectable="true">
+            <h3>Related</h3>
+            <div class="panel panel-default" ng-repeat="recom in recommends">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#related" href="#{{$index}}"aria-expanded="false" aria-controls="DI">{{recom.team_name}}</a>
+                    </h4>
+                </div>
+                <div id="{{$index}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body" ng-click="turnTo(recom.team_name)" style="cursor:pointer">
+                        <div ng-repeat="word in recom.keywords">{{word}}</div>
+                    </div>
+                </div>
             </div>
         </div>
         <a href="#" onclick="gotoTop();return false;" class="totop"></a>
@@ -274,16 +270,17 @@
 
         <script src="../public/custombox/dist/legacy.min.js"></script>
         <script src="../public/custombox/dist/custombox.min.js"></script>
+        <script src="../public/jquery/dist/jquery.min.js"></script>
         <script src="../public/angular/angular.min.js"></script>
         <script src="../public/angular-animate/angular-animate.min.js"></script>
         <script src="../public/angular-aria/angular-aria.min.js"></script>
         <script src="../public/angular-material/angular-material.min.js"></script>
-        <script src="../public/jquery/dist/jquery.min.js"></script>
         <script src="../public/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="../public/metisMenu/metisMenu.min.js"></script>
         <script src="../public/sb-admin-2/js/sb-admin-2.min.js"></script>
         <script src="js/gotoTop.js"></script>
         <script src="./js/query.js"></script>
-        
+
 </body>
+
 </html>

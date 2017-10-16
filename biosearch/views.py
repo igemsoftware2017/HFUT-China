@@ -14,7 +14,7 @@ def randomPage(request):
     try:
         data = json.loads(request.body)
         keyword = data.get('keyword')
-        teams = getPart(keyword)
+        teams = getPartTeam(keyword)
         track = data.get('track')
         track.append('NotSpecified')
         page = data.get('page')
@@ -101,11 +101,33 @@ def getCache(request):
 def getDetail(request):
     data = None
     detail = None
+    result = dict()
     try:
         data = json.loads(request.body)
         id = data['_id']
-        detail = getdetailbyid(id)
+        keyword = data['keyword']
+        detail = getdetailbyid(id, keyword)
         detail = detail['_source']
+        awards = ''
+        if detail['medal'] != 'None':
+            awards = detail['medal']
+        else:
+            awards = 'No Medal'
+        print(awards)
+        if detail['awards'] != 'None':
+            awards = awards + detail['awards']
+        else:
+            awards = awards + '/No Special Prizes'
+        detail['awards'] = awards
+        recommendNames = detail['recommend'].split('\n')
+        recommendKeywords = detail['recommendWords'].split('/')
+        recommends = list()
+        for index in range(len(recommendNames)):
+            recommends.append({
+                "team_name": recommendNames[index],
+                "keywords": recommendKeywords[index]
+            })
+        detail["recommends"] = recommends
         result = {
             'successful': True,
             'data': detail
@@ -137,3 +159,18 @@ def searchPart(request):
     keyword = data["keyword"]
     part = getPart(keyword)
     return HttpResponse(json.dumps(part), content_type='application/json')
+
+def getOneTeam(request):
+    data = json.loads(request.body)
+    teamName = data["teamName"]
+    index = teamName.find('_')
+    year = str(teamName[0:index])
+    name = teamName[index+1:]
+    id = getTeamId(year, name)
+    result = {
+        'successful': True,
+        'data': {
+            'id': id
+        }
+    }
+    return HttpResponse(json.dumps(result), content_type='application/json')

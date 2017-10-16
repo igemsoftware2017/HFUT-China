@@ -8,38 +8,38 @@ from projectManage.models import Parts
 es = Elasticsearch()
 fields = ["attribution","background","description","design","human_practice","modeling","notebook","protocol","result","safety","keywords"]
 
-def getdetailbyid(_id):
+def getTeamId(year, name):
     _query = {
         "size": 1,
-        "query": {
-            "match": {
-                "_id":_id
+        "query": { 
+            "bool": { 
+                "must": [
+                    { "match": { "year": year}}, 
+                    { "match": { "team_name": name }}  
+                ]
             }
         }
     }
     _searched = es.search(index='team_wiki', doc_type='wiki',body=_query)
-    # _increment = {
-    #     "script": {
-    #         "inline": "ctx._source.hits++",
-    #         "lang": "painless"
-    #     },
-    #     "query": {
-    #         "term": {
-    #             "_id": _id
-    #         }
-    #     }
-    # }
-    # _s = {
-    #     "script": {
-    #         "inline": "ctx._source.hits += params.count",
-    #         "lang": "painless",
-    #         "params": {
-    #             "count": 1
-    #         }
-    #     }
-    # }
-    # # es.update(index='bio_search_index', doc_type='bio_search',id=_id,body=_s)
-    # es.update_by_query(index='bio_search_index', doc_type='bio_search',body=_increment)
+    team = _searched['hits']['hits'][0]
+    _id = team["_id"]
+    print(_id)
+    return _id
+
+def getdetailbyid(_id, keyword):
+    _query = {
+        "size": 1,
+        "query": {
+            "bool": {
+                "filter": [{
+                    "term": {
+                        "_id":_id
+                    }
+                }]
+            }
+        }
+    }
+    _searched = es.search(index='team_wiki', doc_type='wiki',body=_query)
     return _searched['hits']['hits'][0]
 
 def getanswer(_keyword, _track1, page):
@@ -52,16 +52,13 @@ def getanswer(_keyword, _track1, page):
                         "multi_match":{
                             "query": _keyword,
                             "fields": [
-                                "attribution",
                                 "background",
                                 "description",
                                 "design",
                                 "human_practice",
                                 "modeling",
-                                "notebook",
                                 "protocol",
                                 "result",
-                                "safety",
                                 "keywords"
                             ],
                             "fuzziness" : "AUTO"
@@ -82,16 +79,13 @@ def getanswer(_keyword, _track1, page):
             "post_tags" : ["</b></font>"],
             "fragment_size" : 80,
             "fields": {
-                "attribution":{},
                 "background":{},    
                 "description":{},
                 "design":{},
                 "human_practice":{},
                 "modeling":{},
-                "notebook":{},
                 "protocol":{},
                 "result":{},
-                "safety":{},
                 "keywords":{}
             }
         }
@@ -103,10 +97,7 @@ def getanswer(_keyword, _track1, page):
                     }
                 }]
     _searched = es.search(index='team_wiki', doc_type='wiki',body=_query)
-    file = open("1.json","w",encoding="utf-8")
-    file.write(json.dumps(_searched))
-    file.close()
-    searchsort = biosort(_searched)
+    searchsort = _searched["hits"]["hits"]
     searchfilter = filter(searchsort)
     return searchfilter
 
@@ -114,7 +105,6 @@ def filter(searchsort):
     teamList = list()
     groupDict = dict()
     for i in searchsort:
-        # print (i)
         abstract = ""
         if i['_source']['description']!="":
             abstract = i['_source']['description']
@@ -122,21 +112,41 @@ def filter(searchsort):
             abstract = i['_source']['design']
         elif i['_source']['background']!="":
             abstract = i['_source']['background']
-        elif i['_source']['attribution']!="":
-            abstract = i['_source']['attribution']
         abstract = abstract[:500]
         highlight = list()
         if i.get('highlight'):
             if len(i['highlight'])>0:
                 for field in i['highlight'].keys():
                     highlight.append(i['highlight'][field][0])
+        awards = ''
+        if i['_source']['medal'] != 'None':
+            awards = i['_source']['medal']
+        else:
+            awards = 'No Medal'
+        print(awards)
+        if i['_source']['awards'] != 'None':
+            awards = awards + i['_source']['awards']
+        else:
+            awards = awards + '/No Special Prizes'
+        print(awards)
+        biobricks = i['_source']['biobrick'].split('\n')
+        parts = list()
+        for biobrick in biobricks:
+            partRaw = getPart(biobrick)
+            if partRaw:
+                part = {
+                    "_id": partRaw["_id"],
+                    "part_name": partRaw["_source"]["part_name"],
+                    "part_type" : partRaw["_source"]['part_type']
+                }
+                parts.append(part)
         tmp = {
             '_id':i['_id'],
             'title':i['_source']['year']+'-'+i['_source']['team_name'],
             'keywords':i['_source']['keywords'],
-            # 'parts': i['_source']['parts'],
-            # 'award': i['_source']['award'],
-            # 'type': i['_source']['type'],
+            'biobrick': parts,
+            'awards': awards,
+            'type': i['_source']['type'],
             'abstract':abstract,
             'highlight': highlight
         }
@@ -164,7 +174,6 @@ def biosort(searched):
     search.sort(key = lambda x:x['_score']+x['_source']['hits'],reverse=True)
     return search
     
-
 def getPart(keyword):
     query = {
         "from" : 0,
@@ -177,14 +186,16 @@ def getPart(keyword):
         }
     }
     _searched = es.search(index="biodesigners", doc_type="parts", body=query)
-    teams = list()
+    partRaw = None
     if len(_searched["hits"]["hits"])>0:
-        partRaw = _searched["hits"]["hits"][0]
-        part = {
-            "_id": partRaw["_id"],
-            "part_name": partRaw["_source"]["part_name"],
-            "part_type" : partRaw["_source"]['part_type']
-        }
+        return _searched["hits"]["hits"][0]
+    else:
+        return None
+
+def getPartTeam(keyword):
+    partRaw = getPart(keyword)
+    teams = list()
+    if partRaw:
         teamsStr = partRaw["_source"]['teamId']
         teamIdList = teamsStr.split(',')
         teams = getTeamWiki(teamIdList, None, keyword)
@@ -302,16 +313,13 @@ def getClassification(classification, keyword):
                             "multi_match":{
                                 "query": keyword,
                                 "fields": [
-                                    "attribution",
                                     "background",
                                     "description",
                                     "design",
                                     "human_practice",
                                     "modeling",
-                                    "notebook",
                                     "protocol",
                                     "result",
-                                    "safety",
                                     "keywords"
                                 ],
                                 "fuzziness" : "AUTO"
@@ -325,16 +333,13 @@ def getClassification(classification, keyword):
                 "post_tags" : ["</b></font>"],
                 "fragment_size" : 80,
                 "fields": {
-                    "attribution":{},
                     "background":{},
                     "description":{},
                     "design":{},
                     "human_practice":{},
                     "modeling":{},
-                    "notebook":{},
                     "protocol":{},
                     "result":{},
-                    "safety":{},
                     "keywords":{}
                 }
             }

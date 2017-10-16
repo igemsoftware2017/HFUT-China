@@ -8,6 +8,15 @@ searchList.config(['$locationProvider', function($locationProvider) {
     requireBase: false
   });
 }]);
+searchList.filter('startFrom', function() {
+    return function(input, start) {
+        if(input) {
+            start = +start; //parse to int
+            return input.slice(start);
+        }
+        return [];
+    }
+});
 searchList.controller('searchListController',function($scope, $http, $location, $mdToast, $sce, $anchorScroll){
 	$scope.currentPage = 1;
 	$scope.sessionMin = 1;
@@ -101,14 +110,44 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 						team.abstract = team.abstract + "..." + hightlight;
 					});
 					team.abstract = $sce.trustAsHtml(team.abstract+" ...");
+					team.parts = team.biobrick.map(part=>{
+						part.img = "../img/"+part.part_type+".png";
+						return part;
+					});
+					if (team.parts.length == 0) {
+						team.hasParts = false;
+					} else {
+						team.hasParts = true;
+					}
 					return team;
 				});
+				console.log($scope.teams);
 				$scope.goToTop();
 			}
 		});
     };
 
-    
+    $scope.getGeneInfo = function (name) {
+		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var opt = {
+			url: '/design/getParts',
+			method: 'POST',
+			data: {
+				part_name: name,
+			},
+			headers: { 'Content-Type': 'application/json' }
+		};
+		$http(opt).success(function (data) {
+			if (data.successful) {
+				$scope.part_type = data.data.part.part_type;
+				$scope.part_nick_name = data.data.part.nickname;
+				$scope.part_short_desc = data.data.part.short_desc;
+				$scope.description = data.data.part.description;
+				$scope.score = data.data.part.score;
+				$scope.papers = data.data.paper;
+			}
+		});
+	}
 
 	$scope.conChoice = function(tag) {
 		$scope.chosen[tag] = !$scope.chosen[tag];
@@ -265,14 +304,14 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 			})
 		}
 		
-		url = `../search_track/search_results.html?key_word=${key_word}`;
+		url = `../search_track/search_results.html?key_word=${escape(key_word)}`;
 		url = url + trackStr;
 		window.location.href = url;
 	}
 
 	
 	$scope.getDetail = function(id) {
-		url = `./search_query.html?id=${escape(id)}`;
+		url = `./search_query.html?id=${escape(id)}&keyword=${escape($scope.key_word)}`;
 		console.log(url);
 		window.location.href = url;
 	}
@@ -299,6 +338,16 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 						team.abstract = team.abstract + "..." + hightlight;
 					});
 					team.abstract = $sce.trustAsHtml(team.abstract+" ...");
+					team.parts = team.biobrick.map(part=>{
+						part.img = "../img/"+part.part_type+".png";
+						return part;
+					});
+					if (team.parts.length == 0) {
+						team.hasParts = false;
+					} else {
+						team.hasParts = true;
+					}
+					console.log(team.parts);
 					return team;
 				});
 				$scope.words = data.data.suggestions;
@@ -351,13 +400,10 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 			$scope.track.forEach(track => {
 				$scope.chosen[track] = true;
 			});
-		}
-		if ($scope.track instanceof Array) {
-			if ($scope.track && $scope.track.length) {
-				$scope.track.forEach(track => {
-					$scope.chosen[track] = true;
-				});
-			}
+		} else if ($scope.track instanceof Array) {
+			$scope.track.forEach(track => {
+				$scope.chosen[track] = true;
+			});
 		} else {
 			$scope.chosen[$scope.track] = true;
 			$scope.track = [$scope.track];
