@@ -366,7 +366,7 @@ body{
 .right{
     right:1px;
     position: fixed;
-    top: 30%;
+    top: 18%;
     width: 15%;
 }
 .rightsmalldiv{
@@ -582,4 +582,11 @@ table.altrowstable td {
 	font-size:14px;
 	color:#fff;
 	font-weight:bold;
+}
+
+.hideMore {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
 }

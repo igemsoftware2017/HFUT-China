@@ -96,48 +96,53 @@
             <div class="list">
                 <div class="select-list con1" id="select">
                     <span style="margin-top:10px;" ng-class="{con3:true, cur:chosen[tag]}" ng-repeat="tag in tags" ng-click="conChoice(tag)">
-                        <em class="con3-1">{{tag}}</em>
+                        <em class="con3">{{tag}}</em>
                     </span>
                 </div>
                 <div style="min-height: 600px">
-                    <div ng-repeat="team in teams" ng-click="getDetail(team._id)">
+                    <div ng-repeat="team in teams" ng-click="getDetail(team._id)" ng-mouseenter="show = true" ng-mouseleave="show = false">
                         <a>
                             <div class="list-div">
-                                <div class="result-title color" style="font-weight:bold">{{team.title}}
+                                <div class="result-title color" style="font-weight:bold">
+                                    {{team.title}}
                                     <div class="which">
-                                        type : high-school
+                                        type : {{team.type}}
                                     </div>
                                 </div>
                                 <div class="content color">
-                                    <!-- <div class="keywords key"><span><em class="key">keywords:{{team.keywords}}</em></span> -->
-                                    <div class="keywords_beta color-key">
+                                    <div class="color-key">
                                         <span>
                                             <em class="key">
-                                                <font size=3px color="white" style="background-color:#6b9de2;border-radius:3px;padding:2px;margin:3px;font-weight:bold">keywords: </font>
-                                                <font size=2px; style="font-weight:bold" color="#333">{{team.keywords}}</font>
+                                                <font size=3px color="white" style="background-color:#030507;border-radius:3px; padding:0 4px; margin-right:6px">keywords:</font>
+                                                <font size=2px;  color="#333">{{team.keywords}}</font>
                                             </em>
                                         </span>
                                     </div>
-                                    <div class="results color-key">
-                                        <b>
-                                            <font size=3px; color="#ffffff" style="background-color:#f9a731;border-radius:3px;">&nbsp;&nbsp;awards: </font>&nbsp;
-                                            <img src="img/results.png" height="23px">
-                                            <font size=3px;>
-                                                <font>&nbsp;21c dscw&nbsp;</font>
-                                        </b>
+                                    <div class="color-key">
+                                        <font size=3px; color="#ffffff" style="background-color:#f9a731;border-radius:3px;padding:0 4px;">awards:</font>&nbsp;
+                                        <img src="img/results.png" height="23px">
+                                        <font size=3px;>{{team.awards}}</font>
                                     </div>
                                     <div class="list-bio" style="margin-top:10px;margin-bottom:10px;">
-                                        <li ng-repeat="gene in search_info" ng-click="getGeneInfo(gene.name)">
-                                            <a href="#">
+                                        <font size=3px; color="#ffffff" style="background-color:#5cb85c;border-radius:3px;padding:0 4px;">biobricks:</font>
+                                        <div ng-if="team.hasParts">
+                                            <li ng-repeat="gene in team.parts | limitTo:5 ">
                                                 <div class="brick" style="float:left">
                                                     <img class="bio-img" ng-src="{{gene.img}}" alt="gene_img">
-                                                    <div style="margin-top:5%;text-align:left;">&nbsp;{{gene.name}}</div>
+                                                    <div style="margin-top:5%;text-align:left;margin-right:20% ">&nbsp;{{gene.part_name}}</div>
                                                 </div>
-                                            </a>
-                                        </li>
-
+                                            </li>
+                                        </div>
+                                        <div>
+                                            <li ng-repeat="gene in team.parts | startFrom : 6" ng-show="show">
+                                                <div class="brick" style="float:left">
+                                                    <img class="bio-img" ng-src="{{gene.img}}" alt="gene_img">
+                                                    <div style="margin-top:5%;text-align:left;margin-right:20% ">&nbsp;{{gene.part_name}}</div>
+                                                </div>
+                                            </li>
+                                        </div>
+                                        <fond size=3px ng-if="!team.hasParts">No Parts Submit</fond>
                                     </div>
-                                    <hr style="height:1px;border:none;border-top:0px double white;">
                                     <div data-ng-bind-html="team.abstract"></div>
                                 </div>
                             </div>
