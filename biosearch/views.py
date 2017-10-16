@@ -12,7 +12,9 @@ cacheNum = 4
 def randomPage(request):
     result = dict()
     try:
-        data = json.loads(request.body)
+        body = request.body
+        body = body.decode('utf-8')
+        data = json.loads(body)
         keyword = data.get('keyword')
         teams = getPart(keyword)
         track = data.get('track')
@@ -51,7 +53,9 @@ def randomPage(request):
 def turnPage(request):
     answers = []
     try:
-        data = json.loads(request.body)
+        body = request.body
+        body = body.decode('utf-8')
+        data = json.loads(body)
         page = data.get('page')
         answers = request.session.get('answers')
         answers = answers[(page-1)*numOfEachPage:page*numOfEachPage]
@@ -76,7 +80,9 @@ def turnPage(request):
 def getCache(request):
     result = dict()
     try:
-        data = json.loads(request.body)
+        body = request.body
+        body = body.decode('utf-8')
+        data = json.loads(body)
         page = data.get('page')
         keyword = data.get('keyword')
         track = data.get('track')
@@ -102,7 +108,9 @@ def getDetail(request):
     data = None
     detail = None
     try:
-        data = json.loads(request.body)
+        body = request.body
+        body = body.decode('utf-8')
+        data = json.loads(body)
         id = data['_id']
         detail = getdetailbyid(id)
         detail = detail['_source']
@@ -117,7 +125,9 @@ def getDetail(request):
 
 
 def classify(request):
-    data = json.loads(request.body)
+    body = request.body
+    body = body.decode('utf-8')
+    data = json.loads(body)
     keyword = data.get("keyword")
     classification = data["classification"]
     teamsIds = request.session.get('answers')
@@ -132,7 +142,9 @@ def classify(request):
     return HttpResponse(json.dumps(result), content_type='application/json')
 
 def searchPart(request):
-    data = json.loads(request.body)
+    body = request.body
+    body = body.decode('utf-8')
+    data = json.loads(body)
     print(data)
     keyword = data["keyword"]
     part = getPart(keyword)
