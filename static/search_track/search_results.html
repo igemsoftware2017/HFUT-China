@@ -1,199 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="searchListApp">
-<!-- <html ng-app="ui.bootstrap.demo"> -->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BioDesigner|Dophin</title>
-    <link href="../public/custombox/dist/custombox.min.css" rel="stylesheet">
-    <link href="../public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="../public/angular-material/angular-material.min.css" rel="stylesheet">
     <link href="./css/gene_beta.css" rel="stylesheet">
     <link href="./css/sb-admin-2.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/info.css" type="text/css" media="screen" />
-
-
-    <link rel="stylesheet" type="text/css" href="css/tip.css" />
-
-    <!-- Favicon and touch icons -->
+    <link href="../public/shCircleLoader-master/jquery.shCircleLoader.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/result.css"/>
     <link rel="shortcut icon" href="img/logo_black_small.png">
-
-    <style>
-        body,
-        ul,
-        li {
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background: #fff;
-        }
-
-        .gover_search {
-            position: absolute;
-            left: 14%;
-            margin-right: -181px;
-            z-index: 99;
-            height: 30px;
-            border: 1px solid ##b8cfe6;
-            border-bottom: 0;
-        }
-
-        .gover_search .search_suggest {
-            left: 50%;
-            margin-left: -145px;
-            text-align: center;
-            z-index: 99;
-            position: absolute;
-            z-index: 999;
-            top: 44px;
-            width: 290px;
-            border: 1px solid #999999;
-            display: none;
-        }
-
-        .gover_search .search_suggest li {
-            z-index: 99;
-            height: 24px;
-            font-size: 16px;
-            font-family: "Segoe UI Light";
-            overflow: hidden;
-            line-height: 24px;
-            background: #FFFFFF;
-            cursor: default;
-        }
-
-        .gover_search .search_suggest li.hover {
-            z-index: 99;
-            background: #DDDDDD;
-        }
-
-        .info-wrap {
-            z-index: 99;
-            position: absolute;
-            z-index: 999;
-        }
-
-        .totop {
-            position: fixed;
-            right: 10px;
-            bottom: 60px;
-            display: block;
-            width: 60px;
-            height: 60px;
-            background-color: #5cb85;
-            background: url(img/top0.png) no-repeat 0 0;
-            -webkit-transition: all 0.2s ease-in-out;
-            border: 1px solid #d0d0d0;
-            border-radius: 10px;
-        }
-
-        .totop:hover {
-            background: url(img/topt.png) no-repeat 0 -10px;
-            background-color: #5cb85;
-        }
-
-        em {
-            font-style: normal;
-        }
-
-        .main {
-            width: 100%;
-            height: 44px;
-            margin-top: 0px;
-            font-size: 14px;
-            overflow: hidden;
-            margin-bottom: -14px;
-        }
-
-        .main h2 {
-            text-align: center;
-            line-height: 60px;
-            color: #555;
-        }
-
-        .label-box {
-            float: left;
-            margin-top: 0px;
-            margin-bottom: 0px;
-            width: 90%;
-            min-height: 40px;
-            padding: 3px;
-            border: 1px solid #99CCFF;
-            overflow: hidden;
-            border-radius: 3px;
-            display: inline-block !important;
-            display: inline;
-            height: auto;
-        }
-
-        .label-box span {
-            display: inline-block;
-            background: #99CCFF;
-            padding: 6px 14px;
-            color: #fff;
-            border-radius: 3px;
-            margin: 0 3px;
-        }
-
-        .select-box {
-            margin-top: 10px;
-            overflow: hidden;
-            display: inline-block !important;
-        }
-
-        .select-list {
-            float: left;
-            margin-bottom: 20px;
-            border: 1px solid ##5cb85c;
-            border-radius: 3px;
-            display: inline;
-            height: auto;
-            min-height: 20px;
-        }
-
-        .select-list span {
-            display: inline-block;
-            padding: 6px 8px;
-            font-size: 12px;
-            border: 1px solid #5cb85c;
-            background: #fff;
-            color: #aaa;
-            text-align: center;
-            border-radius: 3px;
-            margin: 0 3px;
-            cursor: pointer;
-        }
-
-        .select-list .cur {
-
-            background: #5cb85c;
-            color: #fff;
-        }
-
-        .btntip {
-
-            border: 1px solid #5cb85c;
-            background-color: #5cb85c;
-            border-radius: 6px;
-            padding-left: 12px;
-            padding-right: 12px;
-            padding-top: 6px;
-            padding-bottom: 6px;
-            color: #fff;
-            font-size: 16px;
-            margin-top: 10px;
-        }
-    </style>
 </head>
 
 <body ng-controller="searchListController">
-
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -226,7 +48,9 @@
                     <a class="sign-up" href="../register/register.html">Sign up</a>
                 </li>
                 <li ng-if="isLogin" class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>
+                        <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
@@ -247,14 +71,12 @@
             </ul>
             <div class="gover_search">
                 <form class="navbar-form search-centers" name="form" id="ui_element">
-                    <!-- <img src="img/ser_l.png" width="34" height="34" id="logo" class="logo"> -->
-                    <!-- <input type="text" class="form-control" placeholder="Search..." ng-model="key_word" ng-keypress="search_by_keyboard($event,key_word)"> -->
                     <input type="text" id="gover_search_key" style="height:34px;width:290px" placeholder="Please input keywords ..." class="form-control sb_input"
                         ng-model="key_word" ng-keypress="gene_info_by_board($event,key_word,track)">
 
-                    <button id="btn" class="btn btn-default" type="button" ng-click="jumpToSearch(key_word)">
-                    <i class="fa fa-search"></i>
-                </button>
+                    <button id="btn" class="btn btn-default" type="button" ng-click="jumpToSearchResults(key_word)">
+                        <i class="fa fa-search"></i>
+                    </button>
                     <div class="suggest-wrap">
                         <div class="search_suggest" id="gov_search_suggest">
                             <ul> </ul>
@@ -265,229 +87,164 @@
         </nav>
 
     </div>
-    <div class="list-left"></div>
-
-    <br>
-    <div class="cen_b">
-        <div class="list">
-            <script>
-                function show1() {
-                    document.getElementById("anotherDiv").style.display = "block";
-                    document.getElementById("thisDiv").style.display = "none";
-                    document.getElementById("select").style.display = "block";
-                    document.getElementById("btntip").style.display = "block";
-                    document.getElementById("main").style.height = "auto";
-                }
-
-                function show2() {
-                    document.getElementById("thisDiv").style.display = "block";
-                    document.getElementById("anotherDiv").style.display = "none";
-                    document.getElementById("select").style.display = "none";
-                    document.getElementById("btntip").style.display = "none";
-                    document.getElementById("main").style.height = "auto";//90px
-                }
-            </script>
-            <div class="select-list con1"  id="select">
-                <span style="margin-top:10px;" ng-class="{con3:true, cur:chosen[tag]}" ng-repeat="tag in tags" ng-click="conChoice(tag)"><em class="con3-1">{{tag}}</em></span>
-            </div>
-            <!-- <div class="main" id="main">
-                
-                <div class="label-box"></div>
-                <div onclick="show1()" id="thisDiv" style="margin-top:10px;"><font style="padding:10px;border:solid 1px #999;border-radius:3px;"> Add Tips</font></div>
-                <div onclick="show2()" id="anotherDiv" style="display:none;margin-top:10px;"><font style="padding:10px;border:solid 1px #999;border-radius:3px;">Pick Up</font></div>
-                <div class="select-box" id="thisDiv" style="display:none">
-
-                    
-                    <center><br><button type="button" id="btntip" class="btntip" style="width:130px;">Add Tips</button></center>
+    <div class="my-svg">
+    </div>
+    <div id="hide-wrapper" class="myHide">
+        <div class="list-left"></div>
+        <br>
+        <div class="cen_b">
+            <div class="list">
+                <div class="select-list con1" id="select">
+                    <span style="margin-top:10px;" ng-class="{con3:true, cur:chosen[tag]}" ng-repeat="tag in tags" ng-click="conChoice(tag)">
+                        <em class="con3-1">{{tag}}</em>
+                    </span>
                 </div>
-            </div> -->
-
-            <br><br><br>
-
-            <div ng-repeat="team in teams" ng-click="getDetail(team._id)">
-                <a>
-                    <div class="list-div">
-                        <div class="result-title color" style="font-weight:bold">{{team.title}}
-                            <div class="which">
-                                type : high-school
-                            </div>
-                        </div>
-                        <div class="content color">
-                            <!-- <div class="keywords key"><span><em class="key">keywords:{{team.keywords}}</em></span> -->
-                            <div class="keywords_beta color-key">
-                                <span><em class="key">
-                                    <font size=3px color="white" style="background-color:#6b9de2;border-radius:3px;padding:2px;margin:3px;font-weight:bold">keywords: </font
-                                        ><font size=2px; style="font-weight:bold" color="#333">{{team.keywords}}</font>
-                                </em></span>
-                            </div>
-                            <div class="results color-key">
-                                <b><font size=3px; color="#ffffff"  style="background-color:#f9a731;border-radius:3px;">&nbsp;&nbsp;awards: </font>&nbsp;<img src="img/results.png" height="23px"><font size=3px;><font>&nbsp;21c dscw&nbsp;</font></b>
-                            </div>
-                            <div class="list-bio" style="margin-top:10px;margin-bottom:10px;">
-                            <li ng-repeat="gene in search_info" ng-click="getGeneInfo(gene.name)">
-                            <a href="#">
-                                <div class="brick" style="float:left">
-                                    <img class="bio-img" ng-src="{{gene.img}}" alt="gene_img">
-                                    <div style="margin-top:5%;text-align:left;">&nbsp;{{gene.name}}</div>
+                <div style="min-height: 600px">
+                    <div ng-repeat="team in teams" ng-click="getDetail(team._id)">
+                        <a>
+                            <div class="list-div">
+                                <div class="result-title color" style="font-weight:bold">{{team.title}}
+                                    <div class="which">
+                                        type : high-school
+                                    </div>
                                 </div>
-                            </a>
-                            </li>
+                                <div class="content color">
+                                    <!-- <div class="keywords key"><span><em class="key">keywords:{{team.keywords}}</em></span> -->
+                                    <div class="keywords_beta color-key">
+                                        <span>
+                                            <em class="key">
+                                                <font size=3px color="white" style="background-color:#6b9de2;border-radius:3px;padding:2px;margin:3px;font-weight:bold">keywords: </font>
+                                                <font size=2px; style="font-weight:bold" color="#333">{{team.keywords}}</font>
+                                            </em>
+                                        </span>
+                                    </div>
+                                    <div class="results color-key">
+                                        <b>
+                                            <font size=3px; color="#ffffff" style="background-color:#f9a731;border-radius:3px;">&nbsp;&nbsp;awards: </font>&nbsp;
+                                            <img src="img/results.png" height="23px">
+                                            <font size=3px;>
+                                                <font>&nbsp;21c dscw&nbsp;</font>
+                                        </b>
+                                    </div>
+                                    <div class="list-bio" style="margin-top:10px;margin-bottom:10px;">
+                                        <li ng-repeat="gene in search_info" ng-click="getGeneInfo(gene.name)">
+                                            <a href="#">
+                                                <div class="brick" style="float:left">
+                                                    <img class="bio-img" ng-src="{{gene.img}}" alt="gene_img">
+                                                    <div style="margin-top:5%;text-align:left;">&nbsp;{{gene.name}}</div>
+                                                </div>
+                                            </a>
+                                        </li>
 
+                                    </div>
+                                    <hr style="height:1px;border:none;border-top:0px double white;">
+                                    <div data-ng-bind-html="team.abstract"></div>
+                                </div>
+                            </div>
+                        </a>
+                        <hr>
                     </div>
-                            <hr style="height:1px;border:none;border-top:0px double white;">
-                            <div data-ng-bind-html="team.abstract"></div>
+                </div>
+                <div class="suggestion-bottom">
+                    <div class="s-header" style="margin-bottom:20px">
+                        Suggestions
+                    </div>
+                    <div style="clear:both">
+                        <div class='s-content' ng-repeat="word in words">
+                            <a href="" class=" color" ng-click="jum pToSearch(word)">{{word}}</a>
                         </div>
                     </div>
-                </a>
-                <hr>
-            </div>
-            <div class="suggestion-bottom">
-                <div class="s-header" style="margin-bottom:20px">
-                    Suggestions
+
                 </div>
-                <div style="clear:both">
-                    <div class='s-content' ng-repeat="word in words">
-                        <a href="" class=" color" ng-click="jum pToSearch(word)">{{word}}</a>
-                    </div>
+                <div class="page">
+                    <ul uib-pagination total-items="bigTotalItems" ng-model="currentPage" items-per-page="perPage" max-size="maxSize" class="pagination-sm"
+                        rotate="true" force-ellipses="true" ng-change="pageChanged(currentPage)"></ul>
                 </div>
-                
-            </div>
-            <div class="page">
-                <ul uib-pagination total-items="bigTotalItems" ng-model="currentPage" items-per-page="perPage" max-size="maxSize" class="pagination-sm" rotate="true" force-ellipses="true"
-                    ng-change="pageChanged(currentPage)"></ul>
             </div>
         </div>
-    </div>
 
-<!-- 我的软键盘没带，缩进坏掉了。。。 -->
-    <div class="right">
-    <div class="1st" style="margin-top: 10px">
-    <div class="rightheader">kuangkuang1</div>
-    <div class="rightcon">
-    <font class="rightsmalldiv">213</font>
-    <font class="rightsmalldiv">213</font>
-    <font class="rightsmalldiv">213</font>
-    <font class="rightsmalldiv">213</font>
-    </div>
-    </div>
-    <div class="2nd" style="margin-top: 10px">
-    <div class="rightheader">kuangkuang2</div>
-    <div class="rightcon">
-    <font class="rightsmalldiv_">213</font>
-    <font class="rightsmalldiv_">213</font>
-    <font class="rightsmalldiv_">213</font>
-    <font class="rightsmalldiv_">213</font>
-    </div>
-    </div>
-    <div class="3rd" style="margin-top: 10px">
-    <div class="rightheader">kuangkuang3</div>
-    <div class="rightcon">
-    <font class="rightsmalldiv__">213</font>
-    <font class="rightsmalldiv__">213</font>
-    <font class="rightsmalldiv__">213</font>
-    <font class="rightsmalldiv__">213</font>
-    </div>
-    </div>
-
-    </div>
-    <!-- <div class="right">
-        <div class="list-l">
-            <ul class="yiji">
-                <div style="color:#fff;text-align:center;font-size:20px;bottom:2px;background:#aaa;border-radius:3px;">Classifications</div>
-                <li><a href="#">fistDiv</a></li>
-                <li><a href="#">fistDiv</a></li>
-                <li><a href="#">fistDiv</a></li>
-                <li><a href="#">fistDiv</a></li>
-                <li><a href="#">fistDiv</a></li>
-                <li><a href="#">fistDiv</a></li>
-                <li><a href="#">fistDiv</a></li>
-                <li><a href="#">fistDiv</a></li>
-                <li><a href="#" class="inactive">one</a>
-                    <ul style="display: none">
-                        <li><a href="#" class="inactive active">1</a>
-                            <ul>
-                                <li><a href="#">one-1</a></li>
-                                <li><a href="#">one-1</a></li>
-                                <li><a href="#">one-1</a></li>
-                            </ul>
-                        </li>
-                        <li class="last"><a href="#">2</a></li>
-                    </ul>
-                </li>
-                <li><a href="#" class="inactive">two</a>
-                    <ul style="display: none">
-                        <li><a href="#" class="inactive active">2</a>
-                            <ul>
-                                <li><a href="#">two2</a></li>
-                                <li><a href="#">two2</a></li>
-                                <li><a href="#">two2</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#" class="inactive active">2</a>
-                            <ul>
-                                <li><a href="#">two2</a></li>
-                                <li><a href="#">two2</a></li>
-                            </ul>
-                        </li>
-                        <li class="last"><a href="#">2</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div> -->
-    </div>
-    <a href="#" onclick="gotoTop();return false;" class="totop"></a>
-    <!-- <div class="end-foot"><a href="#" onclick="gotoTop();return false;" class="totop"></a></div> -->
-    <!--log out modal-->
-    <div id="logout" class="modal-demo">
-        <button type="button" class="close" onclick="Custombox.close();">
-			<span>×</span>
-			<span class="sr-only">Close</span>
-		</button>
-        <h4 class="title">Log Out</h4>
-        <div class="text">
-            <h3>Are You Sure?</h3>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
-            <button type="button" class="btn btn-primary" ng-click="log_out()">Confirm</button>
-        </div>
-    </div>
-    <!--change password modal-->
-    <div id="cgPwd" class="modal-demo">
-        <button type="button" class="close" onclick="Custombox.close();">
-			<span>×</span>
-			<span class="sr-only">Close</span>
-		</button>
-        <h4 class="title">Change Password</h4>
-        <div class="text">
-            <form class="form-horizontal" role="form">
-                <div class="form-group">
-                    <label for="old password" class="col-sm-2 control-label">Old Password</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" placeholder="old password" ng-model="old_password" />
-                    </div>
+        <!-- 我的软键盘没带，缩进坏掉了。。。 -->
+        <div class="right">
+            <div class="1st" style="margin-top: 10px">
+                <div class="rightheader">kuangkuang1</div>
+                <div class="rightcon">
+                    <font class="rightsmalldiv">213</font>
+                    <font class="rightsmalldiv">213</font>
+                    <font class="rightsmalldiv">213</font>
+                    <font class="rightsmalldiv">213</font>
                 </div>
-                <div class="form-group">
-                    <label for="new password" class="col-sm-2 control-label">New Password</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password" />
-                    </div>
+            </div>
+            <div class="2nd" style="margin-top: 10px">
+                <div class="rightheader">kuangkuang2</div>
+                <div class="rightcon">
+                    <font class="rightsmalldiv_">213</font>
+                    <font class="rightsmalldiv_">213</font>
+                    <font class="rightsmalldiv_">213</font>
+                    <font class="rightsmalldiv_">213</font>
                 </div>
-                <div class="form-group">
-                    <label for="confirm password" class="col-sm-2 control-label">Confirm Password</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password" />
-                    </div>
-
+            </div>
+            <div class="3rd" style="margin-top: 10px">
+                <div class="rightheader">kuangkuang3</div>
+                <div class="rightcon">
+                    <font class="rightsmalldiv__">213</font>
+                    <font class="rightsmalldiv__">213</font>
+                    <font class="rightsmalldiv__">213</font>
+                    <font class="rightsmalldiv__">213</font>
                 </div>
-            </form>
+            </div>
 
         </div>
+        <a href="#" onclick="gotoTop();return false;" class="totop"></a>
+        <div id="logout" class="modal-demo">
+            <button type="button" class="close" onclick="Custombox.close();">
+                <span>×</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <h4 class="title">Log Out</h4>
+            <div class="text">
+                <h3>Are You Sure?</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+                <button type="button" class="btn btn-primary" ng-click="log_out()">Confirm</button>
+            </div>
+        </div>
+        <!--change password modal-->
+        <div id="cgPwd" class="modal-demo">
+            <button type="button" class="close" onclick="Custombox.close();">
+                <span>×</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <h4 class="title">Change Password</h4>
+            <div class="text">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="old password" class="col-sm-2 control-label">Old Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" placeholder="old password" ng-model="old_password" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="new password" class="col-sm-2 control-label">New Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm password" class="col-sm-2 control-label">Confirm Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password" />
+                        </div>
 
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
-            <button type="button" class="btn btn-primary" ng-click="change_password(old_password,new_password,re_password)">Confirm</button>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+                <button type="button" class="btn btn-primary" ng-click="change_password(old_password,new_password,re_password)">Confirm</button>
+            </div>
         </div>
     </div>
 
@@ -496,77 +253,17 @@
     <script src="../public/custombox/dist/custombox.min.js"></script>
     <script src="../public/jquery/dist/jquery.min.js"></script>
     <script src="../public/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../public/d3/d3.min.js"></script>
-    <script src="./js/draw.js"></script>
     <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="../public/shCircleLoader-master/jquery.shCircleLoader-min.js"></script>
     <script src="js/effect.js"></script>
-
-    <script>
-        /**
-         * JavaScript脚本实现回到页面顶部示例
-         * @param acceleration 速度
-         * @param stime 时间间隔 (毫秒)
-         **/
-        function gotoTop(acceleration, stime) {
-            acceleration = acceleration || 0.1;
-            stime = stime || 10;
-            var x1 = 0;
-            var y1 = 0;
-            var x2 = 0;
-            var y2 = 0;
-            var x3 = 0;
-            var y3 = 0;
-            if (document.documentElement) {
-                x1 = document.documentElement.scrollLeft || 0;
-                y1 = document.documentElement.scrollTop || 0;
-            }
-            if (document.body) {
-                x2 = document.body.scrollLeft || 0;
-                y2 = document.body.scrollTop || 0;
-            }
-            var x3 = window.scrollX || 0;
-            var y3 = window.scrollY || 0;
-
-            // 滚动条到页面顶部的水平距离
-            var x = Math.max(x1, Math.max(x2, x3));
-            // 滚动条到页面顶部的垂直距离
-            var y = Math.max(y1, Math.max(y2, y3));
-
-            // 滚动距离 = 目前距离 / 速度, 因为距离原来越小, 速度是大于 1 的数, 所以滚动距离会越来越小
-            var speeding = 1 + acceleration;
-            window.scrollTo(Math.floor(x / speeding), Math.floor(y / speeding));
-
-            // 如果距离不为零, 继续调用函数
-            if (x > 0 || y > 0) {
-                var run = "gotoTop(" + acceleration + ", " + stime + ")";
-                window.setTimeout(run, stime);
-            }
-        }
-    </script>
+    <script src="js/gotoTop.js"></script>
     <script src="js/jquery.min.js"></script>
-    <script src="js/page.js"></script>
-
-    </script>
-    <script src="../public/custombox/dist/legacy.min.js"></script>
-    <script src="../public/custombox/dist/custombox.min.js"></script>
+    <script src="../public/shCircleLoader-master/jquery.shCircleLoader-min.js"></script>
     <script src="../public/angular/angular.min.js"></script>
-    <script src="../public/angular-animate/angular-animate.min.js"></script>
-    <script src="../public/angular-material/angular-material.min.js"></script>
     <script src="../public/angular-aria/angular-aria.min.js"></script>
-    <script src="../public/jquery/dist/jquery.min.js"></script>
-    <script src="../public/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../public/angular-sortable/Sortable.js"></script>
-    <script src="../public/angular-sortable/ng-sortable.js"></script>
+    <script src="../public/angular-animate/angular-animate.js"></script>
+    <script src="../public/angular-material/angular-material.min.js"></script>
     <script src="./js/angular-ui-bootstrap.js"></script>
-    <script src="./js/layout.js"></script>
-    <script src="./js/design_page.js"></script>
-    <script src="./js/contextMenu.js"></script>
     <script src="./js/searchList.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#btntip").click();
-        });
-    </script>
 </body>
-
 </html>
