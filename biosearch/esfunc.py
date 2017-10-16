@@ -2,7 +2,7 @@
 from elasticsearch import Elasticsearch
 import chardet
 import json
-from .models import LdaKeyword
+# from .models import LdaKeyword
 from projectManage.models import Parts
 
 es = Elasticsearch()
@@ -67,13 +67,13 @@ def getanswer(_keyword, _track1, page):
                 ]
             }
         },
-        # "sort": [{
-        #     "_score": {"order": "desc"}
-        # },{
-        #     "calScore": {"order": "desc"}
-        # },{
-        #     "year": {"order": "desc"}
-        # }],
+        "sort": [{
+            "_score": {"order": "desc"}
+        },{
+            "calScore": {"order": "desc"}
+        },{
+            "year": {"order": "desc"}
+        }],
         "highlight": {
             "pre_tags" : ["<font color='#f35762'><b>"],
             "post_tags" : ["</b></font>"],
@@ -123,12 +123,10 @@ def filter(searchsort):
             awards = i['_source']['medal']
         else:
             awards = 'No Medal'
-        print(awards)
         if i['_source']['awards'] != 'None':
             awards = awards + i['_source']['awards']
         else:
             awards = awards + '/No Special Prizes'
-        print(awards)
         biobricks = i['_source']['biobrick'].split('\n')
         parts = list()
         for biobrick in biobricks:
@@ -369,13 +367,13 @@ def getClassification(classification, keyword):
     teams = filter(_searched["hits"]["hits"])
     return teams
 
-def getLdaResult(tracks):
-    ldaResult = list()
-    for track in tracks:
-        themes = LdaKeyword.objects.filter(track=track)
-        for theme in themes:
-            ldaResult.append({
-                "theme_name": theme.theme_name,
-                "keyword": theme.keyword
-            })
-    return ldaResult
+# def getLdaResult(tracks):
+#     ldaResult = list()
+#     for track in tracks:
+#         themes = LdaKeyword.objects.filter(track=track)
+#         for theme in themes:
+#             ldaResult.append({
+#                 "theme_name": theme.theme_name,
+#                 "keyword": theme.keyword
+#             })
+#     return ldaResult

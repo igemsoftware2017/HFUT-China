@@ -84,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'biodesignver',
         'USER': 'root',
-        'PASSWORD': 'qaz123',
+        'PASSWORD': '',
         'HOST': '',
         'PORT': '3306',
     }
@@ -131,4 +131,3 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'static'),
 )
-STATIC_ROOT = '/root/HFUT-2017/static'

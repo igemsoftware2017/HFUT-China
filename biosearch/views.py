@@ -12,7 +12,9 @@ cacheNum = 4
 def randomPage(request):
     result = dict()
     try:
-        data = json.loads(request.body)
+        body = request.body
+        body = body.decode('utf-8')
+        data = json.loads(body)
         keyword = data.get('keyword')
         teams = getPartTeam(keyword)
         track = data.get('track')
@@ -20,10 +22,10 @@ def randomPage(request):
         page = data.get('page')
         suggestions = list()
         groups = list()
-        # if page == 1 :
-        #     r = Retrieve()
-        #     suggestions = r.retrieve(keyword)
-        #     groups = getLdaResult(track)
+        if page == 1 :
+            r = Retrieve()
+            suggestions = r.retrieve(keyword)
+            # groups = getLdaResult(track)
         teamList = getanswer(keyword, track, page)
         teams.extend(teamList)
         request.session['answers'] = teams
@@ -51,7 +53,9 @@ def randomPage(request):
 def turnPage(request):
     answers = []
     try:
-        data = json.loads(request.body)
+        body = request.body
+        body = body.decode('utf-8')
+        data = json.loads(body)
         page = data.get('page')
         answers = request.session.get('answers')
         answers = answers[(page-1)*numOfEachPage:page*numOfEachPage]
@@ -76,7 +80,9 @@ def turnPage(request):
 def getCache(request):
     result = dict()
     try:
-        data = json.loads(request.body)
+        body = request.body
+        body = body.decode('utf-8')
+        data = json.loads(body)
         page = data.get('page')
         keyword = data.get('keyword')
         track = data.get('track')
@@ -103,7 +109,9 @@ def getDetail(request):
     detail = None
     result = dict()
     try:
-        data = json.loads(request.body)
+        body = request.body
+        body = body.decode('utf-8')
+        data = json.loads(body)
         id = data['_id']
         keyword = data['keyword']
         detail = getdetailbyid(id, keyword)
@@ -113,7 +121,6 @@ def getDetail(request):
             awards = detail['medal']
         else:
             awards = 'No Medal'
-        print(awards)
         if detail['awards'] != 'None':
             awards = awards + detail['awards']
         else:
@@ -139,7 +146,9 @@ def getDetail(request):
 
 
 def classify(request):
-    data = json.loads(request.body)
+    body = request.body
+    body = body.decode('utf-8')
+    data = json.loads(body)
     keyword = data.get("keyword")
     classification = data["classification"]
     teamsIds = request.session.get('answers')
@@ -154,14 +163,17 @@ def classify(request):
     return HttpResponse(json.dumps(result), content_type='application/json')
 
 def searchPart(request):
-    data = json.loads(request.body)
-    print(data)
+    body = request.body
+    body = body.decode('utf-8')
+    data = json.loads(body)
     keyword = data["keyword"]
     part = getPart(keyword)
     return HttpResponse(json.dumps(part), content_type='application/json')
 
 def getOneTeam(request):
-    data = json.loads(request.body)
+    body = request.body
+    body = body.decode('utf-8')
+    data = json.loads(body)
     teamName = data["teamName"]
     index = teamName.find('_')
     year = str(teamName[0:index])

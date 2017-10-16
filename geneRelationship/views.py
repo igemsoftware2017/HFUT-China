@@ -43,6 +43,7 @@ def randomGene(request):
 			},
 		}
 	except myError as e:
+		print(e.value)
 		result = {
 			'successful': False,
 			'error': {
@@ -51,6 +52,7 @@ def randomGene(request):
 			}
 		}
 	except Exception as e:
+		print(e.args)
 		result = {
 			'successful': False,
 			'error': {

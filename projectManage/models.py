@@ -38,15 +38,15 @@ class Parts(models.Model):
 	sequence_length  = models.IntegerField(null=True)
 	part_url         = models.CharField(max_length=255, null=True)
 	score            = models.FloatField(null=True)
-	team 			 = models.TextField(null = True)
-	teamId			 = models.TextField(null = True)
+	# team 			 = models.TextField(null = True)
+	# teamId			 = models.TextField(null = True)
 
 	def __str__(self):
 		return self.part_name
 
 	class Meta:
 		managed = False
-		db_table = 'parts'
+		db_table = 'bio_parts'
 
 class Part_Parameters(models.Model):
     part = models.ForeignKey('Parts', models.DO_NOTHING)
