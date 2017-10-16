@@ -529,8 +529,6 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 			}
 		});
 	}
-
-	$scope.init();
 });
 
 var last = {

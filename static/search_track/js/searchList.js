@@ -123,6 +123,8 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 				});
 				console.log($scope.teams);
 				$scope.goToTop();
+			} else {
+				console.log(data.error);
 			}
 		});
     };
@@ -186,7 +188,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 			if (data.successful) {
 				$scope.error = false;
 				sessionStorage.setItem('login', JSON.stringify(data.data.token));
-				window.location.href = "../project_page/project_page.html";
+				window.location.reload();
 			} else {
 				$scope.error = true;
 				if (data.error.id == '1') {

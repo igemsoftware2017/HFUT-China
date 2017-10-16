@@ -22,10 +22,10 @@ def randomPage(request):
         page = data.get('page')
         suggestions = list()
         groups = list()
-        # if page == 1 :
-        #     r = Retrieve()
-        #     suggestions = r.retrieve(keyword)
-        #     groups = getLdaResult(track)
+        if page == 1 :
+            r = Retrieve()
+            suggestions = r.retrieve(keyword)
+            # groups = getLdaResult(track)
         teamList = getanswer(keyword, track, page)
         teams.extend(teamList)
         request.session['answers'] = teams
@@ -121,7 +121,6 @@ def getDetail(request):
             awards = detail['medal']
         else:
             awards = 'No Medal'
-        print(awards)
         if detail['awards'] != 'None':
             awards = awards + detail['awards']
         else:
@@ -167,13 +166,14 @@ def searchPart(request):
     body = request.body
     body = body.decode('utf-8')
     data = json.loads(body)
-    print(data)
     keyword = data["keyword"]
     part = getPart(keyword)
     return HttpResponse(json.dumps(part), content_type='application/json')
 
 def getOneTeam(request):
-    data = json.loads(request.body)
+    body = request.body
+    body = body.decode('utf-8')
+    data = json.loads(body)
     teamName = data["teamName"]
     index = teamName.find('_')
     year = str(teamName[0:index])

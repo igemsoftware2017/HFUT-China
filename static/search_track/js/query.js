@@ -59,6 +59,13 @@ query.controller('queryController', function ($scope, $http,$location, $sce) {
 	}
 
 	$scope.init = function () {
+		var loginSession = sessionStorage.getItem('login');
+		if (loginSession) {
+			$scope.isLogin = true;
+		}
+		else {
+			$scope.isLogin = false;
+		}
 		$scope.searchWord = $location.search().keyword;
 		var opt = {
 			url: '/biosearch/getDetail',
@@ -180,7 +187,7 @@ query.controller('queryController', function ($scope, $http,$location, $sce) {
 			if (data.successful) {
 				$scope.error = false;
 				sessionStorage.setItem('login', JSON.stringify(data.data.token));
-				window.location.href = "../project_page/project_page.html";
+				window.location.reload();
 			} else {
 				$scope.error = true;
 				if (data.error.id == '1') {
