@@ -125,11 +125,11 @@
                                     </div>
                                     <div class="list-bio" style="margin-top:10px;margin-bottom:10px;">
                                         <font size=3px; color="#ffffff" style="background-color:#5cb85c;border-radius:3px;padding:0 4px;">biobricks:</font>
-                                        <div ng-if="team.hasParts">
+                                        <div ng-if="team.hasParts" class="color-key">
                                             <li ng-repeat="gene in team.parts | limitTo:5 ">
                                                 <div class="brick" style="float:left">
                                                     <img class="bio-img" ng-src="{{gene.img}}" alt="gene_img">
-                                                    <div style="margin-top:5%;text-align:left;margin-right:20% "><font size=2px;  color="#333">&nbsp;{{gene.part_name}}</font></div>
+                                                    <div style="margin-top:5%;text-align:left;margin-right:20% "><font size=2px;  color="#333" >&nbsp;{{gene.part_name}}</font></div>
                                                 </div>
                                             </li>
                                         </div>
