@@ -1,6 +1,6 @@
 
 var searchList = angular.module('searchListApp',['ngMaterial','ui.bootstrap']);
-var cacheNum = 4;
+var cacheNum = 2;
 var trackNum = 9;
 searchList.config(['$locationProvider', function($locationProvider) {
   $locationProvider.html5Mode({

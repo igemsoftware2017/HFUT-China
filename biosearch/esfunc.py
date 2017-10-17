@@ -44,8 +44,8 @@ def getdetailbyid(_id, keyword):
 
 def getanswer(_keyword, _track1, page):
     _query = {
-        "from": (page-1)*4,
-        "size": 20,
+        "from": (page-1)*2,
+        "size": 10,
         "query": {
             "bool":{
                 "must":[{

@@ -7,7 +7,7 @@ from .models import Wiki
 from .suggestion import *
 
 numOfEachPage = 5
-cacheNum = 4
+cacheNum = 2
 
 def randomPage(request):
     result = dict()
