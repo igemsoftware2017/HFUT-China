@@ -107,8 +107,8 @@ def createNewProject(request):
 		project_name = data['project_name']
 		if not project_name:
 			raise myError('Project_name can\'t be null.' )
-		# track = Tracks.objects.filter(track=data['track']).first()
-		# function = Functions.objects.filter(function=data['function']),first()
+		track = Tracks.objects.filter(track=data['track']).first()
+		# function = Functions.objects.filter(function=data['function']).first()
 		project = Project()
 		project.creator = user
 		project.project_name = project_name

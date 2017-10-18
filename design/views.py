@@ -45,11 +45,12 @@ def getChain(request):
         partList = []
         for seq in sequenceList:
             part = Parts.objects.filter(part_id=seq).first()
-            partList.append({
-                    'part_id': part.part_id,
-                    'part_name': part.part_name,
-                    'part_type': part.part_type
-                })
+            if part:
+                partList.append({
+                        'part_id': part.part_id,
+                        'part_name': part.part_name,
+                        'part_type': part.part_type
+                    })
         result = {
             'successful': True,
             'data': partList,

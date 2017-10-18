@@ -19,6 +19,7 @@ def getPart(partName):
     """
     try:
         partObj = Parts.objects.get(part_name=partName)
+        print(partObj)
         papers = Part_Papers.objects.filter(part=partObj)
         part = {
                 'part_id': partObj.part_id,
@@ -63,7 +64,8 @@ def getPart(partName):
             'part': part,
             'paper': paper_list
         }
-    except:
+    except error as e:
+        print(e)
         traceback.print_exc()
         result = {
             'successful': False

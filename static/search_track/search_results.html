@@ -27,6 +27,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+                <div style="float:left;margin-left:6px;margin-top:6px">
+        			<img src="../img/ser_l.png"  width="36" height="36" id="logo" class="logo">
+        		</div>
                 <a class="navbar-brand" href="#">BioDesigner Dolphin</a>
             </div>
 
@@ -47,7 +50,7 @@
                     <a href="#" class="sign-up">Log in</a>
                 </li>
                 <li ng-if="isLogin === false">
-                    <a class="sign-up" href="../register/register.html">Sign up</a>
+                    <a class="sign-up" href="../register/register.html" target="_top">Sign up</a>
                 </li>
                 <li ng-if="isLogin" class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -79,11 +82,6 @@
                     <button id="btn" class="btn btn-default" type="button" ng-click="jumpToSearchResults(key_word)">
                         <i class="fa fa-search"></i>
                     </button>
-                    <div class="suggest-wrap">
-                        <div class="search_suggest" id="gov_search_suggest">
-                            <ul> </ul>
-                        </div>
-                    </div>
                 </form>
             </div>
         </nav>
@@ -101,7 +99,7 @@
                     </span>
                 </div>
                 <div ng-if="noMore" style="min-height: 600px">
-                    <h1 style="margin-top:30%; color:#C0C0C0">No More!</h1>
+                    <img src="img/no more.png" alt="No More!">
                 </div>
                 <div style="min-height: 600px" ng-if="!noMore">
                     <div ng-repeat="team in teams" ng-click="getDetail(team._id)" ng-mouseenter="show = true" ng-mouseleave="show = false">

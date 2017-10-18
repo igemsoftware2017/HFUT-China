@@ -53,7 +53,7 @@ lr.controller("loginCtrl",function($scope,$http,$mdToast){
 		$http(opt).success(function(data){
 			if (data.successful) {
 				showToast($mdToast,"Register SUCCESSED!");
-				window.location.href = "../project_page/project_page.html";
+				window.location.href = document.referrer;
 			} else {
 				if (data.error.id == '1') {
 					showToast($mdToast,data.error.msg);
