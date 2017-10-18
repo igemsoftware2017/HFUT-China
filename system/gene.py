@@ -350,6 +350,7 @@ class gene_graph:
                 return None
             if len(resStr) == 0:
                 return None
+            resStr = resStr.decode('utf-8')
             result = json.loads(resStr)
             geneIdList = result['esearchresult']['idlist']
             self.save_relation_to_db(geneIdList, compound_obj)
