@@ -62,7 +62,6 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 		}
 		$http(opt).success(function(data){
 			if(data.successful){
-				console.log(data.data);
 				if (page == $scope.sessionMax) {
 					var opt = {
 						url: '/biosearch/getCache',
@@ -121,7 +120,6 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 					}
 					return team;
 				});
-				console.log($scope.teams);
 				$scope.goToTop();
 			} else {
 				console.log(data.error);
@@ -159,6 +157,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 			var position = $scope.track.indexOf(tag);
 			$scope.track.splice(position, 1);
 		}
+		console.log($scope.chosen);
 		$('.my-svg').shCircleLoader();
 		$('#hide-wrapper').addClass('myHide');
 		$('.my-svg').addClass('my-svg');
@@ -334,7 +333,6 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 			$('#hide-wrapper').removeClass('myHide');
 			$('.my-svg').removeClass('my-svg');
 			if(data.successful){
-				console.log(data.data);
 				$scope.teams = data.data.content.map(function(team){
 					team.highlight.forEach(function(hightlight){
 						team.abstract = team.abstract + "..." + hightlight;
@@ -349,7 +347,6 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 					} else {
 						team.hasParts = true;
 					}
-					console.log(team.parts);
 					return team;
 				});
 				$scope.words = data.data.suggestions;
@@ -369,7 +366,6 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 		};
 		$http(opt).success(function(data){
 			if(data.successful){
-				console.log(data.data);
 				$scope.teams = data.data.content.map(function(team){
 					team.highlight.forEach(function(hightlight){
 						team.abstract = team.abstract + "..." + hightlight;
@@ -398,7 +394,9 @@ searchList.controller('searchListController',function($scope, $http, $location, 
         $scope.key_word = $location.search().key_word;
 		$scope.track = $location.search().track;
 		if (!$scope.track) {
-			$scope.track = $scope.tags;
+			$scope.track = $scope.tags.map(tag=>{
+				return tag;
+			});
 			$scope.track.forEach(track => {
 				$scope.chosen[track] = true;
 			});
