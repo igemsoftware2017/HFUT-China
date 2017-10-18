@@ -2,8 +2,7 @@
 from elasticsearch import Elasticsearch
 import chardet
 import json
-# from .models import LdaKeyword
-from projectManage.models import Parts
+# from .models import Ldaresult
 
 es = Elasticsearch()
 fields = ["attribution","background","description","design","human_practice","modeling","notebook","protocol","result","safety","keywords"]

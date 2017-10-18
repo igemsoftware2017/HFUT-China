@@ -30,16 +30,39 @@ class Wiki(models.Model):
         managed = False
         db_table = 'team_wiki'
 
-# class LdaKeyword(models.Model):
-#     '''wiki model'''
-#     id = models.IntegerField(primary_key=True)
-#     keyword = models.CharField(max_length=300)
-#     theme_name = models.CharField(max_length=45)
-#     track = models.CharField(max_length=45)
+class LdaResult(models.Model):
+    '''wiki model'''
+    tracks = models.IntegerField(primary_key=True)
+    keywords_0 = models.CharField(max_length=300)
+    teams_0 = models.TextField(null=True)
+    keywords_1 = models.CharField(max_length=300)
+    teams_1 = models.TextField(null=True)
+    keywords_2 = models.CharField(max_length=300)
+    teams_2 = models.TextField(null=True)
+    keywords_3 = models.CharField(max_length=300)
+    teams_3 = models.TextField(null=True)
+    keywords_4 = models.CharField(max_length=300)
+    teams_4 = models.TextField(null=True)
 
-#     def __str__(self):
-#         return self.theme_name
+    def __str__(self):
+        return self.tracks
+    class Meta:
+        managed = False
+        db_table = 'ldaresult'
 
-#     class Meta:
-#         managed = False
-#         db_table = 'lda_keyword'
+class SimplePart(models.Model):
+    '''wiki model'''
+    part_id          = models.IntegerField(primary_key=True)
+    part_name        = models.CharField(max_length=255)
+    short_desc       = models.CharField(max_length=255,null=True)
+    description       = models.CharField(max_length=255,null=True)
+    part_type        = models.CharField(max_length=20,null=True)
+    sequence         = models.TextField(null=True)
+    team             = models.TextField(null = True)
+    teamId			 = models.TextField(null = True)
+
+    def __str__(self):
+        return self.tracks
+    class Meta:
+        managed = False
+        db_table = 'simpepart'
