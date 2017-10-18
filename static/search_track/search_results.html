@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="searchListApp">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BioDesigner|Dolphin</title>
     <link href="../public/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../public/custombox/dist/custombox.min.css" rel="stylesheet">
     <link href="./bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="../public/angular-material/angular-material.min.css" rel="stylesheet">
     <link href="./css/gene_beta.css" rel="stylesheet">
     <link href="./css/sb-admin-2.css" rel="stylesheet">
     <link href="../public/shCircleLoader-master/jquery.shCircleLoader.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/result.css"/>
+    <link rel="stylesheet" type="text/css" href="css/result.css" />
     <link rel="shortcut icon" href="img/logo_black_small.png">
 </head>
 
@@ -85,7 +87,6 @@
                 </form>
             </div>
         </nav>
-
     </div>
     <div class="my-svg">
     </div>
@@ -99,7 +100,9 @@
                         <em class="con3">{{tag}}</em>
                     </span>
                 </div>
-                <div ng-if="noMore" style="min-height: 600px"><h1 style="margin-top:30%; color:#C0C0C0">No More!</h1></div>
+                <div ng-if="noMore" style="min-height: 600px">
+                    <h1 style="margin-top:30%; color:#C0C0C0">No More!</h1>
+                </div>
                 <div style="min-height: 600px" ng-if="!noMore">
                     <div ng-repeat="team in teams" ng-click="getDetail(team._id)" ng-mouseenter="show = true" ng-mouseleave="show = false">
                         <a>
@@ -115,14 +118,14 @@
                                         <span>
                                             <em class="key">
                                                 <font size=3px color="white" style="background-color:#030507;border-radius:3px; padding:0 4px; margin-right:6px">keywords:</font>
-                                                <font size=2px;  color="#333">{{team.keywords}}</font>
+                                                <font size=2px; color="#333">{{team.keywords}}</font>
                                             </em>
                                         </span>
                                     </div>
                                     <div class="color-key">
                                         <font size=3px; color="#ffffff" style="background-color:#f9a731;border-radius:3px;padding:0 4px;">awards:</font>&nbsp;
                                         <img src="img/results.png" height="23px">
-                                        <font size=2px;  color="#333";>{{team.awards}}</font>
+                                        <font size=2px; color="#333" ;>{{team.awards}}</font>
                                     </div>
                                     <div class="list-bio" style="margin-top:10px;margin-bottom:10px;">
                                         <font size=3px; color="#ffffff" style="background-color:#5cb85c;border-radius:3px;padding:0 4px;">biobricks:</font>
@@ -130,7 +133,9 @@
                                             <li ng-repeat="gene in team.parts | limitTo:5 ">
                                                 <div class="brick" style="float:left">
                                                     <img class="bio-img" ng-src="{{gene.img}}" alt="gene_img">
-                                                    <div style="margin-top:5%;text-align:left;margin-right:20% "><font size=2px;  color="#333" >&nbsp;{{gene.part_name}}</font></div>
+                                                    <div style="margin-top:5%;text-align:left;margin-right:20% ">
+                                                        <font size=2px; color="#333">&nbsp;{{gene.part_name}}</font>
+                                                    </div>
                                                 </div>
                                             </li>
                                         </div>
@@ -169,7 +174,6 @@
             </div>
         </div>
 
-        <!-- 我的软键盘没带，缩进坏掉了。。。 -->
         <div class="right" style="display:none">
             <div class="1st" style="margin-top: 10px">
                 <div class="rightheader">kuangkuang1</div>
@@ -201,56 +205,84 @@
 
         </div>
         <a href="#" onclick="gotoTop();return false;" class="totop"></a>
-        <div id="logout" class="modal-demo">
-            <button type="button" class="close" onclick="Custombox.close();">
-                <span>×</span>
-                <span class="sr-only">Close</span>
-            </button>
-            <h4 class="title">Log Out</h4>
-            <div class="text">
-                <h3>Are You Sure?</h3>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="log_out()">Confirm</button>
-            </div>
+    </div>
+    <!-- log in modal -->
+    <div id="login" class="modal-demo">
+        <button type="button" class="close" onclick="Custombox.close();">
+            <span>×</span>
+            <span class="sr-only">Close</span>
+        </button>
+        <h4 class="title">Login</h4>
+        <div class="text">
+            <form class="form-horizontal" role="form" ng-keypress="login_by_keyboard($event,username,password)">
+                <div class="form-group col-md-12">
+                    <label for="username">Username</label>
+                    <input id="username" type="text" class="form-control login-input" placeholder="User Name" ng-model="username" />
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" class="form-control login-input" placeholder="Password" ng-model="password" />
+                </div>
+            </form>
+            <a href="../register/register.html">
+                Create account
+            </a>
         </div>
-        <!--change password modal-->
-        <div id="cgPwd" class="modal-demo">
-            <button type="button" class="close" onclick="Custombox.close();">
-                <span>×</span>
-                <span class="sr-only">Close</span>
-            </button>
-            <h4 class="title">Change Password</h4>
-            <div class="text">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label for="old password" class="col-sm-2 control-label">Old Password</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" placeholder="old password" ng-model="old_password" />
-                        </div>
+        <div class="modal-footer">
+            <span ng-if="error" class="error-msg">{{errorMsg}}</span>
+            <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="log_in(username,password)">Confirm</button>
+        </div>
+    </div>
+    <!--log out modal-->
+    <div id="logout" class="modal-demo">
+        <button type="button" class="close" onclick="Custombox.close();">
+            <span>×</span>
+            <span class="sr-only">Close</span>
+        </button>
+        <h4 class="title">Log Out</h4>
+        <div class="text">
+            <h3>Are You Sure?</h3>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="log_out()">Confirm</button>
+        </div>
+    </div>
+    <!--change password modal-->
+    <div id="cgPwd" class="modal-demo">
+        <button type="button" class="close" onclick="Custombox.close();">
+            <span>×</span>
+            <span class="sr-only">Close</span>
+        </button>
+        <h4 class="title">Change Password</h4>
+        <div class="text">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="old password" class="col-sm-2 control-label">Old Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" placeholder="old password" ng-model="old_password" />
                     </div>
-                    <div class="form-group">
-                        <label for="new password" class="col-sm-2 control-label">New Password</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password" />
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="new password" class="col-sm-2 control-label">New Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="col-sm-10 form-control" placeholder="new password" ng-model="new_password" />
                     </div>
-                    <div class="form-group">
-                        <label for="confirm password" class="col-sm-2 control-label">Confirm Password</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password" />
-                        </div>
-
+                </div>
+                <div class="form-group">
+                    <label for="confirm password" class="col-sm-2 control-label">Confirm Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="col-sm-10 form-control" placeholder="confirm password" ng-model="re_password" />
                     </div>
-                </form>
 
-            </div>
+                </div>
+            </form>
+        </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="change_password(old_password,new_password,re_password)">Confirm</button>
-            </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" onclick="Custombox.close();">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="change_password(old_password,new_password,re_password)">Confirm</button>
         </div>
     </div>
 
@@ -272,4 +304,5 @@
     <script src="./js/angular-ui-bootstrap.js"></script>
     <script src="./js/searchList.js"></script>
 </body>
+
 </html>
