@@ -21,9 +21,10 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 	$scope.currentPage = 1;
 	$scope.sessionMin = 1;
 	$scope.sessionMax = cacheNum;
-	$scope.maxSize = 8;
+	$scope.maxSize = 7;
 	$scope.perPage = 5;
-    $scope.bigTotalItems = 10000;
+	$scope.bigTotalItems = 10000;
+	$scope.noMore = false;
 	
 	$scope.tags = ['Community Labs','Entrepreneurship','Environment','Food & Energy','Foundational Research','Health & Medicine','High School','Information Processing','Manufacturing','New Application','Policy & Practices'];
 	$scope.chosen = {};
@@ -95,7 +96,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 					$http(opt).success(function(data){
 						if(data.successful){
 							$scope.sessionMax = $scope.sessionMin - 1;
-							$scope.sessionMin = $scope.sessionMin - cacheNums;
+							$scope.sessionMin = $scope.sessionMin - cacheNum;
 							console.log("min:", $scope.sessionMin, " max:", $scope.sessionMax);
 						}
 					});
@@ -120,6 +121,14 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 					}
 					return team;
 				});
+				if ($scope.teams.length == 0) {
+					$scope.noMore = true;
+					$scope.bigTotalItems = $scope.perPage*$scope.currentPage;
+					console.log($scope.bigTotalItems);
+				} else {
+					$scope.noMore = false;
+				}
+
 				$scope.goToTop();
 			} else {
 				console.log(data.error);

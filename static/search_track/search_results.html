@@ -99,7 +99,8 @@
                         <em class="con3">{{tag}}</em>
                     </span>
                 </div>
-                <div style="min-height: 600px">
+                <div ng-if="noMore" style="min-height: 600px"><h1 style="margin-top:30%; color:#C0C0C0">No More!</h1></div>
+                <div style="min-height: 600px" ng-if="!noMore">
                     <div ng-repeat="team in teams" ng-click="getDetail(team._id)" ng-mouseenter="show = true" ng-mouseleave="show = false">
                         <a>
                             <div class="list-div">
