@@ -144,6 +144,7 @@ def getRelatedCompound(request):
 			}
 		}
 	except Exception as e:
+		print(e.args)
 		result = {
 			'successful': False,
 			'error': {
