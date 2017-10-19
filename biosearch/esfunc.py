@@ -41,7 +41,7 @@ def getdetailbyid(_id, keyword):
     _searched = es.search(index='team_wiki', doc_type='wiki',body=_query)
     return _searched['hits']['hits'][0]
 
-def getanswer(_keyword, _track1, page):
+def getanswer(_keyword, _track1, page, teamIds):
     _query = {
         "from": (page-1)*2,
         "size": 10,
@@ -93,6 +93,19 @@ def getanswer(_keyword, _track1, page):
         _query["query"]["bool"]["filter"] = [{
                     "terms": {
                         "track": _track1
+                    }
+                }]
+    if teamIds:
+        if _query["query"]["bool"]["filter"]:
+            _query["query"]["bool"]["filter"].append({
+                "terms": {
+                    "_id": teamIds
+                }
+             })
+        else:
+            _query["query"]["bool"]["filter"] = [{
+                    "terms": {
+                        "_id": teamIds
                     }
                 }]
     _searched = es.search(index='team_wiki', doc_type='wiki',body=_query)
@@ -147,22 +160,7 @@ def filter(searchsort):
             'abstract':abstract,
             'highlight': highlight
         }
-        # group = json.loads(i['_source']['group'])
-        # for field in group.keys():
-        #     if (groupDict.get(field) < group.get(field)):
-        #         groupDict[field] = group.get[field]
-        # groups = list()
-        # groups = [['123',0.5]]
-        # for (key, value) in groupDict.items():
-        #     groups.append([key, value])
-        # print (tmp)
         teamList.append(tmp)
-    # groups.sort(key = lambda x:x[1], reverse=True)
-    # groups = groups[:8]
-    # result = {
-    #     'teamList': teamList,
-    #     'groups': groups
-    # }
     return teamList
 
 def biosort(searched):
@@ -365,14 +363,3 @@ def getClassification(classification, keyword):
     _searched = es.search(index='team_wiki', doc_type='wiki',body=query)
     teams = filter(_searched["hits"]["hits"])
     return teams
-
-# def getLdaResult(tracks):
-#     ldaResult = list()
-#     for track in tracks:
-#         themes = LdaKeyword.objects.filter(track=track)
-#         for theme in themes:
-#             ldaResult.append({
-#                 "theme_name": theme.theme_name,
-#                 "keyword": theme.keyword
-#             })
-#     return ldaResult

@@ -25,7 +25,10 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 	$scope.perPage = 5;
 	$scope.bigTotalItems = 10000;
 	$scope.noMore = false;
+	$scope.classify = false;
 	
+	$scope.groups = [];
+	$scope.theme = null;
 	$scope.tags = ['Community Labs','Entrepreneurship','Environment','Food & Energy','Foundational Research','Health & Medicine','High School','Information Processing','Manufacturing','New Application','Policy & Practices'];
 	$scope.chosen = {};
 	$scope.tags.forEach(tag => {
@@ -40,7 +43,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 	}
 
     $scope.pageChanged = function(page) {
-		if (page <= $scope.sessionMax && page >= $scope.sessionMin) {
+		if (!$scope.classify && page <= $scope.sessionMax && page >= $scope.sessionMin) {
 			var opt = {
 				url: '/biosearch/turnPage',
 				method: 'POST',
@@ -56,11 +59,13 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 				data: {
 					page: page,
 					keyword: $scope.key_word,
-					track: $scope.track
+					track: $scope.track,
+					theme: $scope.theme
 				},
 				headers: { 'Content-Type': 'application/json'}
 			};
 		}
+		$scope.classify = false;
 		$http(opt).success(function(data){
 			if(data.successful){
 				if (page == $scope.sessionMax) {
@@ -81,7 +86,6 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 							console.log("min:", $scope.sessionMin, " max:", $scope.sessionMax);
 						}
 					});
-					
 				} else if (page == $scope.sessionMin) {
 					var opt = {
 						url: '/biosearch/getCache',
@@ -159,6 +163,8 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 	}
 
 	$scope.conChoice = function(tag) {
+		$scope.currentPage = 1;
+		$scope.theme = null;
 		$scope.chosen[tag] = !$scope.chosen[tag];
 		if ($scope.chosen[tag]) {
 			$scope.track.push(tag);
@@ -170,6 +176,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 		$('.my-svg').shCircleLoader();
 		$('#hide-wrapper').addClass('myHide');
 		$('.my-svg').addClass('my-svg');
+		$scope.getGroup();
 		$scope.getList();
 	}
 
@@ -319,6 +326,12 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 		window.location.href = url;
 	}
 
+	$scope.classify = function(theme) {
+		$scope.theme = theme;
+		$scope.classify = true;
+		$scope.currentPage = 1;
+		$scope.pageChanged(1);
+	}
 	
 	$scope.getDetail = function(id) {
 		url = `./search_query.html?id=${escape(id)}&keyword=${escape($scope.key_word)}`;
@@ -333,7 +346,8 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 			data: {
 				track: $scope.track,
 				keyword: $scope.key_word,
-				page: 1
+				page: 1,
+				theme: $scope.theme
 			},
 			headers: { 'Content-Type': 'application/json'}
 		};
@@ -359,6 +373,14 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 					return team;
 				});
 				$scope.words = data.data.suggestions;
+				if ($scope.teams.length == 0) {
+					$scope.noMore = true;
+					$scope.bigTotalItems = $scope.perPage*$scope.currentPage;
+					console.log($scope.bigTotalItems);
+				} else {
+					$scope.noMore = false;
+				}
+
 			}
 		});
 	}
@@ -391,6 +413,22 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 		window.location.href=url;
 	}
 
+	$scope.getGroup = function() {
+		var opt = {
+			url: '/biosearch/getGroup',
+			method: 'POST',
+			data: {
+				track: $scope.track
+			},
+			headers: { 'Content-Type': 'application/json'}
+		};
+		$http(opt).success(function(data){
+			if(data.successful){
+				$scope.groups = data.data.groups;
+			}
+		});
+	}
+
 	//初始化
 	$scope.init = function(){
 		var loginSession = sessionStorage.getItem('login');
@@ -418,6 +456,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 			$scope.track = [$scope.track];
 		}
 		$scope.getList();
+		$scope.getGroup();
 		$scope.maxPage = cacheNum;
 
 		$('.my-svg').shCircleLoader();

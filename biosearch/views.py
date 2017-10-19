@@ -3,8 +3,9 @@ import json
 import math
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .esfunc import *
-from .models import Wiki
+from .models import *
 from .suggestion import *
+from .theme import *
 
 numOfEachPage = 5
 cacheNum = 2
@@ -21,18 +22,21 @@ def randomPage(request):
         track.append('NotSpecified')
         page = data.get('page')
         suggestions = list()
-        groups = list()
+        theme = data.get("theme")
+        print(track, theme)
+        teamIds = None
+        if theme:
+            teamIds = getThemeTeam(track, theme)
+        print(teamIds)
         if page == 1 :
             r = Retrieve()
             suggestions = r.retrieve(keyword)
-            # groups = getLdaResult(track)
-        teamList = getanswer(keyword, track, page)
+        teamList = getanswer(keyword, track, page, teamIds)
         teams.extend(teamList)
         request.session['answers'] = teams
         result = {
             'successful': True,
             'data': {
-                'groups': groups,
                 'suggestions': suggestions,
                 'content': teams[0:numOfEachPage]
             }
@@ -87,7 +91,7 @@ def getCache(request):
         keyword = data.get('keyword')
         track = data.get('track')
         track.append('NotSpecified')
-        teamList = getanswer(keyword, track, page)
+        teamList = getanswer(keyword, track, page, None)
         request.session['answers'] = teamList
         result = {
             'successful': True
@@ -144,24 +148,6 @@ def getDetail(request):
     finally:
         return HttpResponse(json.dumps(result), content_type='application/json')
 
-
-def classify(request):
-    body = request.body
-    body = body.decode('utf-8')
-    data = json.loads(body)
-    keyword = data.get("keyword")
-    classification = data["classification"]
-    teamsIds = request.session.get('answers')
-    # teams = getClassification(classification, keyword)
-    result = {
-        'successful': True,
-        'data': {
-            'pageSum':math.ceil(teams.__len__()/numOfEachPage),
-            'content':teams[0:numOfEachPage]
-        }
-    }
-    return HttpResponse(json.dumps(result), content_type='application/json')
-
 def searchPart(request):
     body = request.body
     body = body.decode('utf-8')
@@ -183,6 +169,21 @@ def getOneTeam(request):
         'successful': True,
         'data': {
             'id': id
+        }
+    }
+    return HttpResponse(json.dumps(result), content_type='application/json')
+
+def getGroup(request):
+    body = request.body
+    body = body.decode('utf-8')
+    data = json.loads(body)
+    track = data["track"]
+    print(track)
+    groups = getLdaResult(track)
+    result = {
+        'successful': True,
+        'data': {
+            'groups': groups
         }
     }
     return HttpResponse(json.dumps(result), content_type='application/json')
