@@ -9,7 +9,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "BioDesignVer.settings")
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 
-from biosearch.models import SimplePart as SimplePart
+from biosearch.models import Ldaresult as Ldaresult
 
 connect = MySQLdb.connect(
     host='localhost',
@@ -25,15 +25,15 @@ def mainFunc():
     start_pos = 0
     step = 100
     end_pos = start_pos + step
-    total = SimplePart.objects.count()
+    total = Ldaresult.objects.count()
     print('process started')
     while total > 0:
-        parts_list = SimplePart.objects.all()[start_pos:end_pos]
+        resultList = Ldaresult.objects.all()[start_pos:end_pos]
         start_pos += step
         end_pos += step
         total -= step
-        for part in parts_list:
-            print(part.part_name)
+        for result in resultList:
+            print(result.tracks)
             teamStr = part.team
             if teamStr != '':
                 teams = teamStr.split(',')

@@ -43,6 +43,11 @@ class LdaResult(models.Model):
     teams_3 = models.TextField(null=True)
     keywords_4 = models.CharField(max_length=300)
     teams_4 = models.TextField(null=True)
+    teamIds_0 = models.TextField(null=True)
+    teamIds_1 = models.TextField(null=True)
+    teamIds_2 = models.TextField(null=True)
+    teamIds_3 = models.TextField(null=True)
+    teamIds_4 = models.TextField(null=True)
 
     def __str__(self):
         return self.tracks

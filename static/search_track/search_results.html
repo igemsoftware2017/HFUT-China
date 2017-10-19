@@ -172,6 +172,21 @@
             </div>
         </div>
 
+        <div class="right">
+            <div class="panel-group" id="classification" role="tablist" aria-multiselectable="true">
+                <h3>classification</h3>
+                <div class="panel panel-default" ng-repeat="group in groups track by $index">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#classification" href="#{{$index}}" aria-expanded="false" aria-controls="DI">theme{{$index}}</a>
+                        </h4>
+                    </div>
+                    <div id="{{$index}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body" ng-click="classify($index)" style="cursor:pointer">{{group}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="right" style="display:none">
             <div class="1st" style="margin-top: 10px">
                 <div class="rightheader">kuangkuang1</div>
