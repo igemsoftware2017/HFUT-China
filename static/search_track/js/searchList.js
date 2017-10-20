@@ -326,7 +326,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 		window.location.href = url;
 	}
 
-	$scope.classify = function(theme) {
+	$scope.classifies = function(theme) {
 		$scope.theme = theme;
 		$scope.classify = true;
 		$scope.currentPage = 1;
