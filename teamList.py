@@ -43,7 +43,7 @@ def updateIds(teamStr):
     return teamId;
 
 def mainFunc():
-    start_pos = 0
+    start_pos = 198
     step = 100
     end_pos = start_pos + step
     total = LdaResult.objects.count()

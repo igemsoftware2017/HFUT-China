@@ -172,6 +172,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 			var position = $scope.track.indexOf(tag);
 			$scope.track.splice(position, 1);
 		}
+		$scope.classify = false;
 		console.log($scope.chosen);
 		$('.my-svg').shCircleLoader();
 		$('#hide-wrapper').addClass('myHide');
