@@ -132,7 +132,10 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 				} else {
 					$scope.noMore = false;
 				}
-
+				
+				$('#svg').shCircleLoader('destroy');
+				$('#hide-wrapper').removeClass('myHide');
+				$('#svg').removeClass('my-svg');
 				$scope.goToTop();
 			} else {
 				console.log(data.error);
@@ -174,9 +177,9 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 		}
 		$scope.classify = false;
 		console.log($scope.chosen);
-		$('.my-svg').shCircleLoader();
 		$('#hide-wrapper').addClass('myHide');
-		$('.my-svg').addClass('my-svg');
+		$('#svg').addClass('my-svg');
+		$('#svg').shCircleLoader();
 		$scope.getGroup();
 		$scope.getList();
 	}
@@ -332,6 +335,10 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 		$scope.classify = true;
 		$scope.currentPage = 1;
 		$scope.pageChanged(1);
+		
+		$('#hide-wrapper').addClass('myHide');
+		$('#svg').addClass('my-svg');
+		$('#svg').shCircleLoader();
 	}
 	
 	$scope.getDetail = function(id) {
@@ -353,9 +360,9 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 			headers: { 'Content-Type': 'application/json'}
 		};
 		$http(opt).success(function(data){
-			$('.my-svg').shCircleLoader('destroy');
+			$('#svg').shCircleLoader('destroy');
 			$('#hide-wrapper').removeClass('myHide');
-			$('.my-svg').removeClass('my-svg');
+			$('#svg').removeClass('my-svg');
 			if(data.successful){
 				$scope.teams = data.data.content.map(function(team){
 					team.highlight.forEach(function(hightlight){
@@ -460,7 +467,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 		$scope.getGroup();
 		$scope.maxPage = cacheNum;
 
-		$('.my-svg').shCircleLoader();
+		$('#svg').shCircleLoader();
 	}
 	$scope.init();
 });
