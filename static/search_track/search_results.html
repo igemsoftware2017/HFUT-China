@@ -182,7 +182,11 @@
                         </h4>
                     </div>
                     <div id="{{$index}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body" ng-click="classify($index)" style="cursor:pointer">{{group}}</div>
+                        <div class="panel-body" style="cursor:pointer">
+                            <div  ng-click="classifies($index)" >
+                                {{group}}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
