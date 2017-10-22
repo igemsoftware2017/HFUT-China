@@ -12,6 +12,8 @@ def search_relation(key_word):
 	try:
 		search_result = collection.find_one({"main_gene":key_word })
 		gene_realation = {}
+		print(key_word)
+		print(search_result)
 		gene_realation['name'] = search_result['main_gene']
 		gene_realation['children'] = search_result['related_gene']
 		return gene_realation 

@@ -144,11 +144,13 @@ def getRelatedGene(request):
 		realated_genes = search_relation(gene_name)
 		if realated_genes:
 			if len(realated_genes['children']) > 10:
+				print(realated_genes)
 				realated_genes['children'].sort(key=lambda d:float(d['relations']), reverse=True)
-			realated_genes['children'] = realated_genes['children'][:10]
+				realated_genes['children'] = realated_genes['children'][:10]
+			print(realated_genes)
 		else: 
 			realated_genes['main_gene'] = gene_name
-			gene_realation['children'] = list()
+			realated_genes['children'] = list()
 		result = {
 			'successful': True,
 			'data': realated_genes,
