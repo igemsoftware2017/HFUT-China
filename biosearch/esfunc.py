@@ -51,6 +51,8 @@ def getanswer(_keyword, _track1, page, teamIds):
                         "multi_match":{
                             "query": _keyword,
                             "fields": [
+                                "year",
+                                "team_name",
                                 "background",
                                 "description",
                                 "design",
@@ -78,6 +80,8 @@ def getanswer(_keyword, _track1, page, teamIds):
             "post_tags" : ["</b></font>"],
             "fragment_size" : 80,
             "fields": {
+                "year": {},
+                "team_name": {},
                 "background":{},    
                 "description":{},
                 "design":{},
@@ -285,81 +289,3 @@ def getPartDetail(_id):
     _searched = es.search(index="biodesigners", doc_type="parts", body=query)
     partDetail = _searched["hits"]["hits"][0]["_source"]
     return partDetail
-
-def getClassification(classification, keyword):
-    query = dict()
-    if keyword:
-        query = {
-            "query": {
-                "bool": {
-                    "filter": {
-                        "terms": {
-                            "_id": teamIds
-                        }
-                    },
-                    "must":[{
-                            "match":{
-                                "classification": {
-                                    "query": classification.join(' '),
-                                    "operator": "and"
-                                }
-                            }
-                        }, {
-                            "multi_match":{
-                                "query": keyword,
-                                "fields": [
-                                    "background",
-                                    "description",
-                                    "design",
-                                    "human_practice",
-                                    "modeling",
-                                    "protocol",
-                                    "result",
-                                    "keywords"
-                                ],
-                                "fuzziness" : "AUTO"
-                            }
-                        }
-                    ]
-                }
-            },
-            "highlight": {
-                "pre_tags" : ["<font color='#f35762'><b>"],
-                "post_tags" : ["</b></font>"],
-                "fragment_size" : 80,
-                "fields": {
-                    "background":{},
-                    "description":{},
-                    "design":{},
-                    "human_practice":{},
-                    "modeling":{},
-                    "protocol":{},
-                    "result":{},
-                    "keywords":{}
-                }
-            }
-        }
-    else:
-        query = {
-            "query": {
-                "bool": {
-                    "filter": {
-                        "terms": {
-                            "_id": teamIds
-                        }
-                    },
-                    "must":[{
-                            "match":{
-                                "classification": {
-                                    "query": classification.join(' '),
-                                    "operator": "and"
-                                }
-                            }
-                        }
-                    ]
-                }
-            }
-        }
-    _searched = es.search(index='team_wiki', doc_type='wiki',body=query)
-    teams = filter(_searched["hits"]["hits"])
-    return teams
