@@ -148,7 +148,7 @@ def getRelatedGene(request):
 			realated_genes['children'] = realated_genes['children'][:10]
 		else: 
 			realated_genes['main_gene'] = gene_name
-			gene_realation['children'] = list()
+			realated_genes['children'] = list()
 		result = {
 			'successful': True,
 			'data': realated_genes,
