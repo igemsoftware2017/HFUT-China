@@ -15,7 +15,7 @@ connect = MySQLdb.connect(
     host='localhost',
     port=3306,
     user='root',
-    passwd='qaz123',
+    passwd='',
     db='wiki'
 )
 cur = connect.cursor()
