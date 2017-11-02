@@ -1,8 +1,8 @@
-# BioDesigner Coral - IGEM HFUT Software 2017
+# BioDesigner Dolphin - IGEM HFUT Software 2017
 
 ## System Introduction
 
-For biologists, it is quite frustrating to find suitable BioBricks and collect useful genetic information in large volumes of literature. Now with BioDesigner Coral, biologists can search BioBricks, design with the help of recommendations and   obtain genetic information of BioBricks in a more comprehensive way. It can analyze user's design, then give recommendations about parts they may need. Through analysis of massive literature, we find useful information about genes, BioBricks, and the relations between genes. All genetic information will be exhibited in a network graph through visualization method to help users understand and use them better. Clicking on the nodes in the network, which represent genes or BioBricks, users can obtain relatively accurate information about related genes, corresponding protein, and relevant literature. We hope BioDesigner Coral can relieve the arduous work in labs and give inspirations to synthetic biologists.
+In iGEM, competitors always have a hard time finding helpful information. However, with the help of BioDesigner Dolphin now, competitors do not have to worry about the problem mentioned above and they just need to type what they are looking for into the searching box of BioDesigner, then the results will be exhibited as expected. What’s more, BioDesigner also integrates a design panel in which competitors can design their own biobricks conveniently. To further spark their inspiration, we also provide the recommended biobricks for users. Users can also find a gene relationship shown in a big relationship map in BioDesigner which can help to find relationships among genes quickly and easily. Chemical compounds and relationships among them can also be retrieved using BioDesigner. Papers and diseases related to these compounds are also presented. We sincerely hope BioDesigner Dolphin can help iGEMers and synthetic biologists.
 
 ## Structure of the project
 
