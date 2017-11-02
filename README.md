@@ -34,24 +34,26 @@ In iGEM, competitors always have a hard time finding helpful information. Howeve
 
 ## You can install the software in these two way
 
-###1. Install by docker
+### 1. Install by docker
 
-+ Please make sure that you have installed docker and run it fisrt.
++ Please make sure that you have installed docker and run it fisrt:
+
         If you do not have docker or docker-compose, please go to https://www.docker.com/ this page and install theme first.
 
-+ run a new container
-        $ git pull (the url of docker)
-        $ cd docker
-        $ sudo docker-compose up --build
++ run a new container:
+
+        git pull (the url of docker)
+        cd docker
+        sudo docker-compose up --build
 
 + Enter http://127.0.0.1 in a browser to see the application running.
 
-###2. run the code cloned from github
+### 2. run the source code cloned from github
 
 + Django install: 
 
         pip install Django==$DJANGO_VERSION
-	
+    
 + Mysql-python install:
 
         pip install MySQL-python
