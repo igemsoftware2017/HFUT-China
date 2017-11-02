@@ -42,7 +42,7 @@ In iGEM, competitors always have a hard time finding helpful information. Howeve
 
 + run a new container:
 
-        git pull (the url of docker)
+        download the docker
         cd docker
         sudo docker-compose up --build
 
