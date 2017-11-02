@@ -31,22 +31,46 @@ In iGEM, competitors always have a hard time finding helpful information. Howeve
 + Pillow
 + pymongo
 
-## Install docker
+
+## You can install the software in these two way
+
+###1. Install by docker
 
 + Please make sure that you have installed docker and run it fisrt.
+        If you do not have docker or docker-compose, please go to https://www.docker.com/ this page and install theme first.
 
-+ $ sudo apt-get update
-+ $ sudo apt-get install docker
++ run a new container
+        $ git pull (the url of docker)
+        $ cd docker
+        $ sudo docker-compose up --build
 
-## install docker-compose
++ Enter http://127.0.0.1 in a browser to see the application running.
 
-+ $ sudo curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-+ $ sudo chmod +x /usr/local/bin/docker-compose
+###2. run the code cloned from github
 
-## run a new container
++ Django install: 
 
-+ $ git pull (the url of docker)
-+ $ cd docker
-+ $ sudo docker-compose up --build
+        pip install Django==$DJANGO_VERSION
+	
++ Mysql-python install:
 
-### Enter http://127.0.0.1 in a browser to see the application running.
+        pip install MySQL-python
+	
++ Elasticsearch install & run:
+
+        wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.2.zip
+        unzip elasticsearch-1.7.2.zip
+        ./elasticsearch-1.7.2/bin/elasticsearch -d
+	
++ Pillow
+
+        pip install pillow
+	
++ Database import
+        mysql -e 'CREATE DATABASE biodesigner'
+        python manage.py syncdb --noinput
+        mysql -e 'source xxx.sql' -u username --password=password biodesigner;
+        sql source file can downloads from github
+	
++ Run server
+        python manage.py runserver
