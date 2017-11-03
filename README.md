@@ -38,7 +38,7 @@ In iGEM, competitors always have a hard time finding helpful information. Howeve
 
 + Please make sure that you have installed docker and run it fisrt:
 
-        If you do not have docker or docker-compose, please go to https://www.docker.com/ this page and install theme first.
+        If you do not have docker or docker-compose, please go to https://www.docker.com/ this page and install them first.
 
 + run a new container:
 
