@@ -36,11 +36,13 @@ In iGEM, competitors always have a hard time finding helpful information. Howeve
 
 ### 1. Install by docker
 
-+ Please make sure that you have installed docker and run it fisrt:
++ Make sure that you have installed docker:
 
         If you do not have docker or docker-compose, please go to https://www.docker.com/ this page and install them first.
 
-+ run a new container:
++ Run it.
+
++ Run a new container:
 
         download the docker
         cd docker
@@ -48,7 +50,7 @@ In iGEM, competitors always have a hard time finding helpful information. Howeve
 
 + Enter http://127.0.0.1 in a browser to see the application running.
 
-### 2. run the source code cloned from github
+### 2. Run the source code cloned from github
 
 + Django install: 
 
@@ -64,7 +66,7 @@ In iGEM, competitors always have a hard time finding helpful information. Howeve
         unzip elasticsearch-1.7.2.zip
         ./elasticsearch-1.7.2/bin/elasticsearch -d
 	
-+ Pillow
++ Pillow install
 
         pip install pillow
 	
