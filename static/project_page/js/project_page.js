@@ -250,7 +250,7 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 			if (data.successful) {
 				$scope.error = false;
 				localStorage.setItem('login', JSON.stringify(data.data.token));
-				window.location.href = "../project_page/project_page.html";
+				window.location.reload();
 			} else {
 				$scope.error = true;
 				if (data.error.id == '1') {
@@ -327,7 +327,7 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 			Custombox.close();
    			if (data.successful) {
 				localStorage.removeItem('login');
-   				window.location.href = "../search_track/search_index.html";
+				window.location.reload();
    			} else{
 				showToast($mdToast, "Something Strange Happened!!!");
    			}

@@ -264,7 +264,7 @@ query.controller('queryController', function ($scope, $http,$location, $sce) {
 			Custombox.close();
    			if (data.successful) {
 				localStorage.removeItem('login');
-   				window.location.href = "../search_track/search_index.html";
+				window.location.reload();
    			} else{
 				showToast($mdToast, "Something Strange Happened!!!");
    			}

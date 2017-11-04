@@ -130,7 +130,9 @@ def login(request):
 
 def logout(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body
+		body = body.decode('utf-8')
+		data = json.loads(body)
 		customerToken = data['token']
 		token = Token.objects.get(token=customerToken)
 		token.delete()
@@ -155,7 +157,9 @@ def logout(request):
 
 def changePassword(request):
 	try:
-		data = json.loads(request.body)
+		body = request.body
+		body = body.decode('utf-8')
+		data = json.loads(body)
 		user = User()
 		token = Token()
 		token = Token.objects.get(token=data['token'])
