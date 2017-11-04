@@ -144,7 +144,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
     };
 
     $scope.getGeneInfo = function (name) {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/design/getParts',
 			method: 'POST',
@@ -206,7 +206,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 		$http(opt).success(function (data) {
 			if (data.successful) {
 				$scope.error = false;
-				sessionStorage.setItem('login', JSON.stringify(data.data.token));
+				localStorage.setItem('login', JSON.stringify(data.data.token));
 				window.location.reload();
 			} else {
 				$scope.error = true;
@@ -232,7 +232,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
    	 		showToast($mdToast, "Please Complete Your Info");
    		 	return;
    	 	} else {
-   			var login_token = JSON.parse(sessionStorage.getItem('login'));
+   			var login_token = JSON.parse(localStorage.getItem('login'));
    			var opt = {
    				url: '/accounts/changePassword',
    				method: 'POST',
@@ -264,7 +264,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 	}
 	//确认登出
 	$scope.log_out = function(){
-   		var login_token = JSON.parse(sessionStorage.getItem('login'));
+   		var login_token = JSON.parse(localStorage.getItem('login'));
    		var opt = {
    			url: '/accounts/logout',
    			method: 'POST',
@@ -276,8 +276,8 @@ searchList.controller('searchListController',function($scope, $http, $location, 
    		$http(opt).success(function(data){
 			Custombox.close();
    			if (data.successful) {
-				sessionStorage.removeItem('login');
-   				window.location.href = "../login_register/login_register.html";
+				localStorage.removeItem('login');
+   				window.location.href = "../search_track/search_index.html";
    			} else{
 				showToast($mdToast, "Something Strange Happened!!!");
    			}
@@ -439,7 +439,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 
 	//初始化
 	$scope.init = function(){
-		var loginSession = sessionStorage.getItem('login');
+		var loginSession = localStorage.getItem('login');
 		if (loginSession) {
 			$scope.isLogin = true;
 		}

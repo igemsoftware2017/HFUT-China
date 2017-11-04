@@ -31,7 +31,7 @@ bio_pro.controller('relationshipDetailController', function ($scope, $http, $loc
 		$http(opt).success(function (data) {
 			if (data.successful) {
 				$scope.error = false;
-				sessionStorage.setItem('login', JSON.stringify(data.data.token));
+				localStorage.setItem('login', JSON.stringify(data.data.token));
 				window.location.href = "../project_page/project_page.html";
 			} else {
 				$scope.error = true;
@@ -64,7 +64,7 @@ bio_pro.controller('relationshipDetailController', function ($scope, $http, $loc
 			showToast($mdToast, "Please Complete Your Info");
 			return;
 		} else {
-			var login_token = JSON.parse(sessionStorage.getItem('login'));
+			var login_token = JSON.parse(localStorage.getItem('login'));
 			var opt = {
 				url: '/accounts/changePassword',
 				method: 'POST',
@@ -96,7 +96,7 @@ bio_pro.controller('relationshipDetailController', function ($scope, $http, $loc
 	}
 	//确认登出
 	$scope.log_out = function () {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/accounts/logout',
 			method: 'POST',
@@ -108,8 +108,8 @@ bio_pro.controller('relationshipDetailController', function ($scope, $http, $loc
 		$http(opt).success(function(data){
 			Custombox.close();
    			if (data.successful) {
-				sessionStorage.removeItem('login');
-   				window.location.href = "../login_register/login_register.html";
+				localStorage.removeItem('login');
+   				window.location.href = "../search_track/search_index.html";
    			} else{
 				showToast($mdToast, "Something Strange Happened!!!");
    			}
@@ -133,7 +133,7 @@ bio_pro.controller('relationshipDetailController', function ($scope, $http, $loc
 	}
 
 	$scope.init = function () {
-		var loginSession = sessionStorage.getItem('login');
+		var loginSession = localStorage.getItem('login');
 		if (loginSession) {
 			console.log(loginSession);
 			console.log('不为空');
@@ -145,7 +145,7 @@ bio_pro.controller('relationshipDetailController', function ($scope, $http, $loc
 		}
 		var source_name = sessionStorage.getItem("source_name");
 		var target_name = sessionStorage.getItem("target_name");
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/geneRelationship/getThreeSentences',
 			method: 'POST',

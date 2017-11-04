@@ -33,7 +33,7 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 
 	//发送http请求从后台数据库导入项目列表到变量project_info中
 	$scope.init = function () {
-		var loginSession = sessionStorage.getItem('login');
+		var loginSession = localStorage.getItem('login');
 		if (loginSession) {
 			console.log(loginSession);
 			$scope.isLogin = false;
@@ -41,7 +41,7 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 		else {
 			$scope.isLogin = true;
 		}
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/home/getUserProject',
 			method: 'POST',
@@ -69,7 +69,7 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 
 	//发送http请求获取下标为index对应的project_info的所有分支
 	$scope.getDevices = function (index, id) {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/home/getProjectDevices',
 			method: 'POST',
@@ -90,7 +90,7 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 		$scope.length = len;
 		sessionStorage.setItem('chain_id', JSON.stringify(device_id));
 		sessionStorage.setItem('project_id', JSON.stringify(project_id));
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/design/getResultImage',
 			method: 'POST',
@@ -117,7 +117,7 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 
 	//删除分支
 	$scope.delete_device = function (index, device_id, project_id) {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/home/deleteProjectDevice',
 			method: 'POST',
@@ -139,7 +139,7 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 	}
 	//新建项目模态框
 	$scope.showNewProjectDialog = function () {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		if (!login_token) {
 			showToast($mdToast, "Please login!");
 			return;
@@ -164,7 +164,7 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 	}
 	//确认新建项目
 	$scope.create_project = function (new_project_name, new_project_track) {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/home/createNewProject',
 			method: 'POST',
@@ -188,7 +188,7 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 	}
 	//新建分支模态框
 	$scope.showNewDeviceDialog = function (project_id) {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		if (!login_token) {
 			showToast($mdToast, "Please login!");
 			return;
@@ -201,7 +201,7 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 	}
 	//确认新建分支
 	$scope.create_device = function (new_device_name) {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var project_id = JSON.parse(sessionStorage.getItem('project_id'));
 		var project_index = JSON.parse(sessionStorage.getItem('project_index'));
 		console.log(project_id);
@@ -249,7 +249,7 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 		$http(opt).success(function (data) {
 			if (data.successful) {
 				$scope.error = false;
-				sessionStorage.setItem('login', JSON.stringify(data.data.token));
+				localStorage.setItem('login', JSON.stringify(data.data.token));
 				window.location.href = "../project_page/project_page.html";
 			} else {
 				$scope.error = true;
@@ -282,7 +282,7 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 			showToast($mdToast, "Please Complete Your Info");
 			return;
 		} else {
-			var login_token = JSON.parse(sessionStorage.getItem('login'));
+			var login_token = JSON.parse(localStorage.getItem('login'));
 			var opt = {
 				url: '/accounts/changePassword',
 				method: 'POST',
@@ -314,7 +314,7 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 	}
 	//确认登出
 	$scope.log_out = function () {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/accounts/logout',
 			method: 'POST',
@@ -326,8 +326,8 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 		$http(opt).success(function(data){
 			Custombox.close();
    			if (data.successful) {
-				sessionStorage.removeItem('login');
-   				window.location.href = "../login_register/login_register.html";
+				localStorage.removeItem('login');
+   				window.location.href = "../search_track/search_index.html";
    			} else{
 				showToast($mdToast, "Something Strange Happened!!!");
    			}
@@ -339,7 +339,7 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 	}
 
 	$scope.jumpToDesign = function () {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		if (login_token) {
 			window.location.href = "../design/design.html";
 		} else {
@@ -357,7 +357,7 @@ bio_pro.controller('projectController', function ($scope, $http, $location, $mdT
 
 	//删除项目
 	$scope.delete_project = function (index, id) {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/home/deleteProject',
 			method: 'POST',

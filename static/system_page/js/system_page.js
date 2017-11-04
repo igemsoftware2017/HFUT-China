@@ -2,7 +2,7 @@ var system = angular.module('systemApp', ['ngMaterial', 'ngAnimate']);
 
 system.controller('systemController', function ($scope, $http, $location, $mdToast) {
 	$scope.init = function() {
-		var loginSession = sessionStorage.getItem('login');
+		var loginSession = localStorage.getItem('login');
 		if (loginSession) {
 			console.log(loginSession);
 			console.log('不为空');
@@ -65,7 +65,7 @@ system.controller('systemController', function ($scope, $http, $location, $mdToa
 		$http(opt).success(function (data) {
 			if (data.successful) {
 				$scope.error = false;
-				sessionStorage.setItem('login', JSON.stringify(data.data.token));
+				localStorage.setItem('login', JSON.stringify(data.data.token));
 				window.location.href = "../project_page/project_page.html";
 			} else {
 				$scope.error = true;
@@ -98,7 +98,7 @@ system.controller('systemController', function ($scope, $http, $location, $mdToa
 			showToast($mdToast, "Please Complete Your Info");
 			return;
 		} else {
-			var login_token = JSON.parse(sessionStorage.getItem('login'));
+			var login_token = JSON.parse(localStorage.getItem('login'));
 			var opt = {
 				url: '/accounts/changePassword',
 				method: 'POST',
@@ -130,7 +130,7 @@ system.controller('systemController', function ($scope, $http, $location, $mdToa
 	}
 	//确认登出
 	$scope.log_out = function () {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/accounts/logout',
 			method: 'POST',
@@ -142,8 +142,8 @@ system.controller('systemController', function ($scope, $http, $location, $mdToa
 		$http(opt).success(function(data){
 			Custombox.close();
    			if (data.successful) {
-				sessionStorage.removeItem('login');
-   				window.location.href = "../login_register/login_register.html";
+				localStorage.removeItem('login');
+   				window.location.href = "../search_track/search_index.html";
    			} else{
 				showToast($mdToast, "Something Strange Happened!!!");
    			}
@@ -151,7 +151,7 @@ system.controller('systemController', function ($scope, $http, $location, $mdToa
 	}
 
 	$scope.getCompoundResult = function (key_word) {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/system/searchCompound',
 			method: 'POST',
@@ -182,7 +182,7 @@ system.controller('systemController', function ($scope, $http, $location, $mdToa
 	}
 
 	$scope.getCompoundInfo = function (id) {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/system/getCompound',
 			method: 'POST',
@@ -208,7 +208,7 @@ system.controller('systemController', function ($scope, $http, $location, $mdToa
 	}
 
 	$scope.getGeneInfo = function (id) {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/system/getGene',
 			method: 'POST',
@@ -249,7 +249,7 @@ system.controller('systemController', function ($scope, $http, $location, $mdToa
 		});
 		$(".runLoad").css("top", $(window).height() * 0.35);
 
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/system/getRelatedCompound',
 			method: 'POST',

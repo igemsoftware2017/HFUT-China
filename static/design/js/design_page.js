@@ -52,7 +52,7 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 
 	$scope.$watchCollection("chain_info", function (newVal, oldVal, scope) {
 
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var chain_id = JSON.parse(sessionStorage.getItem('chain_id'));
 		var project_id = JSON.parse(sessionStorage.getItem('project_id'));
 
@@ -260,7 +260,7 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 		$http(opt).success(function (data) {
 			if (data.successful) {
 				$scope.error = false;
-				sessionStorage.setItem('login', JSON.stringify(data.data.token));
+				localStorage.setItem('login', JSON.stringify(data.data.token));
 				window.location.href = "../project_page/project_page.html";
 			} else {
 				$scope.error = true;
@@ -294,7 +294,7 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 			showToast($mdToast, "Please Complete Your Info");
 			return;
 		} else {
-			var login_token = JSON.parse(sessionStorage.getItem('login'));
+			var login_token = JSON.parse(localStorage.getItem('login'));
 			var opt = {
 				url: '/accounts/changePassword',
 				method: 'POST',
@@ -326,7 +326,7 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 	}
 	//确认登出
 	$scope.log_out = function () {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/accounts/logout',
 			method: 'POST',
@@ -338,8 +338,8 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 		$http(opt).success(function(data){
 			Custombox.close();
    			if (data.successful) {
-				sessionStorage.removeItem('login');
-   				window.location.href = "../login_register/login_register.html";
+				localStorage.removeItem('login');
+   				window.location.href = "../search_track/search_index.html";
    			} else{
 				showToast($mdToast, "Something Strange Happened!!!");
    			}
@@ -347,7 +347,7 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 	}
 	//页面初始化
 	$scope.init = function () {
-		var loginSession = sessionStorage.getItem('login');
+		var loginSession = localStorage.getItem('login');
 		if (loginSession) {
 			console.log(loginSession);
 			console.log('不为空');
@@ -357,7 +357,7 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 			console.log('空');
 			$scope.isLogin = true;
 		}
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var chain_id = JSON.parse(sessionStorage.getItem('chain_id'));
 		var project_id = JSON.parse(sessionStorage.getItem('project_id'));
 		var opt = {
@@ -438,7 +438,7 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 
 	//获得搜索结果
 	$scope.getSearchResult = function (key_word) {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/design/searchParts',
 			method: 'POST',
@@ -477,7 +477,7 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 
 	//获得马尔科夫链
 	$scope.getMrkvChain = function (part_id_before, part_id, position) {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/design/getMRecommend',
 			method: 'POST',
@@ -508,7 +508,7 @@ editPro.controller('designController', function ($scope, $http, $location, $mdTo
 
 	//获得基因信息
 	$scope.getGeneInfo = function (name) {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/design/getParts',
 			method: 'POST',

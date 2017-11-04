@@ -38,7 +38,7 @@ gene.controller('searchController',function($scope, $http, $location, $mdToast){
 		$http(opt).success(function (data) {
 			if (data.successful) {
 				$scope.error = false;
-				sessionStorage.setItem('login', JSON.stringify(data.data.token));
+				localStorage.setItem('login', JSON.stringify(data.data.token));
 				window.location.reload();
 			} else {
 				$scope.error = true;
@@ -59,7 +59,7 @@ gene.controller('searchController',function($scope, $http, $location, $mdToast){
 	}
 	//确认登出
 	$scope.log_out = function(){
-   		var login_token = JSON.parse(sessionStorage.getItem('login'));
+   		var login_token = JSON.parse(localStorage.getItem('login'));
    		var opt = {
    			url: '/accounts/logout',
    			method: 'POST',
@@ -70,9 +70,9 @@ gene.controller('searchController',function($scope, $http, $location, $mdToast){
    		};
    		$http(opt).success(function(data){
    			if (data.successful) {
-				sessionStorage.removeItem('login');
+				localStorage.removeItem('login');
    				Custombox.close();
-   				window.location.href = "../login_register/login_register.html";
+   				window.location.href = "../search_track/search_index.html";
    			} else{
 				Custombox.close();
 				showToast($mdToast, "Something Strange Happened!!!");
@@ -93,7 +93,7 @@ gene.controller('searchController',function($scope, $http, $location, $mdToast){
    	 		showToast($mdToast, "Please Complete Your Info");
    		 	return;
    	 	} else {
-   			var login_token = JSON.parse(sessionStorage.getItem('login'));
+   			var login_token = JSON.parse(localStorage.getItem('login'));
    			var opt = {
    				url: '/accounts/changePassword',
    				method: 'POST',
@@ -153,7 +153,7 @@ gene.controller('searchController',function($scope, $http, $location, $mdToast){
 	}
 	//初始化
 	$scope.init = function(){
-		var loginSession = sessionStorage.getItem('login');
+		var loginSession = localStorage.getItem('login');
 		console.log(loginSession);
 		if (loginSession) {
 			$scope.isLogin = true;

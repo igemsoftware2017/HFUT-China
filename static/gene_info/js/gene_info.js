@@ -60,7 +60,7 @@ gi.controller('geneInfoController', function ($scope, $http) {
 		$http(opt).success(function (data) {
 			if (data.successful) {
 				$scope.error = false;
-				sessionStorage.setItem('login', JSON.stringify(data.data.token));
+				localStorage.setItem('login', JSON.stringify(data.data.token));
 				window.location.href = "../project_page/project_page.html";
 			} else {
 				$scope.error = true;
@@ -93,7 +93,7 @@ gi.controller('geneInfoController', function ($scope, $http) {
 			showToast($mdToast, "Please Complete Your Info");
 			return;
 		} else {
-			var login_token = JSON.parse(sessionStorage.getItem('login'));
+			var login_token = JSON.parse(localStorage.getItem('login'));
 			var opt = {
 				url: '/accounts/changePassword',
 				method: 'POST',
@@ -125,7 +125,7 @@ gi.controller('geneInfoController', function ($scope, $http) {
 	}
 	//确认登出
 	$scope.log_out = function () {
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/accounts/logout',
 			method: 'POST',
@@ -137,8 +137,8 @@ gi.controller('geneInfoController', function ($scope, $http) {
 		$http(opt).success(function(data){
 			Custombox.close();
    			if (data.successful) {
-				sessionStorage.removeItem('login');
-   				window.location.href = "../login_register/login_register.html";
+				localStorage.removeItem('login');
+   				window.location.href = "../search_track/search_index.html";
    			} else{
 				showToast($mdToast, "Something Strange Happened!!!");
    			}
@@ -146,7 +146,7 @@ gi.controller('geneInfoController', function ($scope, $http) {
 	}
 	//网页初始化
 	$scope.init = function () {
-		var loginSession = sessionStorage.getItem('login');
+		var loginSession = localStorage.getItem('login');
 		if (loginSession) {
 			console.log(loginSession);
 			console.log('不为空');
@@ -157,7 +157,7 @@ gi.controller('geneInfoController', function ($scope, $http) {
 			$scope.isLogin = true;
 		}
 		var gene_name = sessionStorage.getItem("gene_name");
-		var login_token = JSON.parse(sessionStorage.getItem('login'));
+		var login_token = JSON.parse(localStorage.getItem('login'));
 		var opt = {
 			url: '/geneRelationship/getGeneInfo',
 			method: 'POST',
