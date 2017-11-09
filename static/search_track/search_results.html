@@ -141,7 +141,9 @@
                                             <li ng-repeat="gene in team.parts | startFrom : 6" ng-show="show">
                                                 <div class="brick" style="float:left">
                                                     <img class="bio-img" ng-src="{{gene.img}}" alt="gene_img">
-                                                    <div style="margin-top:5%;text-align:left;margin-right:20% ">&nbsp;{{gene.part_name}}</div>
+                                                    <div style="margin-top:5%;text-align:left;margin-right:20% ">
+                                                        <font size=2px; color="#333">&nbsp;{{gene.part_name}}</font>
+                                                    </div>
                                                 </div>
                                             </li>
                                         </div>
