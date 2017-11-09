@@ -72,7 +72,7 @@ gene.controller('searchController',function($scope, $http, $location, $mdToast){
    			if (data.successful) {
 				localStorage.removeItem('login');
    				Custombox.close();
-   				window.location.href = "../search_track/search_index.html";
+   				window.location.reload();
    			} else{
 				Custombox.close();
 				showToast($mdToast, "Something Strange Happened!!!");

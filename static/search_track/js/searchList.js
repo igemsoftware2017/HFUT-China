@@ -277,7 +277,7 @@ searchList.controller('searchListController',function($scope, $http, $location, 
 			Custombox.close();
    			if (data.successful) {
 				localStorage.removeItem('login');
-   				window.location.href = "../search_track/search_index.html";
+				window.location.reload();
    			} else{
 				showToast($mdToast, "Something Strange Happened!!!");
    			}
